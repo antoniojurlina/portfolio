@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>How does traffic congestion impact life satisfaction? | portfolio</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="How does traffic congestion impact life satisfaction?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An inital econometric approach using a probit model written in Stata." />
+<meta property="og:description" content="An inital econometric approach using a probit model written in Stata." />
+<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/2021/06/26/congestion-and-satisfaction.html" />
+<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/2021/06/26/congestion-and-satisfaction.html" />
+<meta property="og:site_name" content="portfolio" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-26T19:13:45-05:00" />
+<script type="application/ld+json">
+{"url":"https://antoniojurlina.github.io/portfolio/2021/06/26/congestion-and-satisfaction.html","@type":"BlogPosting","headline":"How does traffic congestion impact life satisfaction?","dateModified":"2021-06-26T19:13:45-05:00","datePublished":"2021-06-26T19:13:45-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/2021/06/26/congestion-and-satisfaction.html"},"description":"An inital econometric approach using a probit model written in Stata.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/portfolio/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://antoniojurlina.github.io/portfolio/feed.xml" title="portfolio" /><link rel="shortcut icon" type="image/x-icon" href="/portfolio/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/portfolio/">portfolio</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/portfolio/search/">Search</a><a class="page-link" href="/portfolio/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">How does traffic congestion impact life satisfaction?</h1><p class="page-description">An inital econometric approach using a probit model written in Stata.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-06-26T19:13:45-05:00" itemprop="datePublished">
+        Jun 26, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      19 min read
+    
+</span></p>
+
+    
+
+    </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p><br /></p>
+
+<h5 id="summary"><strong>Summary</strong></h5>
+
+<p>In an attempt to venture solo, while an undergraduate student in economics, I worked on a probit model designed to study the effect traffic congestion has on satisfaction with work and place of residence. The question seemed straightforward, and the dependent variables were already either presented as binary or Likert scales that could be easily turned into one. Data came from the city of Cardiff, UK, in the form of an online questionnaire. I find that an increase in the perceived level of congestion makes individuals less happy with working and living in Cardiff. After adjusting for all the potential issues (like hetersokedasticity) this data might have, the results seem quite robust across two probit models. Included, also, is a link to the GitHub <a href="https://github.com/antoniojurlina/econometrics">repository</a> containing the data I worked with and the Stata do-file.</p>
+
+<h5 id="part-i"><strong>Part I</strong></h5>
+
+<p><strong>1. Data</strong></p>
+
+<p>Council authority of Cardiff has, in cooperation with Cardiff Business Partnership, conducted an online survey, yielding 2,094 responses. After data clean-up process, 2,045 observations remained. While most variables were dropped, 17 were deemed significant enough to include (see Table 1). Missing values were filled with unconditional means, except in the case of the variables describing the primary method of transportation and proximity of a train station, where 19 and 32 observations with missing values were dropped, respectively. Variables regarding age, income and employment duration were acquired via drop-down answer menus on the survey, with each answer constituting a specific bracket. For the sake of continuity and interpretability, these answers were encoded as the midpoint value of each bracket. Since each set of brackets concluded with an open ended one (e.g. more than 10, 65+, etc.), and no middle point could be determined, each of those categories was encoded as the sum of the size of the largest bracket (for the relevant variable) and the bracket’s lower bound.</p>
+
+<p><br /></p>
+
+<p><em>Table 1 - Data Summary</em></p>
+
+<hr />
+<table>
+<colgroup>
+<col width="30%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="30%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Average</th>
+<th>Std. Dev.</th>
+<th>Min</th>
+<th>Max</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quality of public transportation</td>
+<td>3.26</td>
+<td>1.09</td>
+<td>1</td>
+<td>5</td>
+<td>1 is very bad and 5 is very good</td>
+</tr>
+<tr>
+<td>Being able to get from place to place with little traffic (i.e. congestion)</td>
+<td>2.72</td>
+<td>1.04</td>
+<td>1</td>
+<td>5</td>
+<td>1 is very bad and 5 is very good</td>
+</tr>
+<tr>
+<td>Work proximity</td>
+<td>2.98</td>
+<td>1.28</td>
+<td>1</td>
+<td>5</td>
+<td>1 you like the most and 5 you dislike</td>
+</tr>
+<tr>
+<td>Travel within the city</td>
+<td>3.86</td>
+<td>0.96</td>
+<td>1</td>
+<td>5</td>
+<td>1 is not important and 5 is very important</td>
+</tr>
+<tr>
+<td>Ease of getting to work</td>
+<td>3.65</td>
+<td>1.02</td>
+<td>1</td>
+<td>5</td>
+<td>1 is not important and 5 is very important</td>
+</tr>
+<tr>
+<td>Overall satisfaction with life</td>
+<td>2.95</td>
+<td>0.98</td>
+<td>1</td>
+<td>5</td>
+<td>1 being highly satisfied and 5 being unsatisfied</td>
+</tr>
+<tr>
+<td>Number of years employed</td>
+<td>9.02</td>
+<td>5.46</td>
+<td>0.5</td>
+<td>15</td>
+<td>How long have you worked in your present employment</td>
+</tr>
+<tr>
+<td>Income</td>
+<td>25,748.18</td>
+<td>10,318.80</td>
+<td>5,720</td>
+<td>55,241</td>
+<td>How much do you get paid, before taxes</td>
+</tr>
+<tr>
+<td>Age</td>
+<td>41.50</td>
+<td>11.05</td>
+<td>21</td>
+<td>74</td>
+<td>How old are you</td>
+</tr>
+<tr>
+<td>Sex</td>
+<td>0.42</td>
+<td>0.49</td>
+<td>0</td>
+<td>1</td>
+<td>1 for male, 0 for female</td>
+</tr>
+<tr>
+<td>Relationship</td>
+<td>0.69</td>
+<td>0.46</td>
+<td>0</td>
+<td>1</td>
+<td>1 for in a relationship, 0 for single</td>
+</tr>
+<tr>
+<td>Children</td>
+<td>0.56</td>
+<td>0.49</td>
+<td>0</td>
+<td>1</td>
+<td>1 for having any number of children, 0 for none</td>
+</tr>
+<tr>
+<td>Overall satisfaction with place of residence</td>
+<td>0.66</td>
+<td>0.47</td>
+<td>0</td>
+<td>1</td>
+<td>1 for satisfied, 0 for unsatisfied</td>
+</tr>
+<tr>
+<td>Train station proximity</td>
+<td>2.72</td>
+<td>0.50</td>
+<td>1</td>
+<td>3</td>
+<td>Do you have a train station within 2 miles of your residence? 1 - Don’t Know, 2 - No, 3 - Yes</td>
+</tr>
+<tr>
+<td>Education</td>
+<td>2.53</td>
+<td>1.10</td>
+<td>1</td>
+<td>6</td>
+<td>1 - High School, 2 - Associates degree, 3 – Bachelor’s Degree BA, BSc, 4 – Master’s Degree, 5 - Professional degree, 6 - PhD</td>
+</tr>
+<tr>
+<td>Primary mode of transportation</td>
+<td>1.36</td>
+<td>0.83</td>
+<td>0</td>
+<td>2</td>
+<td>0 - Hippie, 1 - Public, 2 - Drive</td>
+</tr>
+<tr>
+<td>Job satisfaction</td>
+<td>0.52</td>
+<td>0.50</td>
+<td>0</td>
+<td>1</td>
+<td>1 for satisfied, 0 for unsatisfied</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><br /></p>
+
+<p><strong>2. Methodology</strong></p>
+
+<p>Literature review, focusing on measuring different sorts of satisfaction<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> <sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> <sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup>, exemplifies various probit models and their appropriate usage. Binary nature of the dependent variables, together with the literature, was the main reason for choosing a probit-model approach. Given that the report attempts to clarify the effect congestion might have on satisfaction with place of residence (R) and working (J) in Cardiff, following two models represent its cornerstone:</p>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo>=</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><mi>c</mi><mi>o</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>+</mo><mi>x</mi><mi>δ</mi><mo>+</mo><msub><mi>ϵ</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">J = \beta_0 + \beta_1 congestion + x \delta + \epsilon_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.09618em;">J</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mord mathdefault" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>
+
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>R</mi><mo>=</mo><msub><mi>β</mi><mn>0</mn></msub><mo>+</mo><msub><mi>β</mi><mn>1</mn></msub><mi>c</mi><mi>o</mi><mi>n</mi><mi>g</mi><mi>e</mi><mi>s</mi><mi>t</mi><mi>i</mi><mi>o</mi><mi>n</mi><mo>+</mo><mi>x</mi><mi>δ</mi><mo>+</mo><msub><mi>ϵ</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">R = \beta_0 + \beta_1 congestion + x \delta + \epsilon_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.05278em;">β</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.05278em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathdefault">c</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mord mathdefault">e</span><span class="mord mathdefault">s</span><span class="mord mathdefault">t</span><span class="mord mathdefault">i</span><span class="mord mathdefault">o</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.77777em;vertical-align:-0.08333em;"></span><span class="mord mathdefault">x</span><span class="mord mathdefault" style="margin-right:0.03785em;">δ</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span></span>
+
+<p>Model 2 dependent variable was binary in the form the data was presented. However, Model 1 dependent variable had to be created from a set of Likert scale variables focusing on job satisfaction. Mean value for the set was created across individuals and compared to “3”, which is the neutral option on the answer sheet. Individuals above “3” were categorized as satisfied and the rest were categorized as unsatisfied. This way, a binary variable was generated, appropriate for use in a probit model. Cronbach’s alpha was used to determine the scale reliability coefficient (0.8471), indicating that the set of Likert-scale variables used are closely related as a group and representative of the shared concept.</p>
+
+<p>Furthermore, for both Models 1 and 2, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>β</mi></mrow><annotation encoding="application/x-tex">\beta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathdefault" style="margin-right:0.05278em;">β</span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi></mrow><annotation encoding="application/x-tex">\delta</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.03785em;">δ</span></span></span></span> represent coefficients to be estimated (see Table 1). Control variables were chosen based on two criteria: 1) those causally linked with the dependent variable through congestion and 2) those with a direct, causal link to satisfaction that were deemed as likely sources of severe endogeneity. Explanatory variables of interest consist of demographic characteristics<sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup> <sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup>, congestion<sup id="fnref:6" role="doc-noteref"><a href="#fn:6" class="footnote" rel="footnote">6</a></sup> <sup id="fnref:7" role="doc-noteref"><a href="#fn:7" class="footnote" rel="footnote">7</a></sup> <sup id="fnref:8" role="doc-noteref"><a href="#fn:8" class="footnote" rel="footnote">8</a></sup> and those capturing satisfaction spillover<sup id="fnref:9" role="doc-noteref"><a href="#fn:9" class="footnote" rel="footnote">9</a></sup> <sup id="fnref:10" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">10</a></sup>. Stochastic terms are noted as <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϵ</mi><mn>1</mn></msub></mrow><annotation encoding="application/x-tex">\epsilon_1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> and <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ϵ</mi><mn>2</mn></msub></mrow><annotation encoding="application/x-tex">\epsilon_2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">ϵ</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>. Also, since the probit models are being used, robust standard errors are reported and corrected for underlying (inherent) heteroskedasticity.</p>
+
+<p><strong>3. Hypotheses</strong></p>
+
+<hr />
+
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>01</mn></msub></mrow><annotation encoding="application/x-tex">H_{01}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: <em>Congestion has no significant impact on job satisfaction for residents of Cardiff.</em></p>
+
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mrow><mi>A</mi><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">H_{A1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">A</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: <em>Congestion has a negative impact on job satisfaction for residents of Cardiff.</em></p>
+
+<hr />
+
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>02</mn></msub></mrow><annotation encoding="application/x-tex">H_{02}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: <em>Congestion has no significant impact on satisfaction with place of residence.</em></p>
+
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mrow><mi>A</mi><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">H_{A2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">A</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: <em>Congestion has a negative impact on satisfaction with place of residence.</em></p>
+
+<hr />
+
+<p>Models are demonstrating the conditional probability of a specific outcome occurring (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">Y_i = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> meaning satisfied with job for Model 1 and satisfied with place of residence for Model 2), for 3 which the marginal effects show how a unit change for <strong>congestion</strong> increases (or decreases) the probability of the given outcome occurring (et ceteris paribus).</p>
+
+<p><br /></p>
+
+<h5 id="part-ii"><strong>Part II</strong></h5>
+
+<p><strong>1. Satisfaction with working and living in Cardiff</strong></p>
+
+<hr />
+
+<p><em>I am quite confident that an increase in perceived level of congestion makes individuals 4% less likely to be satisfied with working in Cardiff.</em></p>
+
+<hr />
+
+<p><em>I am quite confident that an increase in perceived level of congestion makes individuals 5% less likely to be satisfied with living in Cardiff.</em></p>
+
+<hr />
+
+<p>Tables 2 and 3 present more detailed results for these claims and state the possibility of a mistake being made. Numbers showing the impact of congestion on satisfaction with working and living in Cardiff are positive. This is a consequence of the way the survey was designed (1 is very bad and 5 is very good) and should be interpreted with an opposite sign. Literature review supports this finding. High levels of traffic congestion are associated with mental and physical stress<sup id="fnref:11" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup> <sup id="fnref:12" role="doc-noteref"><a href="#fn:12" class="footnote" rel="footnote">12</a></sup>, which are further aggravated with the inability to complete daily routines <sup id="fnref:13" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>. Furthermore, long work commutes cause residual stress in the workplace <sup id="fnref:7:1" role="doc-noteref"><a href="#fn:7" class="footnote" rel="footnote">7</a></sup> <sup id="fnref:14" role="doc-noteref"><a href="#fn:14" class="footnote" rel="footnote">14</a></sup> <sup id="fnref:15" role="doc-noteref"><a href="#fn:15" class="footnote" rel="footnote">15</a></sup>. Kahneman et al.<sup id="fnref:8:1" role="doc-noteref"><a href="#fn:8" class="footnote" rel="footnote">8</a></sup> found that work commutes were most frequently associated with negative feelings, out of all daily habits.</p>
+
+<p><br /></p>
+
+<p><em>Table 2 - Model 1 marginal effects</em></p>
+
+<hr />
+<table>
+<colgroup>
+<col width="50%" />
+<col width="10%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th> </th>
+<th>Marginal effect</th>
+<th>Standard error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quality of public transportation</td>
+<td> </td>
+<td>0.049<strong>***</strong></td>
+<td>0.011</td>
+</tr>
+<tr>
+<td>Being able to get from place to place with little traffic (i.e. congestion)</td>
+<td> </td>
+<td>0.041<strong>***</strong></td>
+<td>0.011</td>
+</tr>
+<tr>
+<td>Work proximity</td>
+<td> </td>
+<td>0.023<strong>***</strong></td>
+<td>0.008</td>
+</tr>
+<tr>
+<td>Travel within the city</td>
+<td> </td>
+<td>0.007</td>
+<td>0.014</td>
+</tr>
+<tr>
+<td>Ease of getting to work</td>
+<td> </td>
+<td>0.015</td>
+<td>0.013</td>
+</tr>
+<tr>
+<td>Overall satisfaction with life</td>
+<td> </td>
+<td>-0.027<strong>**</strong></td>
+<td>0.011</td>
+</tr>
+<tr>
+<td>Number of years employed</td>
+<td> </td>
+<td>-0.001</td>
+<td>0.002</td>
+</tr>
+<tr>
+<td>Income</td>
+<td> </td>
+<td>0.000<strong>***</strong></td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Age</td>
+<td> </td>
+<td>-0.008</td>
+<td>0.007</td>
+</tr>
+<tr>
+<td>Sex</td>
+<td> </td>
+<td>-0.072<strong>***</strong></td>
+<td>0.022</td>
+</tr>
+<tr>
+<td>Relationship</td>
+<td> </td>
+<td>-0.015</td>
+<td>0.025</td>
+</tr>
+<tr>
+<td>Children</td>
+<td> </td>
+<td>0.039</td>
+<td>0.026</td>
+</tr>
+<tr>
+<td>Overall satisfaction with place of residence</td>
+<td> </td>
+<td>0.094<strong>***</strong></td>
+<td>0.023</td>
+</tr>
+<tr>
+<td>Train station proximity</td>
+<td>Yes <br /> No</td>
+<td>-0.204<strong>***</strong> <br /> -0.219<strong>***</strong></td>
+<td>0.058 <br /> 0.027</td>
+</tr>
+<tr>
+<td>Education</td>
+<td> </td>
+<td>0.024<strong>**</strong></td>
+<td>0.010</td>
+</tr>
+<tr>
+<td>Primary mode of transportation</td>
+<td>Public <br /> Drive</td>
+<td> 0.010 <br /> 0.076<strong>***</strong></td>
+<td>0.033 <br /> 0.027</td>
+</tr>
+<tr>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>* - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
+
+<p><br /></p>
+
+<p>Public transportation plays a major role in mitigating the effects of congestion on satisfaction<sup id="fnref:16" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">16</a></sup>. However, while it is the most accepted solution to congestion<sup id="fnref:17" role="doc-noteref"><a href="#fn:17" class="footnote" rel="footnote">17</a></sup>, it only works if it is appropriately scaled with the needs of the public<sup id="fnref:18" role="doc-noteref"><a href="#fn:18" class="footnote" rel="footnote">18</a></sup>. In Cardiff, an increase in perceived quality of public transportation makes individuals 4% (on average) more likely to feel satisfied with their work and 6% (on average) more likely to feel satisfied with where they live, holding everything else the same. Moreover, utilizing public transportation systems decreases the likelihood of being satisfied with place of residence by 6% (on average), holding everything else the same. Those most likely to utilize public transportation live inside the urban area while those living in the suburbs are more likely to drive to work. Therefore, this decrease in likelihood of being satisfied with the place of residence, based on public transport utilization, indicates a preference for living outside of the city. Furthermore, driving decreases the likelihood of being satisfied with working in Cardiff by 8% (on average), holding everything else the same (see Tables 2 and 3 for more detailed results and the likelihood of mistakes being reported). Finally, living close to work increases the likelihood of being satisfied with working in Cardiff by 2% (on average), holding everything else the same.</p>
+
+<p><br /></p>
+
+<p><em>Table 3 - Model 2 marginal effects</em></p>
+
+<hr />
+<table>
+<colgroup>
+<col width="50%" />
+<col width="10%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th> </th>
+<th>Marginal effect</th>
+<th>Standard error</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quality of public transportation</td>
+<td> </td>
+<td>0.062<strong>***</strong></td>
+<td>0.010</td>
+</tr>
+<tr>
+<td>Being able to get from place to place with little traffic (i.e. congestion)</td>
+<td> </td>
+<td>0.052<strong>***</strong></td>
+<td>0.010</td>
+</tr>
+<tr>
+<td>Work proximity</td>
+<td> </td>
+<td>0.003</td>
+<td>0.008</td>
+</tr>
+<tr>
+<td>Travel within the city</td>
+<td> </td>
+<td>0.016</td>
+<td>0.013</td>
+</tr>
+<tr>
+<td>Ease of getting to work</td>
+<td> </td>
+<td>-0.021<strong>*</strong></td>
+<td>0.012</td>
+</tr>
+<tr>
+<td>Overall satisfaction with workplace</td>
+<td> </td>
+<td>0.086<strong>***</strong></td>
+<td>0.020</td>
+</tr>
+<tr>
+<td>Number of years employed</td>
+<td> </td>
+<td>0.002</td>
+<td>0.002</td>
+</tr>
+<tr>
+<td>Income</td>
+<td> </td>
+<td>0.000<strong>***</strong></td>
+<td>0.000</td>
+</tr>
+<tr>
+<td>Age</td>
+<td> </td>
+<td>-0.006</td>
+<td>0.006</td>
+</tr>
+<tr>
+<td>Sex</td>
+<td> </td>
+<td>-0.035</td>
+<td>0.020</td>
+</tr>
+<tr>
+<td>Relationship</td>
+<td> </td>
+<td>0.106<strong>***</strong></td>
+<td>0.023</td>
+</tr>
+<tr>
+<td>Children</td>
+<td> </td>
+<td>0.034</td>
+<td>0.024</td>
+</tr>
+<tr>
+<td>Overall satisfaction with life</td>
+<td> </td>
+<td>0.002</td>
+<td>0.010</td>
+</tr>
+<tr>
+<td>Train station proximity</td>
+<td>Yes <br /> No</td>
+<td>0.212<strong>***</strong> <br /> 0.121</td>
+<td>0.075 <br /> 0.077</td>
+</tr>
+<tr>
+<td>Education</td>
+<td> </td>
+<td>0.019<strong>***</strong></td>
+<td>0.009</td>
+</tr>
+<tr>
+<td>Primary mode of transportation</td>
+<td>Public <br /> Drive</td>
+<td> -0.055<strong>*</strong> <br /> -0.030</td>
+<td>0.032 <br /> 0.026</td>
+</tr>
+<tr>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><em>* - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
+
+<p><br /></p>
+
+<p>While there are negative effects of congestion on satisfaction with working and living in Cardiff, those effects are smaller than anticipated. This could be because working during a period of recession or post-recession<sup id="fnref:19" role="doc-noteref"><a href="#fn:19" class="footnote" rel="footnote">19</a></sup> recovery causes enough satisfaction that lessens the burdens of daily commute<sup id="fnref:13:1" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>. Additionally, as noted by Stokols et al. <sup id="fnref:11:1" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup>, congestion is only relevant when it significantly differs from the expected traffic levels. If people are exposed to similar congestion levels every day, negative effects are diminished.</p>
+
+<p><strong>2. Policy relevance</strong></p>
+
+<p>Those that live within 2 miles of a train station and those that live further away, are about 20% (on average) less likely to feel satisfied with working in Cardiff, holding everything else the same. Moreover, those that live within 2 miles of a train station are about 20% (on average) more likely to be satisfied with their place of residence, holding everything else the same (see Tables 2 and 3). Since most of survey respondents (74%) live within 2 miles of a train station and more than half (59%) drive to work (not necessarily overlapping groups), it could be assumed that there is a negative perception of public transportation and a strong tendency to avoid it. This, in addition to reported congestion and public transportation effects,  indicates that policy under consideration by the council authority of Cardiff needs to address both public transportation and congestion. Building a new metro system as well as introducing a congestion charge for those driving into the center of Cardiff should be packaged together. Literature review supports this claim, as well<sup id="fnref:20" role="doc-noteref"><a href="#fn:20" class="footnote" rel="footnote">20</a></sup>.</p>
+
+<p><strong>3. Limitations</strong></p>
+
+<p>Variability of answers provided was reduced when most missing values were filled with average values for the category. Further adding to this issue was the design of the survey itself. Answers that were selected from a drop-down menu were presented as brackets, chosen by the surveyor. This eliminated most of the effect that individuals with answers far away from the average would have. Moreover, for privacy reasons, answers stating the specific place of residence were excluded, introducing additional lack of clarity.</p>
+
+<p>Due to model choice, differences between observed and predicted and expected and predicted values for variables of interest were not uniform across the data. This means that I was more likely to falsely perceive an observation as insignificant and reject its validity and explanatory power. Finally, I wish to point out the possibility that any variable not considered stands a chance of being correlated with variables I did consider (e.g. place of residence might be linked with public transport utilization, commute satisfaction and satisfaction with living and working in Cardiff). By omitting any such variable, I introduced the likelihood of overstating the effects considered variables have on overall satisfaction.</p>
+
+<p><strong>4. GitHub repository</strong></p>
+
+<p>For data, code, and similar projects, visit <a href="https://github.com/antoniojurlina/econometrics">https://github.com/antoniojurlina/econometrics</a>.</p>
+
+<p><br /></p>
+
+<h5 id="stata-code"><strong>Stata code</strong></h5>
+
+<figure class="highlight"><pre><code class="language-stata" data-lang="stata"> 
+    cls
+    clear //clear previous data
+    
+    use CBP_survey.dta //choose data
+
+    // following commands represent my data clean-up process
+    ////////////////////////////////////////////////////////////////////
+    encode Q3, generate(yrs_employed)
+    replace yrs_employed = 0.5 if Q3 == "Less than 1 year"
+    replace yrs_employed = 2 if Q3 == "1 to 3 years"
+    replace yrs_employed = 4 if Q3 == "3 to 5 years"
+    replace yrs_employed = 7.5 if Q3 == "5 to 10 years"
+    replace yrs_employed = 15 if Q3 == "More than 10 years"
+
+    encode Q4, generate(income)
+    replace income = 5720 if Q4 == "£0 - £11,440 per year"
+    replace income = 12480.5 if Q4 == "£11,441 - £13,520 per year"
+    replace income = 14820.5 if Q4 == "£13,521 - £16,120 per year"
+    replace income = 17420.5 if Q4 == "£16,121 - £18,720 per year"
+    replace income = 20540.5 if Q4 == "£18,721 - £22,360 per year"
+    replace income = 25220.5 if Q4 == "£22,361 - £28,080 per year"
+    replace income = 31720.5 if Q4 == "£28,081 - £35,360 per year"
+    replace income = 40300.5 if Q4 == "£35,361 - £45,240 per year"
+    replace income = 55241 if Q4 == "£45,241 or more per year"
+    drop if Q5 == "25- 40" | Q5 == "25- 41" | Q5 == "25- 42" | Q5 == "25- 43"
+    drop if Q5 == "25- 44" | Q5 == "25- 45" | Q5 == "25- 46" | Q5 == "25- 47" | Q5 == "25-
+    48" | Q5 == "25- 49"
+
+    encode Q5, generate(age)
+    replace age = 21 if Q5 == "18- 24"
+    replace age = 32 if Q5 == "25- 39"
+    replace age = 47 if Q5 == "40- 54"
+    replace age = 59.5 if Q5 == "55- 64"
+    replace age = 74 if Q5 == "65"
+    generate age_sq = age * age
+    
+    label define sex 1 "Male" 0 "Female"
+    encode Q6, generate(sex)
+    
+    generate relationshipy = Q7
+    replace relationshipy = "Yes" if Q7 == "Co-habiting"
+    replace relationshipy = "Yes" if Q7 == "Married"
+    replace relationshipy = "No" if Q7 == "Single"
+    label define relationship 1 "Yes" 0 "No"
+    encode relationshipy, generate(relationship)
+    drop relationshipy Q7
+
+    label define children 1 "Yes" 0 "No"
+    encode Q8, generate(children)
+    
+    rename Q14h pub_trans_quality
+    rename Q14i congestion
+
+    generate satisfactiony = Q15
+    label define satisfaction 1 "Satisfied" 0 "Unsatisfied"
+    encode satisfactiony, generate(satisfaction)
+    drop satisfactiony Q15
+
+    encode Q19, generate(train)
+
+    label define education 1 "High School" 2 "Associates degree" 3 "Bachelors Degree BA,
+    BSc" 4 "Masters Degree" 5 "Professional degree" 6 "PhD"
+    encode Q20, generate(education)
+
+    rename Q30c travel_importance
+
+    rename Q30f work_travel_ease
+
+    rename Q31 life_satisfaction
+
+    summarize pub_trans_quality
+    replace pub_trans_quality = r(mean) if pub_trans_quality == .
+    summarize congestion
+    replace congestion = r(mean) if congestion == .
+    summarize yrs_employed
+    replace yrs_employed = r(mean) if yrs_employed == .
+    summarize income
+    replace income = r(mean) if income == .
+    summarize age
+    replace age = r(mean) if age == .
+    summarize sex
+    replace sex = r(mean) if sex == .
+    summarize relationship
+    replace relationship = r(mean) if relationship == .
+    summarize satisfaction
+    replace satisfaction = r(mean) if satisfaction == .
+    summarize train
+    drop if train == .
+    summarize education
+    replace education = r(mean) if education == .
+    summarize life_satisfaction
+    replace life_satisfaction = r(mean) if life_satisfaction == .
+    summarize children
+    replace children = r(mean) if children == .
+    summarize work_travel_ease
+    replace work_travel_ease = r(mean) if work_travel_ease == .
+    summarize travel_importance
+    replace travel_importance = r(mean) if travel_importance == .
+    
+    generate transport1 = Q16
+    replace transport1 = "Hippie" if Q16 ==  "Walk" | Q16 == "Cycle"
+    replace transport1 = "Public" if Q16 == "Train" | Q16 == "Bus"
+    replace transport1 = "Drive" if Q16 == "Car /Motorcycle"
+    label define trans1 0 "Hippie" 1 "Public" 2 "Drive"
+    encode transport1, generate(trans1)
+    drop if trans1 == .
+
+    summarize Q28a
+    replace Q28a = r(mean) if Q28a == .
+    summarize Q28b
+    replace Q28b = r(mean) if Q28b == .
+    summarize Q28c
+    replace Q28c = r(mean) if Q28c == .
+    summarize Q28d
+    replace Q28d = r(mean) if Q28d == .
+    summarize Q28e
+    replace Q28e = r(mean) if Q28e == .
+    summarize Q28f
+    replace Q28f = r(mean) if Q28f == .
+    summarize Q28g
+    replace Q28g = r(mean) if Q28g == .
+    summarize Q29a
+    replace Q29a = r(mean) if Q29a == .
+    summarize Q29b
+    replace Q29b = r(mean) if Q29b == .
+    summarize Q29c
+    replace Q29c = r(mean) if Q29c == .
+    summarize Q29d
+    replace Q29d = r(mean) if Q29d == .
+    summarize Q29e
+    replace Q29e = r(mean) if Q29e == .
+    summarize Q29f
+    replace Q29f = r(mean) if Q29f == .
+    summarize Q29g
+    replace Q29g = r(mean) if Q29g == .
+    summarize Q29h
+    replace Q29h = r(mean) if Q29h == .
+    rename Q29c work_proximity
+
+    generate job = (Q28a + Q28b + Q28c + Q28d + Q28e + Q28f + Q28g)/7
+    generate job_satisfaction = job
+    summarize job
+    replace job_satisfaction = 1 if job &gt; 3
+    replace job_satisfaction = 0 if job &lt;= 3
+
+    alpha Q28a-Q28g
+    drop Q3 Q4 Q5 Q6 Q8 Q19 Q20
+    drop Q1 Q2 Q11 Q13 Q12 Q14a Q14b Q14c Q14d Q14e Q14f Q14g Q14j Q14k Q14l Q14m Q14n
+    Q14o
+    drop Q17 Q21 Q22 Q23a Q23b Q24 Q25 Q26 Q27 Q28a Q28b Q28c Q28d Q28e Q28f Q28g
+    drop Q29a Q29b Q29d Q29e Q29f Q29g Q29h Q30a Q30b Q30d Q30e Q30g Q30h Q30i Q30j Q30k
+    drop Q32 Q33
+    drop job Q16 Q18 transport1
+    ////////////////////////////////////////////////////////////////////
+    // end of data clean-up process
+    
+    summarize
+
+    probit job_satisfaction satisfaction pub_trans_quality children congestion
+    life_satisfaction yrs_employed travel_importance work_travel_ease work_proximity
+    income age age_sq sex relationship i.train education i.trans1,robust
+
+    margins, dydx(*)
+
+    probit satisfaction job_satisfaction pub_trans_quality children congestion
+    life_satisfaction yrs_employed travel_importance work_travel_ease work_proximity
+    income age age_sq sex relationship i.train education i.trans1,robust
+
+    margins, dydx(*)
+
+    save CBP_survey_clean.dta, replace</code></pre></figure>
+
+<p><br /></p>
+
+<h5 id="works-cited"><strong>Works Cited</strong></h5>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>Blanchflower, D. G., &amp; Oswald, A. J. (2004). Well-being over time in Britain and the USA. Journal of Public Economics, 88, 1359-1386. doi:10.1016/S0047-2727(02)00168-8 <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:2" role="doc-endnote">
+      <p>Fetai, B., Abduli, S., &amp; Qirici, S. (2015). An Ordered Probit Model of Job Satisfaction in the Former Yugoslav Republic of Macedonia. Procedia Economics and Finance, 33, 350- 357. doi:10.1016/S2212-5671(15)01719-0 <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:3" role="doc-endnote">
+      <p>Rayton, B. A. (2006). Examining the interconnection of job satisfaction and organizational commitment: An application of the bivariate probit model. Int. J. of Human Resource Management, 17(1), 139-154. doi:10.1080/09585190500366649 <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:4" role="doc-endnote">
+      <p>Richey, S. (2012). Determinants of Community Satisfaction and its Relative Importance for Life Satisfaction. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:5" role="doc-endnote">
+      <p>Auh, S., &amp; Cook, C. (2009). Quality of Community Life Among Rural Residents: An Integrated Model. Social Indicators Research, 94(3), 377-389. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:6" role="doc-endnote">
+      <p>Lipsetz, D. A. (2000). Residential Satisfaction: Identifying the differences between suburban-ites and urbanites. Columbus: Ohio State University. <a href="#fnref:6" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:7" role="doc-endnote">
+      <p>Novaco, R. W., Stokols, D., &amp; Milanesi, L. (1990). Objective and subjective dimensions of travel impedance as determinants of commuting stress. American Journal of Community Psychology, 18, 231–257. <a href="#fnref:7" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:7:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:8" role="doc-endnote">
+      <p>Kahneman, D., Krueger, A. B., Schkade, D., Schwarz, N., &amp; Stone, A. (2004). A survey method for characterizing daily life experience: The day reconstruction method (DRM). Science, 306, 1776–1780. <a href="#fnref:8" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:8:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:9" role="doc-endnote">
+      <p>Shimon L. Dolan &amp; Eric Gosselin, 2000. “Job satisfaction and life satisfaction: Analysis of a reciprocal model with social demographic moderators,” Economics Working Papers 484, Department of Economics and Business, Universitat Pompeu Fabra. <a href="#fnref:9" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:10" role="doc-endnote">
+      <p>Ilies, R., Wilson, K. S., &amp; Wagner, D. T. (2009). The Spillover of Daily Job Satisfaction Onto Employees’ Family Lives: The Facilitating Role of Work-Family Integration. Academy of Management Journal, 52(1), 87-102. doi:10.5465/AMJ.2009.36461938 <a href="#fnref:10" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:11" role="doc-endnote">
+      <p>Stokols, D., Novaco, R. W., Stokols, J., &amp; Campbell, J. (1978). Traffic Congestion, Type A Behavior, and Stress. Journal of Applied Psychology, 63(4), 467-480. doi:10.1037/0021- 9010.63.4.467 <a href="#fnref:11" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:11:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:12" role="doc-endnote">
+      <p>Novaco, R. W., &amp; Gonzales, O. I. (2009). Commuting and well-being. In Y. Amichai- Hamburger (Ed.), Technology and well-being (pp. 174–205). New York: Cambridge University Press. <a href="#fnref:12" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:13" role="doc-endnote">
+      <p>Olsson, L. E., Garling, T., Ettema, D., Friman, M., &amp; Fujii, S. (2013). Happiness and Satisfaction with Work Commute. Soc Indic Res, 111, 255-263. doi:10.1007/s11205-012- 0003-2 <a href="#fnref:13" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:13:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+    </li>
+    <li id="fn:14" role="doc-endnote">
+      <p>Glass, D. C., Singer, J., &amp; Pennebaker, J. Behavioral and physiological effects of uncontrollable environmental events. In D. Stokols (Ed.), Perspectives on environment and behavior. New York: Plenum, 1977. <a href="#fnref:14" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:15" role="doc-endnote">
+      <p>Sherrod, D. R. Crowding, perceived control, and behavioral aftereffects. Journal of Applied Social Psychology, 1974, 4, 171-186. <a href="#fnref:15" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:16" role="doc-endnote">
+      <p>Kottenhoff, K., &amp; Freij, K. B. (2009). The role of public transport for feasibility and acceptability of congestion charging – The case of Stockholm. Transportation Research Part A, 43, 297-305. doi:10.1016/j.tra.2008.09.004 <a href="#fnref:16" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:17" role="doc-endnote">
+      <p>Schlag, B., Teubel, U., 1997. Public acceptability of transport pricing. IATSS Research, 21(2). <a href="#fnref:17" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:18" role="doc-endnote">
+      <p>Transport for London (TfL), 2005. Central London Congestion Charging. Impacts monitoring, Third Annual Report, April 2005 <a href="#fnref:18" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:19" role="doc-endnote">
+      <p>Gross Domestic Product Preliminary Estimate: Q4 2014 (pp. 1-20, Rep.). (2015). Office for National Statistics. <a href="#fnref:19" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:20" role="doc-endnote">
+      <p>Jaensirisak, S., Wardman, M., May, A.D., 2005. Explaining variations in public acceptability of road pricing schemes. Journal of Transport Economics and Policy 39, 127–154. <a href="#fnref:20" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+  </div><a class="u-url" href="/portfolio/2021/06/26/congestion-and-satisfaction.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/portfolio/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/portfolio/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/portfolio/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/antoniojurlina" title="antoniojurlina"><svg class="svg-icon grey"><use xlink:href="/portfolio/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
