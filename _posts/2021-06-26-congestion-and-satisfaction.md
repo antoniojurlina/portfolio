@@ -21,7 +21,6 @@ Council authority of Cardiff has, in cooperation with Cardiff Business Partnersh
 
 *Table 1 - Data Summary*
 
---------------------------------------------------------------------------------------------
 <table>
 <colgroup>
 <col width="30%" />
@@ -180,7 +179,7 @@ Council authority of Cardiff has, in cooperation with Cardiff Business Partnersh
 </tr>
 </tbody>
 </table>
---------------------------------------------------------------------------------------------
+
 <br>
 
 **2. Methodology**
@@ -236,7 +235,6 @@ Tables 2 and 3 present more detailed results for these claims and state the poss
 
 *Table 2 - Model 1 marginal effects*
 
---------------------------------------------------------------------------------------------
 <table>
 <colgroup>
 <col width="50%" />
@@ -349,15 +347,9 @@ Tables 2 and 3 present more detailed results for these claims and state the poss
 <td markdown="span"> 0.010 <br> 0.076__***__</td>
 <td markdown="span">0.033 <br> 0.027</td>
 </tr>
-<tr>
-<td markdown="span"> </td>
-<td markdown="span"> </td>
-<td markdown="span"> </td>
-<td markdown="span"> </td>
-</tr>
 </tbody>
 </table>
---------------------------------------------------------------------------------------------
+
 _* - 90 % significance / ** - 95 % significance / *** - 99 % significance_
 
 <br>
@@ -368,7 +360,6 @@ Public transportation plays a major role in mitigating the effects of congestion
 
 *Table 3 - Model 2 marginal effects*
 
---------------------------------------------------------------------------------------------
 <table>
 <colgroup>
 <col width="50%" />
@@ -481,15 +472,9 @@ Public transportation plays a major role in mitigating the effects of congestion
 <td markdown="span"> -0.055__\*__ <br> -0.030</td>
 <td markdown="span">0.032 <br> 0.026</td>
 </tr>
-<tr>
-<td markdown="span"> </td>
-<td markdown="span"> </td>
-<td markdown="span"> </td>
-<td markdown="span"> </td>
-</tr>
 </tbody>
 </table>
---------------------------------------------------------------------------------------------
+
 _* - 90 % significance / ** - 95 % significance / *** - 99 % significance_
 
 <br>
