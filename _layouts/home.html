@@ -4,10 +4,7 @@ layout: default
 
 <div class="home">
   {%- if page.title -%}
-      {%- if page.title == "portfolio" -%}
-        <a href="antoniojurlina.github.io">GO HOME</a>
-      {%- endif -%}
-    <h1 class="page-heading"><a href="antoniojurlina.github.io">GO HOME</a></h1>
+    <h1 class="page-heading">{{ TITLE }}</h1>
   {%- endif -%}
 
   {{ content | markdownify }}
