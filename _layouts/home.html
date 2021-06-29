@@ -3,7 +3,9 @@ layout: default
 ---
 
 <div class="home">
-  <h1 class="site-title" href="https://antoniojurlina.github.io">Home</a>
+  {%- if page.title -%}
+    <h1 class="page-heading" href="https://antoniojurlina.github.io/portfolio/">Home </h1>
+  {%- endif -%}
 
   {{ content | markdownify }}
 
