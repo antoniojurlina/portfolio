@@ -4,17 +4,21 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Title | portfolio</title>
+<title>Agora - A Dark Web Marketplace | portfolio</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Title" />
+<meta property="og:title" content="Agora - A Dark Web Marketplace" />
+<meta name="author" content="Antonio Jurlina" />
 <meta property="og:locale" content="en_US" />
-<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/2021/05/07/Dark_Web.html" />
-<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/2021/05/07/Dark_Web.html" />
+<meta name="description" content="Cleaning and analyzing a data set containing DarkWeb marketplace listings." />
+<meta property="og:description" content="Cleaning and analyzing a data set containing DarkWeb marketplace listings." />
+<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/projects/python/2021/05/07/Dark_Web.html" />
+<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/projects/python/2021/05/07/Dark_Web.html" />
 <meta property="og:site_name" content="portfolio" />
+<meta property="og:image" content="https://antoniojurlina.github.io/portfolio/images/darkweb.jpeg" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-05-07T00:00:00-05:00" />
 <script type="application/ld+json">
-{"url":"https://antoniojurlina.github.io/portfolio/2021/05/07/Dark_Web.html","@type":"BlogPosting","headline":"Title","dateModified":"2021-05-07T00:00:00-05:00","datePublished":"2021-05-07T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/2021/05/07/Dark_Web.html"},"@context":"https://schema.org"}</script>
+{"url":"https://antoniojurlina.github.io/portfolio/projects/python/2021/05/07/Dark_Web.html","@type":"BlogPosting","headline":"Agora - A Dark Web Marketplace","dateModified":"2021-05-07T00:00:00-05:00","datePublished":"2021-05-07T00:00:00-05:00","image":"https://antoniojurlina.github.io/portfolio/images/darkweb.jpeg","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/projects/python/2021/05/07/Dark_Web.html"},"author":{"@type":"Person","name":"Antonio Jurlina"},"description":"Cleaning and analyzing a data set containing DarkWeb marketplace listings.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/portfolio/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://antoniojurlina.github.io/portfolio/feed.xml" title="portfolio" /><link rel="shortcut icon" type="image/x-icon" href="/portfolio/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -86,9 +90,11 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Title</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-05-07T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Agora - A Dark Web Marketplace</h1><p class="page-description">Cleaning and analyzing a data set containing DarkWeb marketplace listings.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-05-07T00:00:00-05:00" itemprop="datePublished">
         May 7, 2021
-      </time>
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Antonio Jurlina</span></span>
        • <span class="read-time" title="Estimated read time">
     
     
@@ -96,6 +102,16 @@ window.onload = wrap_img;
     
 </span></p>
 
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/portfolio/categories/#projects">projects</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/portfolio/categories/#python">python</a>
+        
+      
+      </p>
     
 
     
@@ -132,12 +148,6 @@ window.onload = wrap_img;
 
 <div class="container" id="notebook-container">
         
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Agora---A-Dark-Web-Marketplace">Agora - A Dark Web Marketplace<a class="anchor-link" href="#Agora---A-Dark-Web-Marketplace"> </a></h3><h4 id="Data-analysis-and-visualization">Data analysis and visualization<a class="anchor-link" href="#Data-analysis-and-visualization"> </a></h4><h5 id="Antonio-Jurlina">Antonio Jurlina<a class="anchor-link" href="#Antonio-Jurlina"> </a></h5>
-</div>
-</div>
-</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -150,10 +160,6 @@ window.onload = wrap_img;
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">warnings</span>
-
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
-
-<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/Users/antoniojurlina/Projects/learning_python/data/&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -1772,7 +1778,15 @@ $$price &gt; 1.5 * IQR + 3^{rd} Quartile$$
 
 
 
-  </div><a class="u-url" href="/portfolio/2021/05/07/Dark_Web.html" hidden></a>
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="antoniojurlina/portfolio"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/portfolio/projects/python/2021/05/07/Dark_Web.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
