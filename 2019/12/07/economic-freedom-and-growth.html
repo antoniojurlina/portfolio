@@ -134,7 +134,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p><strong>3. Data</strong></p>
 
-<p>The data set used for this project was created using three different sources. The EFI was obtained from the Fraser Institute<sup id="fnref:25:2" role="doc-noteref"><a href="#fn:25" class="footnote" rel="footnote">25</a></sup>, data on GDP per capita was obtained from the World Bank Group[^26], recorded in 2018 US dollars. GDP was chosen to be per capita specifically to avoid any issues with population size differences among countries. Finally, a dummy variable on whether nations are members of the OECD was created using the list of member nations from the OECD website<sup id="fnref:27" role="doc-noteref"><a href="#fn:27" class="footnote" rel="footnote">26</a></sup>. These variables are organized as panel data with 52 countries, ranging from 1970 to 2015. Countries were selected based on data availability, to avoid missing values that would result in omitted observations during estimation. Summary statistics (minimum, maximum, mean, and standard deviation) for all variables can be seen in Appendix 2 and graphs representing these variables, faceted by country, can be seen in Appendix 3.</p>
+<p>The data set used for this project was created using three different sources. The EFI was obtained from the Fraser Institute<sup id="fnref:25:2" role="doc-noteref"><a href="#fn:25" class="footnote" rel="footnote">25</a></sup>, data on GDP per capita was obtained from the World Bank Group<sup id="fnref:26" role="doc-noteref"><a href="#fn:26" class="footnote" rel="footnote">26</a></sup>, recorded in 2018 US dollars. GDP was chosen to be per capita specifically to avoid any issues with population size differences among countries. Finally, a dummy variable on whether nations are members of the OECD was created using the list of member nations from the OECD website<sup id="fnref:27" role="doc-noteref"><a href="#fn:27" class="footnote" rel="footnote">27</a></sup>. These variables are organized as panel data with 52 countries, ranging from 1970 to 2015. Countries were selected based on data availability, to avoid missing values that would result in omitted observations during estimation. Summary statistics (minimum, maximum, mean, and standard deviation) for all variables can be seen in Appendix 2 and graphs representing these variables, faceted by country, can be seen in Appendix 3.</p>
 
 <p><br /></p>
 
@@ -146,9 +146,107 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
     </div>
 </div>
 
+<p><br /></p>
+
 <p><strong>4. Preliminary Estimates</strong></p>
 
-<p>The first step of the analysis revolved around estimating an OLS version of the model in Equation 1. Results were estimated in three different ways – by grouping all countries together, by using only OECD member countries and by using only non-member countries. This dummy variable was introduced due to the special economic relationships fostered by OECD member nations, to stabilize unobservable heterogeneity between members and non-members. The use of the dummy variable was also inspired by previous research, especially that of Mankiw, Romer and Weil<sup id="fnref:28" role="doc-noteref"><a href="#fn:28" class="footnote" rel="footnote">27</a></sup>. Detailed results are presented in Figure 2.</p>
+<p>The first step of the analysis revolved around estimating an OLS version of the model in Equation 1. Results were estimated in three different ways – by grouping all countries together, by using only OECD member countries and by using only non-member countries. This dummy variable was introduced due to the special economic relationships fostered by OECD member nations, to stabilize unobservable heterogeneity between members and non-members. The use of the dummy variable was also inspired by previous research, especially that of Mankiw, Romer and Weil<sup id="fnref:28" role="doc-noteref"><a href="#fn:28" class="footnote" rel="footnote">28</a></sup>. Detailed results are presented in Figure 2.</p>
+
+<p><br /></p>
+
+<p><em>Figure 2 - Panel Least Squares Regressions</em></p>
+
+<table>
+<colgroup>
+<col width="70%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>OECD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dependent variable: log growth of GDP per capita (1975 - 2015)</td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td>0.441 <br /> (0.034)</td>
+<td>0.372 <br /> (0.054)</td>
+<td>0.526 <br /> (0.046)</td>
+</tr>
+<tr>
+<td>log GDP per capita</td>
+<td>-0.071 <br /> (0.005)</td>
+<td>-0.072 <br /> (0.009)</td>
+<td>-0.072  <br /> (0.007)</td>
+</tr>
+<tr>
+<td>Size of Government</td>
+<td>0.005 <br /> (0.004)</td>
+<td>0.006 <br /> (0.006)</td>
+<td>0.002 <br /> (0.005)</td>
+</tr>
+<tr>
+<td>Legal System &amp; Property Rights</td>
+<td>-0.003 <br /> (0.003)</td>
+<td>-0.005 <br /> (0.005)</td>
+<td>-0.002 <br /> (0.004)</td>
+</tr>
+<tr>
+<td>Sound Money</td>
+<td>-0.004 <br /> (0.002)</td>
+<td>-0.006 <br /> (0.003)</td>
+<td>-0.000 <br /> (0.004)</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>0.024 <br /> (0.005)</td>
+<td>0.024 <br /> (0.008)</td>
+<td>0.025 <br /> (0.007)</td>
+</tr>
+<tr>
+<td>Observations</td>
+<td>430</td>
+<td>189</td>
+<td>241</td>
+</tr>
+<tr>
+<td>Cross-sections <br /> (periods)</td>
+<td>52 <br /> (9)</td>
+<td>24 <br /> (9)</td>
+<td>28 <br /> (9)</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">R^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></td>
+<td>0.44</td>
+<td>0.41</td>
+<td>0.46</td>
+</tr>
+<tr>
+<td>F-statistic <br /> (p-value)</td>
+<td>5.03 <br /> (0.000)</td>
+<td>3.88 <br /> (0.000)</td>
+<td>5.4 <br /> (0.000)</td>
+</tr>
+<tr>
+<td>Durbin-Watson statistic</td>
+<td>2.67</td>
+<td>2.41</td>
+<td>2.92</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>* - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
+
+<p><br /></p>
 
 <p>As Figure 2 shows, <em>Freedom to Trade Internationally</em> and <em>Regulation</em> have a significant effect across three model runs, and <em>Sound Money</em> has a significant effect for non-OECD countries only. Any one-point increase in the <em>Freedom to Trade Internationally</em> index is correlated with a 1.3 % (pooled), 1.7 % (non-OECD) and 0.8% (OECD) increase in the growth rate of GDP per capita, on average. Any one-point increase in the <em>Regulation</em> index is correlated with a 2.4 % (pooled), 2.4 % (non-OECD) and 2.5% (OECD) increase in the growth rate of GDP per capita, on average. Finally, any one-point increase in the <em>Sound Money</em> index for non-OECD countries is correlated with a 0.6 % decrease in the growth rate of GDP per capita, on average. To reiterate, an increase in index score across all three of the variables mentioned indicates an increase in economic freedom, as per EFI design.</p>
 
@@ -166,7 +264,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <h6 id="heteroskedasticity"><em>Heteroskedasticity</em></h6>
 
-<p>After scouring EViews help pages and related forums and blogposts, I have concluded that the current version of the statistical software just doesn’t provide support when it comes to testing for heteroskedasticity in panel data through direct tests. With that in mind, there were two options left for attempting to detect possible heteroskedasticity in the data. First approach is a common-sense (backed by econometrics textbooks<sup id="fnref:29" role="doc-noteref"><a href="#fn:29" class="footnote" rel="footnote">28</a></sup> <sup id="fnref:30" role="doc-noteref"><a href="#fn:30" class="footnote" rel="footnote">29</a></sup>) approach, that assumes there is high probability of heteroskedastic errors occurring in cross-sectional data. This seems intuitively reasonable as well – countries vary greatly in GDP per capita and economic freedom measures, indicating a strong possibility of errors having varying degrees of statistical dispersion. Furthermore, Figure 5 plots residuals against fitted values, for the three OLS estimates (pooled, non-OECD, and OECD). These graphs indicate that errors are indeed not uniformly dispersed and that heteroskedasticity is likely present between cross-sections (i.e. countries). Finally, plots showing within-country fitted values and residuals aren’t feasible since there are only 10 periods under consideration meaning that there aren’t enough points to visually estimate the shape of error dispersion.</p>
+<p>After scouring EViews help pages and related forums and blogposts, I have concluded that the current version of the statistical software just doesn’t provide support when it comes to testing for heteroskedasticity in panel data through direct tests. With that in mind, there were two options left for attempting to detect possible heteroskedasticity in the data. First approach is a common-sense (backed by econometrics textbooks<sup id="fnref:29" role="doc-noteref"><a href="#fn:29" class="footnote" rel="footnote">29</a></sup> <sup id="fnref:30" role="doc-noteref"><a href="#fn:30" class="footnote" rel="footnote">30</a></sup>) approach, that assumes there is high probability of heteroskedastic errors occurring in cross-sectional data. This seems intuitively reasonable as well – countries vary greatly in GDP per capita and economic freedom measures, indicating a strong possibility of errors having varying degrees of statistical dispersion. Furthermore, Figure 5 plots residuals against fitted values, for the three OLS estimates (pooled, non-OECD, and OECD). These graphs indicate that errors are indeed not uniformly dispersed and that heteroskedasticity is likely present between cross-sections (i.e. countries). Finally, plots showing within-country fitted values and residuals aren’t feasible since there are only 10 periods under consideration meaning that there aren’t enough points to visually estimate the shape of error dispersion.</p>
 
 <h6 id="redundant-fixed-effects"><em>Redundant Fixed Effects</em></h6>
 
@@ -186,7 +284,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p><strong>7. Conclusion</strong></p>
 
-<p>This project finds a significant relationship between freedom to trade internationally and economic growth. This freedom is reflected in lower tariffs, few regulations on movement of human and physical capital, easily convertible currency and simple customs clearance operations. This finding mirrors that of Gwartney <sup id="fnref:23:1" role="doc-noteref"><a href="#fn:23" class="footnote" rel="footnote">23</a></sup> and Torstensson <sup id="fnref:14:1" role="doc-noteref"><a href="#fn:14" class="footnote" rel="footnote">14</a></sup>, and contradicts the findings of Ayal and Karras<sup id="fnref:10:1" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">10</a></sup>, who find a negative relationship between freedom to trade and economic growth. This finding holds for all countries pooled together, only non-OECD countries, as well as OECD member nations. Furthermore, this research finds that pursuing low inflation and allowing free access to alternative currency use has a small negative impact on economic growth (between 0.6% and 0.9% for each EFI area unit increase). This result directly contradicts that of Ayal and Karras<sup id="fnref:10:2" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">10</a></sup> and Barro<sup id="fnref:31" role="doc-noteref"><a href="#fn:31" class="footnote" rel="footnote">30</a></sup>. There is also significant evidence that less stringent regulation positively affects economic growth for non-OECD countries only. This reflects the findings of Barro<sup id="fnref:31:1" role="doc-noteref"><a href="#fn:31" class="footnote" rel="footnote">30</a></sup>, Torstensson<sup id="fnref:14:2" role="doc-noteref"><a href="#fn:14" class="footnote" rel="footnote">14</a></sup> and Knack &amp; Keefer<sup id="fnref:13:1" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>. Finally, there is significant evidence that smaller governments, that intervene economically less often, are positively correlated with economic growth. This has only been observed for the pooled data set and the effect was only 0.05%. This finding is mirrored in a more robust way in other research<sup id="fnref:11:1" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup> <sup id="fnref:23:2" role="doc-noteref"><a href="#fn:23" class="footnote" rel="footnote">23</a></sup> <sup id="fnref:13:2" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>.</p>
+<p>This project finds a significant relationship between freedom to trade internationally and economic growth. This freedom is reflected in lower tariffs, few regulations on movement of human and physical capital, easily convertible currency and simple customs clearance operations. This finding mirrors that of Gwartney <sup id="fnref:23:1" role="doc-noteref"><a href="#fn:23" class="footnote" rel="footnote">23</a></sup> and Torstensson <sup id="fnref:14:1" role="doc-noteref"><a href="#fn:14" class="footnote" rel="footnote">14</a></sup>, and contradicts the findings of Ayal and Karras<sup id="fnref:10:1" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">10</a></sup>, who find a negative relationship between freedom to trade and economic growth. This finding holds for all countries pooled together, only non-OECD countries, as well as OECD member nations. Furthermore, this research finds that pursuing low inflation and allowing free access to alternative currency use has a small negative impact on economic growth (between 0.6% and 0.9% for each EFI area unit increase). This result directly contradicts that of Ayal and Karras<sup id="fnref:10:2" role="doc-noteref"><a href="#fn:10" class="footnote" rel="footnote">10</a></sup> and Barro<sup id="fnref:31" role="doc-noteref"><a href="#fn:31" class="footnote" rel="footnote">31</a></sup>. There is also significant evidence that less stringent regulation positively affects economic growth for non-OECD countries only. This reflects the findings of Barro<sup id="fnref:31:1" role="doc-noteref"><a href="#fn:31" class="footnote" rel="footnote">31</a></sup>, Torstensson<sup id="fnref:14:2" role="doc-noteref"><a href="#fn:14" class="footnote" rel="footnote">14</a></sup> and Knack &amp; Keefer<sup id="fnref:13:1" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>. Finally, there is significant evidence that smaller governments, that intervene economically less often, are positively correlated with economic growth. This has only been observed for the pooled data set and the effect was only 0.05%. This finding is mirrored in a more robust way in other research<sup id="fnref:11:1" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup> <sup id="fnref:23:2" role="doc-noteref"><a href="#fn:23" class="footnote" rel="footnote">23</a></sup> <sup id="fnref:13:2" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>.</p>
 
 <p>Across all model formulations, freedom to trade internationally remained very robust. These results support classical economic theory<sup id="fnref:3:1" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> <sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, as well as more modern assumptions<sup id="fnref:9:1" role="doc-noteref"><a href="#fn:9" class="footnote" rel="footnote">9</a></sup>. Monetary stability through low inflation and the freedom to use alternate currencies seemed likely to be correlated with economic growth. However, research did not support this hypothesis. There are a few reasons that might explain this finding. Subcomponents of this area of the index might be constructed out of elements with opposite effects. Also, most countries in the data set do not wield the economic power of the United States and are economically tied to the fluctuations of more influential currencies. Therefore, they are unable to produce sound monetary policy and often attempt to restrict the power of foreign currencies in the domestic marketplace. If these countries experience increased growth rates, this area of the index does not predict development as assumed. Free movement into markets, as pictured through the regulation variable, is only significant for non-OECD countries, most of which are underdeveloped. This could indicate that lax regulation fosters growth on the way to the status of a first-world country. However, countries that had already reached these levels of development are not experiencing such growth rates and often begin introducing new regulation when they become appropriately placed on the Kuznets curve to do so. This is often regulation that deals with various market inefficiencies (externalities, informational asymmetry, etc.).</p>
 
@@ -195,15 +293,6 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <p>This data set was somewhat unbalanced (missing periods for a few cross-sections), resulting in the omission of those observations. Along with balanced panel data, the set needs to extend over a longer time frame, given that in the process of correcting for autocorrelation, the number of observations got further reduced. It would also be useful to detect breakpoints in the time series, centered around significant economic events (like the Great Recession), and perform the estimation around them. Much like a longer time frame, more countries included in the set would be useful. The issue lies in procuring the necessary data, especially further into the past, given that some countries do not provide any data or provide data that is highly questionable.</p>
 
 <h5 id="works-cited"><strong>Works Cited</strong></h5>
-
-<table>
-  <tbody>
-    <tr>
-      <td>[^26]: GDP per capita (current US$)</td>
-      <td>Data. (2018). Retrieved October 9, 2018, from https://data.worldbank.org/indicator/NY.GDP.PCAP.CD</td>
-    </tr>
-  </tbody>
-</table>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
@@ -281,6 +370,9 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
     </li>
     <li id="fn:25" role="doc-endnote">
       <p>Economic Freedom of the World. (2015, December 22). Retrieved October 9, 2018, from http://bit.ly/2h5xBVI <a href="#fnref:25" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:25:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:25:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+    </li>
+    <li id="fn:26" role="doc-endnote">
+      <p>GDP per capita (current US$) Data. (2018). Retrieved October 9, 2018, from https://data.worldbank.org/indicator/NY.GDP.PCAP.CD <a href="#fnref:26" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
     </li>
     <li id="fn:27" role="doc-endnote">
       <p>OECD - Members and partners. (2018, July). Retrieved December 12, 2018, from http://www.oecd.org/about/membersandpartners/ <a href="#fnref:27" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
