@@ -1,7 +1,7 @@
 ---
 layout: post
 title: How does traffic congestion impact life satisfaction?
-date: 2021-06-26 17:13:45 PDT
+date: 2019-04-31 17:13:45 PDT
 description: An inital econometric approach using a probit model written in Stata.
 ---
 
