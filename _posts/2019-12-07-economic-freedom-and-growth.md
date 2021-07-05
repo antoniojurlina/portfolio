@@ -48,9 +48,107 @@ The data set used for this project was created using three different sources. Th
     </div>
 </div>
 
+<br>
+
 **4. Preliminary Estimates**
 
 The first step of the analysis revolved around estimating an OLS version of the model in Equation 1. Results were estimated in three different ways – by grouping all countries together, by using only OECD member countries and by using only non-member countries. This dummy variable was introduced due to the special economic relationships fostered by OECD member nations, to stabilize unobservable heterogeneity between members and non-members. The use of the dummy variable was also inspired by previous research, especially that of Mankiw, Romer and Weil[^28]. Detailed results are presented in Figure 2.
+
+<br>
+
+*Figure 2 - Panel Least Squares Regressions*
+
+<table>
+<colgroup>
+<col width="70%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>OECD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="span">Dependent variable: log growth of GDP per capita (1975 - 2015)</td>
+</tr>
+<tr>
+<td markdown="span">Intercept</td>
+<td markdown="span">0.441 <br> (0.034)</td>
+<td markdown="span">0.372 <br> (0.054)</td>
+<td markdown="span">0.526 <br> (0.046)</td>
+</tr>
+<tr>
+<td markdown="span">log GDP per capita</td>
+<td markdown="span">-0.071 <br> (0.005)</td>
+<td markdown="span">-0.072 <br> (0.009)</td>
+<td markdown="span">-0.072  <br> (0.007)</td>
+</tr>
+<tr>
+<td markdown="span">Size of Government</td>
+<td markdown="span">0.005 <br> (0.004)</td>
+<td markdown="span">0.006 <br> (0.006)</td>
+<td markdown="span">0.002 <br> (0.005)</td>
+</tr>
+<tr>
+<td markdown="span">Legal System & Property Rights</td>
+<td markdown="span">-0.003 <br> (0.003)</td>
+<td markdown="span">-0.005 <br> (0.005)</td>
+<td markdown="span">-0.002 <br> (0.004)</td>
+</tr>
+<tr>
+<td markdown="span">Sound Money</td>
+<td markdown="span">-0.004 <br> (0.002)</td>
+<td markdown="span">-0.006 <br> (0.003)</td>
+<td markdown="span">-0.000 <br> (0.004)</td>
+</tr>
+<tr>
+<td markdown="span">Regulation</td>
+<td markdown="span">0.024 <br> (0.005)</td>
+<td markdown="span">0.024 <br> (0.008)</td>
+<td markdown="span">0.025 <br> (0.007)</td>
+</tr>
+<tr>
+<td markdown="span">Observations</td>
+<td markdown="span">430</td>
+<td markdown="span">189</td>
+<td markdown="span">241</td>
+</tr>
+<tr>
+<td markdown="span">Cross-sections <br> (periods)</td>
+<td markdown="span">52 <br> (9)</td>
+<td markdown="span">24 <br> (9)</td>
+<td markdown="span">28 <br> (9)</td>
+</tr>
+<tr>
+<td markdown="span">$$R^2$$</td>
+<td markdown="span">0.44</td>
+<td markdown="span">0.41</td>
+<td markdown="span">0.46</td>
+</tr>
+<tr>
+<td markdown="span">F-statistic <br> (p-value)</td>
+<td markdown="span">5.03 <br> (0.000)</td>
+<td markdown="span">3.88 <br> (0.000)</td>
+<td markdown="span">5.4 <br> (0.000)</td>
+</tr>
+<tr>
+<td markdown="span">Durbin-Watson statistic</td>
+<td markdown="span">2.67</td>
+<td markdown="span">2.41</td>
+<td markdown="span">2.92</td>
+</tr>
+</tbody>
+</table>
+
+_* - 90 % significance / ** - 95 % significance / *** - 99 % significance_
+
+<br>
 
 
 As Figure 2 shows, *Freedom to Trade Internationally* and *Regulation* have a significant effect across three model runs, and *Sound Money* has a significant effect for non-OECD countries only. Any one-point increase in the *Freedom to Trade Internationally* index is correlated with a 1.3 % (pooled), 1.7 % (non-OECD) and 0.8% (OECD) increase in the growth rate of GDP per capita, on average. Any one-point increase in the *Regulation* index is correlated with a 2.4 % (pooled), 2.4 % (non-OECD) and 2.5% (OECD) increase in the growth rate of GDP per capita, on average. Finally, any one-point increase in the *Sound Money* index for non-OECD countries is correlated with a 0.6 % decrease in the growth rate of GDP per capita, on average. To reiterate, an increase in index score across all three of the variables mentioned indicates an increase in economic freedom, as per EFI design.
@@ -153,7 +251,7 @@ This data set was somewhat unbalanced (missing periods for a few cross-sections)
 
 [^25]: Economic Freedom of the World. (2015, December 22). Retrieved October 9, 2018, from http://bit.ly/2h5xBVI
 
-[^26]: GDP per capita (current US$) | Data. (2018). Retrieved October 9, 2018, from https://data.worldbank.org/indicator/NY.GDP.PCAP.CD
+[^26]: GDP per capita (current US$) Data. (2018). Retrieved October 9, 2018, from https://data.worldbank.org/indicator/NY.GDP.PCAP.CD
 
 [^27]: OECD - Members and partners. (2018, July). Retrieved December 12, 2018, from http://www.oecd.org/about/membersandpartners/
 
