@@ -56,7 +56,7 @@ The first step of the analysis revolved around estimating an OLS version of the 
 
 <br>
 
-*Figure 2 - Panel Least Squares Regressions*
+*Figure 2 - Panel Least Squares Regressions* <br>
 *Dependent variable: log growth of GDP per capita (1975 - 2015)*
 
 <table>
@@ -164,6 +164,107 @@ Although the results seem significant at first glance, there are many causes for
 ###### *Multicollinearity*
 
 One of the primary issues with deconstructing an index is the causal relationships between some of the subcomponents. It seems reasonable to assume that size of the government, amount of regulation and property rights are correlated with one another. This can result in multicollinearity among explanatory variables, affecting the robustness of the estimates. The correlation matrix in Figure 3 indicates strong correlation (over 0.5) between the five areas of the EFI. This serves as a rough estimate of multicollinearity present in the model, indicating that estimates need to be interpreted conservatively. For future reference, multicollinearity should be further confirmed by estimating the model and changing the data slightly, many times over, seeing how the estimates react. Also, dependent variables should be dropped, and model estimated without some, to see the effect on estimates. Significant estimate changes in both these approaches would indicate a presence of multicollinearity. Finally, a variance inflation factor should be calculated, as it gives an exact numeric value for evaluation. Since multicollinearity doesn’t change the BLUE properties of the model, and due to time limitations, the model will be left as is.
+
+<br>
+
+*Figure 3 - Correlation Matrix*
+
+<table>
+<colgroup>
+<col width="30%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>log growth of GDP per capita</th>
+<th>GDP per capita</th>
+<th>Size of Government</th>
+<th>Legal System & Property Rights</th>
+<th>Sound Money</th>
+<th>Regulation</th>
+<th>Freedom to Trade Internationally</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="span">log growth of GDP per capita</td>
+<td markdown="span">1.000</td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+</tr>
+<tr>
+<td markdown="span">GDP per capita</td>
+<td markdown="span">-0.089</td>
+<td markdown="span">1.000</td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+</tr>
+<tr>
+<td markdown="span">Size of Government</td>
+<td markdown="span">0.042</td>
+<td markdown="span">-0.162</td>
+<td markdown="span">1.000</td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+</tr>
+<tr>
+<td markdown="span">Legal System & Property Rights</td>
+<td markdown="span">-0.007</td>
+<td markdown="span">0.686</td>
+<td markdown="span">-0.185</td>
+<td markdown="span">1.000</td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+</tr>
+<tr>
+<td markdown="span">Sound Money</td>
+<td markdown="span">-0.029</td>
+<td markdown="span">0.533</td>
+<td markdown="span">0.043</td>
+<td markdown="span">0.583</td>
+<td markdown="span">1.000</td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+</tr>
+<tr>
+<td markdown="span">Regulation</td>
+<td markdown="span">-0.035</td>
+<td markdown="span">0.590</td>
+<td markdown="span">0.239</td>
+<td markdown="span">0.626</td>
+<td markdown="span">0.649</td>
+<td markdown="span">1.000</td>
+<td markdown="span"> </td>
+</tr>
+<tr>
+<td markdown="span">Freedom to Trade Internationally</td>
+<td markdown="span">0.030</td>
+<td markdown="span">0.495</td>
+<td markdown="span">0.079</td>
+<td markdown="span">0.722</td>
+<td markdown="span">0.644</td>
+<td markdown="span">0.668</td>
+<td markdown="span">1.000</td>
+</tr>
+</tbody>
+</table>
 
 ###### *Autocorrelation*
 
