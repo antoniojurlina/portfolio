@@ -167,7 +167,7 @@ One of the primary issues with deconstructing an index is the causal relationshi
 
 <br>
 
-*Figure 3 - Correlation Matrix*
+*Figure 3. Correlation Matrix*
 
 <table>
 <colgroup>
@@ -194,7 +194,7 @@ One of the primary issues with deconstructing an index is the causal relationshi
 </thead>
 <tbody>
 <tr>
-<td markdown="span">log growth of GDP per capita</td>
+<td markdown="span">**log growth of GDP per capita**</td>
 <td markdown="span">1.000</td>
 <td markdown="span"> </td>
 <td markdown="span"> </td>
@@ -204,7 +204,7 @@ One of the primary issues with deconstructing an index is the causal relationshi
 <td markdown="span"> </td>
 </tr>
 <tr>
-<td markdown="span">GDP per capita</td>
+<td markdown="span">**GDP per capita**</td>
 <td markdown="span">-0.089</td>
 <td markdown="span">1.000</td>
 <td markdown="span"> </td>
@@ -214,7 +214,7 @@ One of the primary issues with deconstructing an index is the causal relationshi
 <td markdown="span"> </td>
 </tr>
 <tr>
-<td markdown="span">Size of Government</td>
+<td markdown="span">**Size of Government**</td>
 <td markdown="span">0.042</td>
 <td markdown="span">-0.162</td>
 <td markdown="span">1.000</td>
@@ -224,7 +224,7 @@ One of the primary issues with deconstructing an index is the causal relationshi
 <td markdown="span"> </td>
 </tr>
 <tr>
-<td markdown="span">Legal System & Property Rights</td>
+<td markdown="span">**Legal System & Property Rights**</td>
 <td markdown="span">-0.007</td>
 <td markdown="span">0.686</td>
 <td markdown="span">-0.185</td>
@@ -234,7 +234,7 @@ One of the primary issues with deconstructing an index is the causal relationshi
 <td markdown="span"> </td>
 </tr>
 <tr>
-<td markdown="span">Sound Money</td>
+<td markdown="span">**Sound Money**</td>
 <td markdown="span">-0.029</td>
 <td markdown="span">0.533</td>
 <td markdown="span">0.043</td>
@@ -244,7 +244,7 @@ One of the primary issues with deconstructing an index is the causal relationshi
 <td markdown="span"> </td>
 </tr>
 <tr>
-<td markdown="span">Regulation</td>
+<td markdown="span">**Regulation**</td>
 <td markdown="span">-0.035</td>
 <td markdown="span">0.590</td>
 <td markdown="span">0.239</td>
@@ -254,7 +254,7 @@ One of the primary issues with deconstructing an index is the causal relationshi
 <td markdown="span"> </td>
 </tr>
 <tr>
-<td markdown="span">Freedom to Trade Internationally</td>
+<td markdown="span">**Freedom to Trade Internationally**</td>
 <td markdown="span">0.030</td>
 <td markdown="span">0.495</td>
 <td markdown="span">0.079</td>
@@ -269,6 +269,226 @@ One of the primary issues with deconstructing an index is the causal relationshi
 ###### *Autocorrelation*
 
 Since the primary statistical software used in estimation doesn’t allow for direct autocorrelation testing, several indirect ways shall be explored, to detect any potential autocorrelation. First, simply observing graphs of residuals from the three OLS approaches, can be very indicative of any potential autocorrelation. Indeed, by looking at the attached graphs (see Appendix 4), it seems highly possible that autocorrelation is present. The order is harder to discern. Furthermore, Durbin-Watson statistic can be used for identification of first-order autocorrelation. The autocorrelation coefficient, $$\rho$$, (with stable errors) is located on the interval −1 < $$\rho$$ < 1, and the Durbin-Watson test statistic is approximately equal to 4, 2 and 0, for the $$\rho$$ values of -1, 0, and 1, respectively. Therefore, the d-statistic serves as a rough guide of first order autocorrelation. In the first (pooled) OLS estimate, d is 2.7. Being further from 2 (in the positive direction), indicates that autocorrelation is more likely. The same can be said for the d values of the second (non- OECD) and third (OECD) OLS estimates, for which d values are 2.4 and 2.9, respectively (see Figure 2). Finally, a feasible GLS model is estimated, with the addition of autocorrelation parameters. These are added individually, starting with a parameter for first order autocorrelation, up to the point where their p-values start to become insignificant at conventional confidence levels (see Figure 4). The results indicate a presence of first and second order autocorrelation, with any subsequent level added failing to pass as significant or reducing the number of observations past the optimal point.
+
+<br>
+
+*Figure 4. FGLS Regression - Sensitivity Testing for Autocorrelation* <br>
+*Dependent variable: log growth of GDP per capita (1975 - 2015)* 
+
+<table>
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>OECD</th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>OECD</th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>OECD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="span">Intercept</td>
+<td markdown="span">0.365 <br> (0.032)</td>
+<td markdown="span">0.320 <br> (0.059)</td>
+<td markdown="span">0.430 <br> (0.038)</td>
+<td markdown="span">0.239 <br> (0.024)</td>
+<td markdown="span">0.225 <br> (0.049)</td>
+<td markdown="span">0.286 <br> (0.022)</td>
+<td markdown="span">0.164 <br> (0.062)</td>
+<td markdown="span">0.112 <br> (0.092)</td>
+<td markdown="span">0.240 <br> (0.106)</td>
+</tr>
+<tr>
+<td markdown="span">log GDP per capita</td>
+<td markdown="span">-0.063*** <br> (0.006)</td>
+<td markdown="span">-0.065*** <br> (0.011)</td>
+<td markdown="span">-0.064*** <br> (0.007)</td>
+<td markdown="span">-0.037*** <br> (0.004)</td>
+<td markdown="span">-0.048*** <br> (0.010)</td>
+<td markdown="span">-0.031*** <br> (0.004)</td>
+<td markdown="span">-0.023*** <br> (0.009)</td>
+<td markdown="span">0.016 <br> (0.017)</td>
+<td markdown="span">-0.032*** <br> (0.009)</td>
+</tr>
+<tr>
+<td markdown="span">Size of Government</td>
+<td markdown="span">0.008 <br> (0.003)</td>
+<td markdown="span">0.006 <br> (0.006)</td>
+<td markdown="span">0.009 <br> (0.004)</td>
+<td markdown="span">0.005* <br> (0.003)</td>
+<td markdown="span">0.006 <br> (0.005)</td>
+<td markdown="span">0.005** <br> (0.002)</td>
+<td markdown="span">0.000 <br> (0.005)</td>
+<td markdown="span">-0.002 <br> (0.008)</td>
+<td markdown="span">0.003 <br> (0.005)</td>
+</tr>
+<tr>
+<td markdown="span">Legal System & Property Rights</td>
+<td markdown="span">0.001 <br> (0.003)</td>
+<td markdown="span">-0.004 <br> (0.006)</td>
+<td markdown="span">0.006 <br> (0.004)</td>
+<td markdown="span">-0.001 <br> (0.003)</td>
+<td markdown="span">-0.004 <br> (0.005)</td>
+<td markdown="span">0.000 <br> (0.003)</td>
+<td markdown="span">0.000 <br> (0.005)</td>
+<td markdown="span">0.000* <br> (0.007)</td>
+<td markdown="span">0.000 <br> (0.008)</td>
+</tr>
+<tr>
+<td markdown="span">Sound Money</td>
+<td markdown="span">-0.004** <br> (0.002)</td>
+<td markdown="span">-0.007** <br> (0.003)</td>
+<td markdown="span">-0.001 <br> (0.003)</td>
+<td markdown="span">-0.009*** <br> (0.002)</td>
+<td markdown="span">-0.010*** <br> (0.003)</td>
+<td markdown="span">-0.006*** <br> (0.002)</td>
+<td markdown="span">-0.008*** <br> (0.003)</td>
+<td markdown="span">-0.006 <br> (0.004)</td>
+<td markdown="span">-0.008* <br> (0.004)</td>
+</tr>
+<tr>
+<td markdown="span">Regulation</td>
+<td markdown="span">0.019*** <br> (0.005)</td>
+<td markdown="span">0.024*** <br> (0.009)</td>
+<td markdown="span">0.014** <br> (0.006)</td>
+<td markdown="span">0.009** <br> (0.004)</td>
+<td markdown="span">0.019** <br> (0.009)</td>
+<td markdown="span">0.003 <br> (0.003)</td>
+<td markdown="span">0.003 <br> (0.007)</td>
+<td markdown="span">0.012 <br> (0.016)</td>
+<td markdown="span">0.005 <br> (0.006)</td>
+</tr>
+<tr>
+<td markdown="span">Freedom to Trade Internationally</td>
+<td markdown="span">0.013*** <br> (0.003)</td>
+<td markdown="span">0.016*** <br> (0.005)</td>
+<td markdown="span">0.008*** <br> (0.003)</td>
+<td markdown="span">0.017*** <br> (0.002)</td>
+<td markdown="span">0.018*** <br> (0.004)</td>
+<td markdown="span">0.009*** <br> (0.002)</td>
+<td markdown="span">0.022*** <br> (0.005)</td>
+<td markdown="span">0.017* <br> (0.009)</td>
+<td markdown="span">0.009 <br> (0.006)</td>
+</tr>
+<tr>
+<td markdown="span">AR(1)</td>
+<td markdown="span">__-0.351\*\*\*__ <br> (0.053)</td>
+<td markdown="span">__-0.226\*\*\*__ <br> (0.089)</td>
+<td markdown="span">__-0.478\*\*\*__ <br> (0.065)</td>
+<td markdown="span">__-0.590\*\*\*__ <br> (0.050)</td>
+<td markdown="span">__-0.406\*\*\*__ <br> (0.089)</td>
+<td markdown="span">__-0.821\*\*\*__ <br> (0.054)</td>
+<td markdown="span">__-0.517\*\*\*__ <br> (0.073)</td>
+<td markdown="span">__-0.498\*\*\*__ <br> (0.121)</td>
+<td markdown="span">__-0.586\*\*\*__ <br> (0.009)</td>
+</tr>
+<tr>
+<td markdown="span">AR(2)</td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span">__-0.469\*\*\*__ <br> (0.049)</td>
+<td markdown="span">__-0.447\*\*\*__ <br> (0.089)</td>
+<td markdown="span">__-0.607\*\*\*__ <br> (0.051)</td>
+<td markdown="span">__-0.513\*\*\*__ <br> (0.064)</td>
+<td markdown="span">__-0.585\*\*\*__ <br> (0.095)</td>
+<td markdown="span">__-0.552\*\*\*__ <br> (0.079)</td>
+</tr>
+<tr>
+<td markdown="span">AR(5)</td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span"> </td>
+<td markdown="span">__-0.089\*\*\*__ <br> (0.049)</td>
+<td markdown="span">__-0.262\*\*\*__ <br> (0.100)</td>
+<td markdown="span">0.008 <br> (0.055)</td>
+</tr>
+<tr>
+<td markdown="span">Observations</td>
+<td markdown="span">377</td>
+<td markdown="span">165</td>
+<td markdown="span">212</td>
+<td markdown="span">325</td>
+<td markdown="span">141</td>
+<td markdown="span">184</td>
+<td markdown="span">168</td>
+<td markdown="span">69</td>
+<td markdown="span">100</td>
+</tr>
+<tr>
+<td markdown="span">Cross-section <br> (periods)</td>
+<td markdown="span">52 <br> (8)</td>
+<td markdown="span">24 <br> (8)</td>
+<td markdown="span">28 <br> (8)</td>
+<td markdown="span">52 <br> (7)</td>
+<td markdown="span">24 <br> (7)</td>
+<td markdown="span">28 <br> (7)</td>
+<td markdown="span">50 <br> (4)</td>
+<td markdown="span">22 <br> (4)</td>
+<td markdown="span">28 <br> (4)</td>
+</tr>
+<tr>
+<td markdown="span">$$R^2$$</td>
+<td markdown="span">0.44</td>
+<td markdown="span">0.37</td>
+<td markdown="span">0.54</td>
+<td markdown="span">0.53</td>
+<td markdown="span">0.38</td>
+<td markdown="span">0.74</td>
+<td markdown="span">0.71</td>
+<td markdown="span">0.73</td>
+<td markdown="span">0.78</td>
+</tr>
+<tr>
+<td markdown="span">F-statistic <br> (p-value)</td>
+<td markdown="span">4.3 <br> (0.000)</td>
+<td markdown="span">2.66 <br> (0.000)</td>
+<td markdown="span">6.03 <br> (0.000)</td>
+<td markdown="span">5.03 <br> (0.000)</td>
+<td markdown="span">2.17 <br> (0.002)</td>
+<td markdown="span">11.79 <br> (0.000)</td>
+<td markdown="span">4.72 <br> (0.000)</td>
+<td markdown="span">3.49 <br> (0.000)</td>
+<td markdown="span">6.18 <br> (0.000)</td>
+</tr>
+<tr>
+<td markdown="span">Durbin-Watson statistic</td>
+<td markdown="span">2.32</td>
+<td markdown="span">2.22</td>
+<td markdown="span">2.56</td>
+<td markdown="span">1.80</td>
+<td markdown="span">2.06</td>
+<td markdown="span">1.60</td>
+<td markdown="span">2.41</td>
+<td markdown="span">2.61</td>
+<td markdown="span">2.24</td>
+</tr>
+</tbody>
+</table>
+
+_Note: This approach assumes there might be first, second and fifth order autocorrelation. The fifth order autocorrelation is assumed because growth is studied through 5-year periods. Sensitivity analysis is looking for AR terms that are significant at standard confidence levels and that produce d-statistics closest to 2. Significance levels are as follows: \* - 90 % significance / \*\* - 95 % significance / \*\*\* - 99 % significance._
+
+<br>
 
 ###### *Heteroskedasticity*
 
