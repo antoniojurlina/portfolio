@@ -57,10 +57,11 @@ The first step of the analysis revolved around estimating an OLS version of the 
 <br>
 
 *Figure 2 - Panel Least Squares Regressions*
+*Dependent variable: log growth of GDP per capita (1975 - 2015)*
 
 <table>
 <colgroup>
-<col width="70%" />
+<col width="50%" />
 <col width="10%" />
 <col width="10%" />
 <col width="10%" />
@@ -75,9 +76,6 @@ The first step of the analysis revolved around estimating an OLS version of the 
 </thead>
 <tbody>
 <tr>
-<td markdown="span">Dependent variable: log growth of GDP per capita (1975 - 2015)</td>
-</tr>
-<tr>
 <td markdown="span">Intercept</td>
 <td markdown="span">0.441 <br> (0.034)</td>
 <td markdown="span">0.372 <br> (0.054)</td>
@@ -85,9 +83,9 @@ The first step of the analysis revolved around estimating an OLS version of the 
 </tr>
 <tr>
 <td markdown="span">log GDP per capita</td>
-<td markdown="span">-0.071 <br> (0.005)</td>
-<td markdown="span">-0.072 <br> (0.009)</td>
-<td markdown="span">-0.072  <br> (0.007)</td>
+<td markdown="span">__-0.071\*\*\*__ <br> (0.005)</td>
+<td markdown="span">__-0.072\*\*\*__ <br> (0.009)</td>
+<td markdown="span">__-0.072\*\*\*__  <br> (0.007)</td>
 </tr>
 <tr>
 <td markdown="span">Size of Government</td>
@@ -104,14 +102,20 @@ The first step of the analysis revolved around estimating an OLS version of the 
 <tr>
 <td markdown="span">Sound Money</td>
 <td markdown="span">-0.004 <br> (0.002)</td>
-<td markdown="span">-0.006 <br> (0.003)</td>
+<td markdown="span">__-0.006\*\*__ <br> (0.003)</td>
 <td markdown="span">-0.000 <br> (0.004)</td>
 </tr>
 <tr>
 <td markdown="span">Regulation</td>
-<td markdown="span">0.024 <br> (0.005)</td>
-<td markdown="span">0.024 <br> (0.008)</td>
-<td markdown="span">0.025 <br> (0.007)</td>
+<td markdown="span">__0.024\*\*\*__ <br> (0.005)</td>
+<td markdown="span">__0.024\*\*\*__ <br> (0.008)</td>
+<td markdown="span">__0.025\*\*\*__ <br> (0.007)</td>
+</tr>
+<tr>
+<td markdown="span">Freedom to Trade Internationally</td>
+<td markdown="span">__0.013\*\*\*__ <br> (0.003)</td>
+<td markdown="span">__0.017\*\*\*__ <br> (0.004)</td>
+<td markdown="span">__0.008\*\*\*__ <br> (0.004)</td>
 </tr>
 <tr>
 <td markdown="span">Observations</td>
