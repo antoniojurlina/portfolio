@@ -35,9 +35,7 @@ Now, as they are synced up, quarterly slope signs of each series are identical a
 Figure 6 and Table 2 show the results of the linear regression. As can be noted, the relationships are fairly straightforward and statistically significant. For each 1% increase in traffic volume, there is 54, 38, 90, and 56 percent increase in revenue for quarters 1 through 4, respectively. This data can now be used to estimate revenue from traffic. In this case, revenue is simply
 
 <br>
-
 _revenue = intercept + coefficient \* traffic_
-
 <br>
 
 and traffic volume is obtained from monthly turnpike data across Maine.
@@ -242,7 +240,8 @@ prediction %>%
             prediciton_lower = sum(prediction_lower, na.rm = T), 
             expectation = sum(expectation, na.rm = T), 
             expectation_upper = sum(expectation_upper, na.rm = T),
-            expectation_lower = sum(expectation_lower, na.rm = T)) %>% View()
+            expectation_lower = sum(expectation_lower, na.rm = T)) %>% 
+    View()
 
 {% endhighlight %}
 
