@@ -109,7 +109,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      25 min read
+      27 min read
     
 </span></p>
 
@@ -630,15 +630,306 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p>Figure 6 shows the results of redundant fixed effects tests, performed on the three OLS models. With future revised estimation in mind, the tests were completed for fixed cross-sectional effects, fixed period effects, and both. In each case, across all the model version, tests confirm that all model specifications are supported, with significant p-values across multiple tests.</p>
 
+<p><br /></p>
+
+<p><em>Figure 6 - Redundant Fixed Effects Test</em> <br /></p>
+
+<table>
+<colgroup>
+<col width="50%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>OECD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cross-Section F</td>
+<td><strong>3.039***</strong> <br /> (0.000)</td>
+<td><strong>3.057***</strong> <br /> (0.000)</td>
+<td><strong>2.782***</strong> <br /> (0.000)</td>
+</tr>
+<tr>
+<td>Cross-Section Chi-Square</td>
+<td><strong>152.544***</strong> <br /> (0.000)</td>
+<td><strong>72.255***</strong> <br /> (0.000)</td>
+<td><strong>77.188***</strong>  <br /> (0.000)</td>
+</tr>
+<tr>
+<td>Period F</td>
+<td><strong>38.593***</strong> <br /> (0.000)</td>
+<td><strong>13.747***</strong> <br /> (0.000)</td>
+<td><strong>54.386***</strong>  <br /> (0.000)</td>
+</tr>
+<tr>
+<td>Period Chi-Square</td>
+<td><strong>264.110***</strong> <br /> (0.000)</td>
+<td><strong>103.413***</strong> <br /> (0.000)</td>
+<td><strong>279.292***</strong>  <br /> (0.000)</td>
+</tr>
+<tr>
+<td>Cross-Section/Period F</td>
+<td><strong>10.400***</strong> <br /> (0.000)</td>
+<td><strong>6.794***</strong> <br /> (0.000)</td>
+<td><strong>16.360***</strong>  <br /> (0.000)</td>
+</tr>
+<tr>
+<td>Cross-Section Chi-Square</td>
+<td><strong>424.806***</strong> <br /> (0.000)</td>
+<td><strong>165.049***</strong> <br /> (0.000)</td>
+<td><strong>326.592***</strong>  <br /> (0.000)</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>Note: * - 90 % significance / ** - 95 % significance / *** - 99 % significance</em> <br />
+<em>Null: Cross-Section/Period/Both Effects specifications are redundant,</em> <br />
+<em>Alternative: Cross-Section/Period/Both Effects specifications are valid</em></p>
+
+<p><br /></p>
+
 <h6 id="hausman-test"><em>Hausman Test</em></h6>
 
 <p>Hausman Test null hypothesis states that there is no correlation between unique errors and regressors (meaning that the random effects model is preferred) against an alternative that there is correlation between unique errors and regressors (meaning that the fixed effects model is preferred). This test could only be performed on cross-sectional fixed effects and not two-way fixed effects since EViews doesn’t estimate two-way random effects tests on unbalanced data for the purposes of further testing. Hausman test results (see Figure 7) reject the null hypothesis and the alternative is accepted – fixed effects model is appropriate.</p>
+
+<p><br /></p>
+
+<p><em>Figure 7 - Random versus Fixed Effects Test</em> <br /></p>
+
+<table>
+<colgroup>
+<col width="50%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>OECD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chi-Square statistic</td>
+<td><strong>146.276***</strong> <br /> (0.000)</td>
+<td><strong>52.771***</strong> <br /> (0.000)</td>
+<td><strong>37.882***</strong> <br /> (0.000)</td>
+</tr>
+<tr>
+<td>degrees of freedom</td>
+<td>6</td>
+<td>6</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>Note: * - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
+
+<p><br /></p>
 
 <p><strong>6. Revised Estimates</strong></p>
 
 <p>Following all the tests performed, I have decided to reformulate the previous cross-section fixed effects OLS model. For more precise parameter identification and robust standard errors, cross-sectional heteroskedasticity and first (and possibly second) order autocorrelation need to be addressed. Therefore, the revised model is structured as a cross-section fixed effects GLS model, with two terms for autocorrelation and cross-section weights which assume the presence of heteroskedasticity in the relevant dimension. Estimates for this model are presented in Figure 8, split up between estimates for all countries, only non-OECD countries, and only OECD countries.</p>
 
+<p><br /></p>
+
+<p><em>Figure 8. Panel EGLS Regression (Cross-Section Weights)</em> <br />
+<em>Dependent variable: log growth of GDP per capita (1975 - 2015)</em></p>
+
+<table>
+<colgroup>
+<col width="30%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Pooled</th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>non-OECD</th>
+<th>OECD</th>
+<th>OECD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> </td>
+<td>EGLS</td>
+<td>OLS</td>
+<td>EGLS</td>
+<td>OLS</td>
+<td>EGLS</td>
+<td>OLS</td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td><strong>0.228***</strong> <br /> (0.014)</td>
+<td><strong>0.441***</strong> <br /> (0.034)</td>
+<td><strong>0.217***</strong> <br /> (0.028)</td>
+<td><strong>0.372***</strong> <br /> (0.054)</td>
+<td><strong>0.280***</strong> <br /> (0.016)</td>
+<td><strong>0.526***</strong> <br /> (0.046)</td>
+</tr>
+<tr>
+<td>log GDP per capita</td>
+<td><strong>-0.032***</strong> <br /> (0.003)</td>
+<td><strong>-0.071***</strong> <br /> (0.005)</td>
+<td><strong>-0.044***</strong> <br /> (0.007)</td>
+<td><strong>-0.072***</strong> <br /> (0.009)</td>
+<td><strong>-0.027***</strong> <br /> (0.003)</td>
+<td><strong>-0.072***</strong> <br /> (0.007)</td>
+</tr>
+<tr>
+<td>Size of Government</td>
+<td><strong>0.005***</strong> <br /> (0.003)</td>
+<td>0.005 <br /> (0.004)</td>
+<td>0.005 <br /> (0.003)</td>
+<td>0.006 <br /> (0.006)</td>
+<td>0.002 <br /> (0.001)</td>
+<td>0.002 <br /> (0.005)</td>
+</tr>
+<tr>
+<td>Legal System &amp; Property Rights</td>
+<td>0.001 <br /> (0.002)</td>
+<td>-0.003 <br /> (0.003)</td>
+<td>0.001 <br /> (0.003)</td>
+<td>-0.005 <br /> (0.005)</td>
+<td>-0.002 <br /> (0.002)</td>
+<td>-0.002 <br /> (0.004)</td>
+</tr>
+<tr>
+<td>Sound Money</td>
+<td><strong>-0.007***</strong> <br /> (0.001)</td>
+<td>-0.004 <br /> (0.002)</td>
+<td><strong>-0.009***</strong> <br /> (0.002)</td>
+<td><strong>-0.006**</strong> <br /> (0.003)</td>
+<td><strong>-0.006***</strong> <br /> (0.001)</td>
+<td>0.000 <br /> (0.004)</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>0.003 <br /> (0.003)</td>
+<td><strong>0.024***</strong> <br /> (0.005)</td>
+<td><strong>0.013**</strong> <br /> (0.006)</td>
+<td><strong>0.024***</strong> <br /> (0.008)</td>
+<td>0.001 <br /> (0.002)</td>
+<td><strong>0.025***</strong> <br /> (0.004)</td>
+</tr>
+<tr>
+<td>Freedom to Trade Internationally</td>
+<td><strong>0.014***</strong> <br /> (0.002)</td>
+<td><strong>0.013***</strong> <br /> (0.003)</td>
+<td><strong>0.017***</strong> <br /> (0.006)</td>
+<td><strong>0.017***</strong> <br /> (0.004)</td>
+<td><strong>0.010***</strong> <br /> (0.002)</td>
+<td><strong>0.008*</strong> <br /> (0.004)</td>
+</tr>
+<tr>
+<td>AR(1)</td>
+<td>-0.669*** <br /> (0.038)</td>
+<td> </td>
+<td>-0.498*** <br /> (0.072)</td>
+<td> </td>
+<td>-0.862*** <br /> (0.039)</td>
+<td> </td>
+</tr>
+<tr>
+<td>AR(2)</td>
+<td>-0.538*** <br /> (0.033)</td>
+<td> </td>
+<td>-0.530*** <br /> (0.071)</td>
+<td> </td>
+<td>-0.663*** <br /> (0.034)</td>
+<td> </td>
+</tr>
+<tr>
+<td>Observations</td>
+<td>325</td>
+<td>430</td>
+<td>141</td>
+<td>189</td>
+<td>184</td>
+<td>241</td>
+</tr>
+<tr>
+<td>Cross-section <br /> (periods)</td>
+<td>52 <br /> (7)</td>
+<td>52 <br /> (9)</td>
+<td>24 <br /> (7)</td>
+<td>24 <br /> (9)</td>
+<td>28 <br /> (7)</td>
+<td>28 <br /> (9)</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">R^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></td>
+<td>0.71</td>
+<td>0.44</td>
+<td>0.56</td>
+<td>0.41</td>
+<td>0.85</td>
+<td>0.46</td>
+</tr>
+<tr>
+<td>F-statistic <br /> (p-value)</td>
+<td>10.83 <br /> (0.000)</td>
+<td>5.03 <br /> (0.000)</td>
+<td>4.42 <br /> (0.000)</td>
+<td>3.88 <br /> (0.000)</td>
+<td>24.64 <br /> (0.002)</td>
+<td>5.4 <br /> (0.000)</td>
+</tr>
+<tr>
+<td>Durbin-Watson statistic</td>
+<td>1.84</td>
+<td>2.67</td>
+<td>2.08</td>
+<td>2.41</td>
+<td>1.74</td>
+<td>2.92</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>Note: * - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
+
+<p><br /></p>
+
 <p>As Figure 8 shows, <em>Freedom to Trade Internationally</em> and <em>Sound Money</em> have a significant effect across three model runs, and <em>Regulation</em> has a significant effect for non-OECD countries only. Any one-point increase in the <em>Freedom to Trade Internationally</em> index is correlated with a 1.3 % (pooled), 1.7 % (non-OECD) and 1% (OECD) increase in the growth rate of GDP per capita, on average. Any one-point increase in the <em>Sound Money</em> index is correlated with a 0.7 % (pooled), 0.9 % (non-OECD) and 0.6% (OECD) increase in the growth rate of GDP per capita, on average. Any one-point increase in the <em>Regulation</em> index for non-OECD countries is correlated with a 1.3 % increase in the growth rate of GDP per capita, on average. Finally, any one-point increase in the <em>Size of Government</em> index for pooled countries is correlated with a 0.5 % increase in the growth rate of GDP per capita, on average. To reiterate, an increase in index scores across all three of the variables mentioned indicates an increase in economic freedom, as per EFI design.</p>
+
+<p><br /></p>
+
+<p><em>Figure 9 - Residuals versus Fitted Values plots</em></p>
+
+<div class="row-grid">
+    <div class="column-grid">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-pooled2.png" data-zoomable="" />
+    </div>
+    <div class="column-grid">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-non-oecd2.png" data-zoomable="" />
+    </div>
+    <div class="column-grid">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-oecd2.png" data-zoomable="" />
+    </div>
+</div>
+
+<p><br /></p>
 
 <p>Moreover, to confirm that the revised model significantly diminishes heteroskedasticity and autocorrelation detected previously, Figure 8 reports the Durbin-Watson statistic and Figure 9 shows the residual plots. The Durbin-Watson (d) statistic went from 2.7 to 1.8 (pooled), 2.4 to 2.1 (non-OECD), and 2.9 to 1.7 (OECD). Since a d value of 2 indicates that <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ρ</span></span></span></span> is 0, this indicates a reduction in residual trend correlation. Additionally, Appendix 5 reports the trend of residuals across periods (compared with the OLS estimated ones), indicating a smoothening. Finally, Figure 9 reports the error dispersion (compared with the OLS estimated ones), indicating more uniform dispersion (homoskedasticity).</p>
 
@@ -651,6 +942,8 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <h6 id="limitations-and-future-research"><em>Limitations and future research</em></h6>
 
 <p>This data set was somewhat unbalanced (missing periods for a few cross-sections), resulting in the omission of those observations. Along with balanced panel data, the set needs to extend over a longer time frame, given that in the process of correcting for autocorrelation, the number of observations got further reduced. It would also be useful to detect breakpoints in the time series, centered around significant economic events (like the Great Recession), and perform the estimation around them. Much like a longer time frame, more countries included in the set would be useful. The issue lies in procuring the necessary data, especially further into the past, given that some countries do not provide any data or provide data that is highly questionable.</p>
+
+<h5 id="appendix-1---index-area-components">Appendix 1 - Index Area Components</h5>
 
 <h5 id="works-cited"><strong>Works Cited</strong></h5>
 
