@@ -147,11 +147,9 @@ window.onload = wrap_img;
 
 <p>Figure 6 and Table 2 show the results of the linear regression. As can be noted, the relationships are fairly straightforward and statistically significant. For each 1% increase in traffic volume, there is 54, 38, 90, and 56 percent increase in revenue for quarters 1 through 4, respectively. This data can now be used to estimate revenue from traffic. In this case, revenue is simply</p>
 
-<p><br /></p>
-
-<p><em>revenue = intercept + coefficient * traffic</em></p>
-
-<p><br /></p>
+<p><br />
+<em>revenue = intercept + coefficient * traffic</em>
+<br /></p>
 
 <p>and traffic volume is obtained from monthly turnpike data across Maine.</p>
 
@@ -356,6 +354,7 @@ window.onload = wrap_img;
 193
 194
 195
+196
 </pre></td><td class="code"><pre><span class="w"> 
 
 </span><span class="c1">#-------- packages --------</span><span class="w">
@@ -550,7 +549,8 @@ window.onload = wrap_img;
             </span><span class="n">prediciton_lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">prediction_lower</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">),</span><span class="w"> 
             </span><span class="n">expectation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">expectation</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">),</span><span class="w"> 
             </span><span class="n">expectation_upper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">expectation_upper</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">),</span><span class="w">
-            </span><span class="n">expectation_lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">expectation_lower</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">View</span><span class="p">()</span>
+            </span><span class="n">expectation_lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">expectation_lower</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+    </span><span class="n">View</span><span class="p">()</span>
 </pre></td></tr></tbody></table></code></pre></figure>
 
 <div class="footnotes" role="doc-endnotes">
