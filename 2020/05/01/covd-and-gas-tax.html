@@ -109,7 +109,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      11 min read
+      12 min read
     
 </span></p>
 
@@ -139,23 +139,192 @@ window.onload = wrap_img;
 
 <p>where the moving average is 1, seasonal autoregressive lag is 1 and the data has been differenced once monthly and once seasonally. As can be noted by Figure 4, residuals seem to be distributed randomly and independently. Table 1 reports the estimates of the model. Finally, Figure 5 shows what the expected forecast 12 months ahead is. This forecast covers fiscal year 2019, for which data is available.</p>
 
+<p><br /></p>
+
+<p><em>Table 1. SARIMA estimation results</em></p>
+
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>estimate</th>
+<th>std. error</th>
+<th>t.statistic</th>
+<th>p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ma1</td>
+<td>-0.8469</td>
+<td>0.0557</td>
+<td>-15.218</td>
+<td>0.0000</td>
+</tr>
+<tr>
+<td>sar1</td>
+<td>-0.3528</td>
+<td>0.0903</td>
+<td>-3.9064</td>
+<td>0.0002</td>
+</tr>
+</tbody>
+</table>
+
+<p><br /></p>
+
 <h5 id="step-2-revenue-vs-traffic">Step 2: Revenue vs. Traffic</h5>
 
 <p>Plotting traffic and revenue over time, on the same plot (as can be seen in Figure 7), reveals a few interesting things. They both follow the same seasonal pattern over time (with a month lag between the two) and both have quarterly trends that can be individually considered. First of all, the points are separated into quarterly sets and then shifted over by a month so that the highest and lowest points of each series sync up. This lag is assumed to exist because it must take the state some time (presumably a month) to collect the tax after the traffic levels have been observed.</p>
+
+<p><br /></p>
+
+<p><em>Table 2. OLS estimates</em></p>
+
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Quarter 1</th>
+<th>Quarter 2</th>
+<th>Quarter 3</th>
+<th>Quarter 4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>intercept</td>
+<td><strong>8.168***</strong> <br /> (0.667)</td>
+<td><strong>10.616***</strong> <br /> (2.63)</td>
+<td><strong>2.559*</strong> <br /> (2.93)</td>
+<td><strong>7.744*</strong> <br /> (3.689)</td>
+</tr>
+<tr>
+<td>log(traffic)</td>
+<td><strong>0.539***</strong> <br /> (0.042)</td>
+<td><strong>0.383**</strong> <br /> (0.167)</td>
+<td><strong>0.899***</strong> <br /> (0.188)</td>
+<td><strong>0.561**</strong> <br /> (0.234)</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>* - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
+
+<p><br /></p>
 
 <p>Now, as they are synced up, quarterly slope signs of each series are identical and therefore a straightforward linear regression should be all that is necessary. However, to further capture the possible quarterly idiosyncrasy of the data and further reduce variation, regressions are performed within each quarter. Additionally, future data for state traffic levels and tax revenue used for economic impact analysis of COVID-19 closures will concern the last quarter of fiscal year 2020, starting with April. Therefore, it seemed prudent to isolate quarterly effects in order to obtain the most accurate estimates.</p>
 
 <p>Figure 6 and Table 2 show the results of the linear regression. As can be noted, the relationships are fairly straightforward and statistically significant. For each 1% increase in traffic volume, there is 54, 38, 90, and 56 percent increase in revenue for quarters 1 through 4, respectively. This data can now be used to estimate revenue from traffic. In this case, revenue is simply</p>
 
-<p><br />
-<em>revenue = intercept + coefficient * traffic</em>
-<br /></p>
+<p><br /></p>
+
+<p><em>revenue = intercept + coefficient * traffic</em></p>
+
+<p><br /></p>
 
 <p>and traffic volume is obtained from monthly turnpike data across Maine.</p>
 
 <h5 id="step-3-putting-it-all-together">Step 3: Putting it all together</h5>
 
 <p>This one is straightforward, as Figures 8 and 9 illustrate. Fiscal year 2019 contains three lines: actual revenue (yellow), OLS predicted revenue (green) and time series forecast of expected revenue (red). Furthermore, Table 3 shows the difference between expected and predicted revenue. For fiscal year 2019, this doesn’t provide new information, because there were no unexpected shocks, and all the models arrive at the same conclusion (mostly). However, the purpose of running the model across 2019 was only to determine its validity. Matching results were expected. Fiscal year 2020 is where it is actually going to be used to make predictions.</p>
+
+<p><br /></p>
+
+<p><em>Table 3. Tax revenue comparison for fiscal year 2019, in US$</em></p>
+
+<table>
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th> </th>
+<th>OLS</th>
+<th>OLS</th>
+<th>OLS</th>
+<th>SARIMA</th>
+<th>SARIMA</th>
+<th>SARIMA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> </td>
+<td>Actual Data</td>
+<td>Min</td>
+<td>Average</td>
+<td>Max</td>
+<td>Min</td>
+<td>Average</td>
+<td>Max</td>
+</tr>
+<tr>
+<td>Quarter 1</td>
+<td>58,311,032</td>
+<td>56,724,305</td>
+<td>59,275,087</td>
+<td>61,825,870</td>
+<td>55,836,036</td>
+<td>58,001,488</td>
+<td>60,166,940</td>
+</tr>
+<tr>
+<td>Quarter 2</td>
+<td>51,606,718</td>
+<td>44,014,749</td>
+<td>52,863,879</td>
+<td>61,713,010</td>
+<td>49,853,379</td>
+<td>52,084,273</td>
+<td>54,315,167</td>
+</tr>
+<tr>
+<td>Quarter 3</td>
+<td>47,028,837</td>
+<td>40,009,428</td>
+<td>49,259,003</td>
+<td>58,508,579</td>
+<td>45,395,921</td>
+<td>47,652,095</td>
+<td>49,908,270</td>
+</tr>
+<tr>
+<td>Quarter 4</td>
+<td>50,225,926</td>
+<td>36,792,179</td>
+<td>48,887,326</td>
+<td>60,982,473</td>
+<td>47,774,515</td>
+<td>50,034,520</td>
+<td>52,294,526</td>
+</tr>
+</tbody>
+</table>
+
+<p><br /></p>
 
 <h5 id="appendix-r-code">Appendix: R Code</h5>
 
