@@ -94,7 +94,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      23 min read
+      25 min read
     
 </span></p>
 
@@ -264,7 +264,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p><br /></p>
 
-<p><em>Figure 3 - Correlation Matrix</em></p>
+<p><em>Figure 3. Correlation Matrix</em></p>
 
 <table>
 <colgroup>
@@ -291,7 +291,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 </thead>
 <tbody>
 <tr>
-<td>log growth of GDP per capita</td>
+<td><strong>log growth of GDP per capita</strong></td>
 <td>1.000</td>
 <td> </td>
 <td> </td>
@@ -301,7 +301,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td> </td>
 </tr>
 <tr>
-<td>GDP per capita</td>
+<td><strong>GDP per capita</strong></td>
 <td>-0.089</td>
 <td>1.000</td>
 <td> </td>
@@ -311,7 +311,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td> </td>
 </tr>
 <tr>
-<td>Size of Government</td>
+<td><strong>Size of Government</strong></td>
 <td>0.042</td>
 <td>-0.162</td>
 <td>1.000</td>
@@ -321,7 +321,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td> </td>
 </tr>
 <tr>
-<td>Legal System &amp; Property Rights</td>
+<td><strong>Legal System &amp; Property Rights</strong></td>
 <td>-0.007</td>
 <td>0.686</td>
 <td>-0.185</td>
@@ -331,7 +331,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td> </td>
 </tr>
 <tr>
-<td>Sound Money</td>
+<td><strong>Sound Money</strong></td>
 <td>-0.029</td>
 <td>0.533</td>
 <td>0.043</td>
@@ -341,7 +341,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td> </td>
 </tr>
 <tr>
-<td>Regulation</td>
+<td><strong>Regulation</strong></td>
 <td>-0.035</td>
 <td>0.590</td>
 <td>0.239</td>
@@ -351,7 +351,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td> </td>
 </tr>
 <tr>
-<td>Freedom to Trade Internationally</td>
+<td><strong>Freedom to Trade Internationally</strong></td>
 <td>0.030</td>
 <td>0.495</td>
 <td>0.079</td>
@@ -366,6 +366,226 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <h6 id="autocorrelation"><em>Autocorrelation</em></h6>
 
 <p>Since the primary statistical software used in estimation doesn’t allow for direct autocorrelation testing, several indirect ways shall be explored, to detect any potential autocorrelation. First, simply observing graphs of residuals from the three OLS approaches, can be very indicative of any potential autocorrelation. Indeed, by looking at the attached graphs (see Appendix 4), it seems highly possible that autocorrelation is present. The order is harder to discern. Furthermore, Durbin-Watson statistic can be used for identification of first-order autocorrelation. The autocorrelation coefficient, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ρ</span></span></span></span>, (with stable errors) is located on the interval −1 &lt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ρ</span></span></span></span> &lt; 1, and the Durbin-Watson test statistic is approximately equal to 4, 2 and 0, for the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ρ</span></span></span></span> values of -1, 0, and 1, respectively. Therefore, the d-statistic serves as a rough guide of first order autocorrelation. In the first (pooled) OLS estimate, d is 2.7. Being further from 2 (in the positive direction), indicates that autocorrelation is more likely. The same can be said for the d values of the second (non- OECD) and third (OECD) OLS estimates, for which d values are 2.4 and 2.9, respectively (see Figure 2). Finally, a feasible GLS model is estimated, with the addition of autocorrelation parameters. These are added individually, starting with a parameter for first order autocorrelation, up to the point where their p-values start to become insignificant at conventional confidence levels (see Figure 4). The results indicate a presence of first and second order autocorrelation, with any subsequent level added failing to pass as significant or reducing the number of observations past the optimal point.</p>
+
+<p><br /></p>
+
+<p><em>Figure 4. FGLS Regression - Sensitivity Testing for Autocorrelation</em> <br />
+<em>Dependent variable: log growth of GDP per capita (1975 - 2015)</em></p>
+
+<table>
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>OECD</th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>OECD</th>
+<th>Pooled</th>
+<th>non-OECD</th>
+<th>OECD</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intercept</td>
+<td>0.365 <br /> (0.032)</td>
+<td>0.320 <br /> (0.059)</td>
+<td>0.430 <br /> (0.038)</td>
+<td>0.239 <br /> (0.024)</td>
+<td>0.225 <br /> (0.049)</td>
+<td>0.286 <br /> (0.022)</td>
+<td>0.164 <br /> (0.062)</td>
+<td>0.112 <br /> (0.092)</td>
+<td>0.240 <br /> (0.106)</td>
+</tr>
+<tr>
+<td>log GDP per capita</td>
+<td>-0.063*** <br /> (0.006)</td>
+<td>-0.065*** <br /> (0.011)</td>
+<td>-0.064*** <br /> (0.007)</td>
+<td>-0.037*** <br /> (0.004)</td>
+<td>-0.048*** <br /> (0.010)</td>
+<td>-0.031*** <br /> (0.004)</td>
+<td>-0.023*** <br /> (0.009)</td>
+<td>0.016 <br /> (0.017)</td>
+<td>-0.032*** <br /> (0.009)</td>
+</tr>
+<tr>
+<td>Size of Government</td>
+<td>0.008 <br /> (0.003)</td>
+<td>0.006 <br /> (0.006)</td>
+<td>0.009 <br /> (0.004)</td>
+<td>0.005* <br /> (0.003)</td>
+<td>0.006 <br /> (0.005)</td>
+<td>0.005** <br /> (0.002)</td>
+<td>0.000 <br /> (0.005)</td>
+<td>-0.002 <br /> (0.008)</td>
+<td>0.003 <br /> (0.005)</td>
+</tr>
+<tr>
+<td>Legal System &amp; Property Rights</td>
+<td>0.001 <br /> (0.003)</td>
+<td>-0.004 <br /> (0.006)</td>
+<td>0.006 <br /> (0.004)</td>
+<td>-0.001 <br /> (0.003)</td>
+<td>-0.004 <br /> (0.005)</td>
+<td>0.000 <br /> (0.003)</td>
+<td>0.000 <br /> (0.005)</td>
+<td>0.000* <br /> (0.007)</td>
+<td>0.000 <br /> (0.008)</td>
+</tr>
+<tr>
+<td>Sound Money</td>
+<td>-0.004** <br /> (0.002)</td>
+<td>-0.007** <br /> (0.003)</td>
+<td>-0.001 <br /> (0.003)</td>
+<td>-0.009*** <br /> (0.002)</td>
+<td>-0.010*** <br /> (0.003)</td>
+<td>-0.006*** <br /> (0.002)</td>
+<td>-0.008*** <br /> (0.003)</td>
+<td>-0.006 <br /> (0.004)</td>
+<td>-0.008* <br /> (0.004)</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>0.019*** <br /> (0.005)</td>
+<td>0.024*** <br /> (0.009)</td>
+<td>0.014** <br /> (0.006)</td>
+<td>0.009** <br /> (0.004)</td>
+<td>0.019** <br /> (0.009)</td>
+<td>0.003 <br /> (0.003)</td>
+<td>0.003 <br /> (0.007)</td>
+<td>0.012 <br /> (0.016)</td>
+<td>0.005 <br /> (0.006)</td>
+</tr>
+<tr>
+<td>Freedom to Trade Internationally</td>
+<td>0.013*** <br /> (0.003)</td>
+<td>0.016*** <br /> (0.005)</td>
+<td>0.008*** <br /> (0.003)</td>
+<td>0.017*** <br /> (0.002)</td>
+<td>0.018*** <br /> (0.004)</td>
+<td>0.009*** <br /> (0.002)</td>
+<td>0.022*** <br /> (0.005)</td>
+<td>0.017* <br /> (0.009)</td>
+<td>0.009 <br /> (0.006)</td>
+</tr>
+<tr>
+<td>AR(1)</td>
+<td><strong>-0.351***</strong> <br /> (0.053)</td>
+<td><strong>-0.226***</strong> <br /> (0.089)</td>
+<td><strong>-0.478***</strong> <br /> (0.065)</td>
+<td><strong>-0.590***</strong> <br /> (0.050)</td>
+<td><strong>-0.406***</strong> <br /> (0.089)</td>
+<td><strong>-0.821***</strong> <br /> (0.054)</td>
+<td><strong>-0.517***</strong> <br /> (0.073)</td>
+<td><strong>-0.498***</strong> <br /> (0.121)</td>
+<td><strong>-0.586***</strong> <br /> (0.009)</td>
+</tr>
+<tr>
+<td>AR(2)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td><strong>-0.469***</strong> <br /> (0.049)</td>
+<td><strong>-0.447***</strong> <br /> (0.089)</td>
+<td><strong>-0.607***</strong> <br /> (0.051)</td>
+<td><strong>-0.513***</strong> <br /> (0.064)</td>
+<td><strong>-0.585***</strong> <br /> (0.095)</td>
+<td><strong>-0.552***</strong> <br /> (0.079)</td>
+</tr>
+<tr>
+<td>AR(5)</td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td> </td>
+<td><strong>-0.089***</strong> <br /> (0.049)</td>
+<td><strong>-0.262***</strong> <br /> (0.100)</td>
+<td>0.008 <br /> (0.055)</td>
+</tr>
+<tr>
+<td>Observations</td>
+<td>377</td>
+<td>165</td>
+<td>212</td>
+<td>325</td>
+<td>141</td>
+<td>184</td>
+<td>168</td>
+<td>69</td>
+<td>100</td>
+</tr>
+<tr>
+<td>Cross-section <br /> (periods)</td>
+<td>52 <br /> (8)</td>
+<td>24 <br /> (8)</td>
+<td>28 <br /> (8)</td>
+<td>52 <br /> (7)</td>
+<td>24 <br /> (7)</td>
+<td>28 <br /> (7)</td>
+<td>50 <br /> (4)</td>
+<td>22 <br /> (4)</td>
+<td>28 <br /> (4)</td>
+</tr>
+<tr>
+<td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">R^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></td>
+<td>0.44</td>
+<td>0.37</td>
+<td>0.54</td>
+<td>0.53</td>
+<td>0.38</td>
+<td>0.74</td>
+<td>0.71</td>
+<td>0.73</td>
+<td>0.78</td>
+</tr>
+<tr>
+<td>F-statistic <br /> (p-value)</td>
+<td>4.3 <br /> (0.000)</td>
+<td>2.66 <br /> (0.000)</td>
+<td>6.03 <br /> (0.000)</td>
+<td>5.03 <br /> (0.000)</td>
+<td>2.17 <br /> (0.002)</td>
+<td>11.79 <br /> (0.000)</td>
+<td>4.72 <br /> (0.000)</td>
+<td>3.49 <br /> (0.000)</td>
+<td>6.18 <br /> (0.000)</td>
+</tr>
+<tr>
+<td>Durbin-Watson statistic</td>
+<td>2.32</td>
+<td>2.22</td>
+<td>2.56</td>
+<td>1.80</td>
+<td>2.06</td>
+<td>1.60</td>
+<td>2.41</td>
+<td>2.61</td>
+<td>2.24</td>
+</tr>
+</tbody>
+</table>
+
+<p><em>Note: This approach assumes there might be first, second and fifth order autocorrelation. The fifth order autocorrelation is assumed because growth is studied through 5-year periods. Sensitivity analysis is looking for AR terms that are significant at standard confidence levels and that produce d-statistics closest to 2. Significance levels are as follows: * - 90 % significance / ** - 95 % significance / *** - 99 % significance.</em></p>
+
+<p><br /></p>
 
 <h6 id="heteroskedasticity"><em>Heteroskedasticity</em></h6>
 
