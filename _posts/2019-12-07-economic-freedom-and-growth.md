@@ -502,13 +502,13 @@ After scouring EViews help pages and related forums and blogposts, I have conclu
 
 <div class="row-grid">
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/assets/img/hs-pooled.png" data-zoomable>
+        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/hs-pooled.png" data-zoomable>
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/assets/img/hs-non-oecd.png" data-zoomable>
+        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/hs-non-oecd.png" data-zoomable>
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/assets/img/hs-oecd.png" data-zoomable>
+        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/hs-oecd.png" data-zoomable>
     </div>
 </div>
 
