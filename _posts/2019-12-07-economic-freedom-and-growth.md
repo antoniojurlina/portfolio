@@ -494,6 +494,22 @@ _Note: This approach assumes there might be first, second and fifth order autoco
 
 After scouring EViews help pages and related forums and blogposts, I have concluded that the current version of the statistical software just doesn’t provide support when it comes to testing for heteroskedasticity in panel data through direct tests. With that in mind, there were two options left for attempting to detect possible heteroskedasticity in the data. First approach is a common-sense (backed by econometrics textbooks[^29] [^30]) approach, that assumes there is high probability of heteroskedastic errors occurring in cross-sectional data. This seems intuitively reasonable as well – countries vary greatly in GDP per capita and economic freedom measures, indicating a strong possibility of errors having varying degrees of statistical dispersion. Furthermore, Figure 5 plots residuals against fitted values, for the three OLS estimates (pooled, non-OECD, and OECD). These graphs indicate that errors are indeed not uniformly dispersed and that heteroskedasticity is likely present between cross-sections (i.e. countries). Finally, plots showing within-country fitted values and residuals aren’t feasible since there are only 10 periods under consideration meaning that there aren’t enough points to visually estimate the shape of error dispersion.
 
+<br>
+
+*Figure 5 - Residuals versus Fitted Values plots*
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/hs-pooled.png" data-zoomable>
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/hs-non-oecd.png" data-zoomable>
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/hs-oecd.png" data-zoomable>
+    </div>
+</div>
+
 ###### *Redundant Fixed Effects*
 
 Figure 6 shows the results of redundant fixed effects tests, performed on the three OLS models. With future revised estimation in mind, the tests were completed for fixed cross-sectional effects, fixed period effects, and both. In each case, across all the model version, tests confirm that all model specifications are supported, with significant p-values across multiple tests.
