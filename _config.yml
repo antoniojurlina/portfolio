@@ -16,6 +16,10 @@ github_repo: "portfolio"
 # Note: leave out the trailing / from this value. 
 url: "https://antoniojurlina.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 
+jquery:
+  version: "3.5.1"
+  integrity: "sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+
 ###########################################################
 #########  Special Instructions for baseurl ###############
 #

@@ -65,6 +65,8 @@ window.onload = wrap_img;
 
 {% if site.enable_medium_zoom %}
 <!-- Medium Zoom JS -->
+    <!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/{{ site.jquery.version }}/jquery.min.js" integrity="{{ site.jquery.integrity }}" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/medium-zoom@{{ site.medium_zoom.version }}/dist/medium-zoom.min.js" integrity="{{ site.medium_zoom.integrity }}" crossorigin="anonymous"></script>
 <script src="{{ '/assets/js/zoom.js' | relative_url }}"></script>
 {% endif %}
