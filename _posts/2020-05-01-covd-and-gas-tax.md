@@ -26,16 +26,102 @@ $$(1-\phi_1B^{12})(1-B)(1-B^{12})Y_t=(1-\theta_1B)\varepsilon_t$$
 
 where the moving average is 1, seasonal autoregressive lag is 1 and the data has been differenced once monthly and once seasonally. As can be noted by Figure 4, residuals seem to be distributed randomly and independently. Table 1 reports the estimates of the model. Finally, Figure 5 shows what the expected forecast 12 months ahead is. This forecast covers fiscal year 2019, for which data is available.
 
+<br>
+
+_Table 1. SARIMA estimation results_
+
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>estimate</th>
+<th>std. error</th>
+<th>t.statistic</th>
+<th>p.value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="span">ma1</td>
+<td markdown="span">-0.8469</td>
+<td markdown="span">0.0557</td>
+<td markdown="span">-15.218</td>
+<td markdown="span">0.0000</td>
+</tr>
+<tr>
+<td markdown="span">sar1</td>
+<td markdown="span">-0.3528</td>
+<td markdown="span">0.0903</td>
+<td markdown="span">-3.9064</td>
+<td markdown="span">0.0002</td>
+</tr>
+</tbody>
+</table>
+
+<br>
+
 ##### Step 2: Revenue vs. Traffic
 
 Plotting traffic and revenue over time, on the same plot (as can be seen in Figure 7), reveals a few interesting things. They both follow the same seasonal pattern over time (with a month lag between the two) and both have quarterly trends that can be individually considered. First of all, the points are separated into quarterly sets and then shifted over by a month so that the highest and lowest points of each series sync up. This lag is assumed to exist because it must take the state some time (presumably a month) to collect the tax after the traffic levels have been observed.
+
+<br>
+
+_Table 2. OLS estimates_
+
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th>Quarter 1</th>
+<th>Quarter 2</th>
+<th>Quarter 3</th>
+<th>Quarter 4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="span">intercept</td>
+<td markdown="span">__8.168\*\*\*__ <br> (0.667)</td>
+<td markdown="span">__10.616\*\*\*__ <br> (2.63)</td>
+<td markdown="span">__2.559\*__ <br> (2.93)</td>
+<td markdown="span">__7.744\*__ <br> (3.689)</td>
+</tr>
+<tr>
+<td markdown="span">log(traffic)</td>
+<td markdown="span">__0.539\*\*\*__ <br> (0.042)</td>
+<td markdown="span">__0.383\*\*__ <br> (0.167)</td>
+<td markdown="span">__0.899\*\*\*__ <br> (0.188)</td>
+<td markdown="span">__0.561\*\*__ <br> (0.234)</td>
+</tr>
+</tbody>
+</table>
+
+_\* - 90 % significance / \*\* - 95 % significance / \*\*\* - 99 % significance_
+
+<br>
 
 Now, as they are synced up, quarterly slope signs of each series are identical and therefore a straightforward linear regression should be all that is necessary. However, to further capture the possible quarterly idiosyncrasy of the data and further reduce variation, regressions are performed within each quarter. Additionally, future data for state traffic levels and tax revenue used for economic impact analysis of COVID-19 closures will concern the last quarter of fiscal year 2020, starting with April. Therefore, it seemed prudent to isolate quarterly effects in order to obtain the most accurate estimates.
 
 Figure 6 and Table 2 show the results of the linear regression. As can be noted, the relationships are fairly straightforward and statistically significant. For each 1% increase in traffic volume, there is 54, 38, 90, and 56 percent increase in revenue for quarters 1 through 4, respectively. This data can now be used to estimate revenue from traffic. In this case, revenue is simply
 
 <br>
+
 _revenue = intercept + coefficient \* traffic_
+
 <br>
 
 and traffic volume is obtained from monthly turnpike data across Maine.
@@ -43,6 +129,89 @@ and traffic volume is obtained from monthly turnpike data across Maine.
 ##### Step 3: Putting it all together
 
 This one is straightforward, as Figures 8 and 9 illustrate. Fiscal year 2019 contains three lines: actual revenue (yellow), OLS predicted revenue (green) and time series forecast of expected revenue (red). Furthermore, Table 3 shows the difference between expected and predicted revenue. For fiscal year 2019, this doesn’t provide new information, because there were no unexpected shocks, and all the models arrive at the same conclusion (mostly). However, the purpose of running the model across 2019 was only to determine its validity. Matching results were expected. Fiscal year 2020 is where it is actually going to be used to make predictions.
+
+<br>
+
+_Table 3. Tax revenue comparison for fiscal year 2019, in US\$_
+
+<table>
+<colgroup>
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th> </th>
+<th> </th>
+<th>OLS</th>
+<th>OLS</th>
+<th>OLS</th>
+<th>SARIMA</th>
+<th>SARIMA</th>
+<th>SARIMA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td markdown="span"> </td>
+<td markdown="span">Actual Data</td>
+<td markdown="span">Min</td>
+<td markdown="span">Average</td>
+<td markdown="span">Max</td>
+<td markdown="span">Min</td>
+<td markdown="span">Average</td>
+<td markdown="span">Max</td>
+</tr>
+<tr>
+<td markdown="span">Quarter 1</td>
+<td markdown="span">58,311,032</td>
+<td markdown="span">56,724,305</td>
+<td markdown="span">59,275,087</td>
+<td markdown="span">61,825,870</td>
+<td markdown="span">55,836,036</td>
+<td markdown="span">58,001,488</td>
+<td markdown="span">60,166,940</td>
+</tr>
+<tr>
+<td markdown="span">Quarter 2</td>
+<td markdown="span">51,606,718</td>
+<td markdown="span">44,014,749</td>
+<td markdown="span">52,863,879</td>
+<td markdown="span">61,713,010</td>
+<td markdown="span">49,853,379</td>
+<td markdown="span">52,084,273</td>
+<td markdown="span">54,315,167</td>
+</tr>
+<tr>
+<td markdown="span">Quarter 3</td>
+<td markdown="span">47,028,837</td>
+<td markdown="span">40,009,428</td>
+<td markdown="span">49,259,003</td>
+<td markdown="span">58,508,579</td>
+<td markdown="span">45,395,921</td>
+<td markdown="span">47,652,095</td>
+<td markdown="span">49,908,270</td>
+</tr>
+<tr>
+<td markdown="span">Quarter 4</td>
+<td markdown="span">50,225,926</td>
+<td markdown="span">36,792,179</td>
+<td markdown="span">48,887,326</td>
+<td markdown="span">60,982,473</td>
+<td markdown="span">47,774,515</td>
+<td markdown="span">50,034,520</td>
+<td markdown="span">52,294,526</td>
+</tr>
+</tbody>
+</table>
+
+<br>
 
 ##### Appendix: R Code
 
