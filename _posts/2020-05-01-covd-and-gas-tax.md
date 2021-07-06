@@ -283,8 +283,6 @@ _Table 3. Tax revenue comparison for fiscal year 2019, in US\$_
 </tbody>
 </table>
 
-<br>
-
 *Figure 8 - Tax revenue data (yellow), OLS prediction (green), SARIMA forecast (red); shaded region represents 99% CI*
 
 <div class="row mt-3">
@@ -292,8 +290,6 @@ _Table 3. Tax revenue comparison for fiscal year 2019, in US\$_
         <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/final_figure.png" data-zoomable>
     </div>
 </div>
-
-<br>
 
 *Figure 9 - Tax revenue data (yellow), OLS prediction (green), SARIMA forecast (red); shaded region represents 99% CI, (close up of 2019 fiscal year)*
 
@@ -305,7 +301,208 @@ _Table 3. Tax revenue comparison for fiscal year 2019, in US\$_
 
 <br>
 
-##### Appendix 1: Data Cleanup Code in R
+##### Appendix 1: Data Analysis Code in R
+
+{% highlight r linenos %} 
+
+#-------- packages --------
+library(tidyverse) 
+library(ggplot2) 
+library(lubridate)
+library(directlabels) 
+library(ggrepel) 
+library(ggthemes) 
+library(scales) 
+library(xts)
+library(astsa) 
+library(forecast) 
+library(tseries) 
+library(broom)
+
+#-------- data and directory --------
+directory <- paste0(here::here(), "/data") 
+setwd(directory)
+load("traffic_breakdown.RData") 
+load("traffic_summary.RData") 
+load("class.RData") 
+load("comparison1.RData") 
+load("comparison2.RData") 
+load("interchange.RData") 
+load("tax_revenues.RData") 
+load("unemployment.RData")
+
+directory <- paste0(here::here(), "/output") setwd(directory)
+options(scipen = "100")
+
+#-------- functions --------
+linear_reg <- function(data, formula){ 
+    lm(formula, data)
+}
+
+#-------- analysis --------
+gas <- tax_revenues %>%
+    filter(revenue != 0, !is.na(revenue)) %>%
+    filter(code == "0321") %>%
+    filter(date < "2020-01-01", date >= "2007-01-01") %>% filter(fiscal_year < 2019) %>%
+    group_by(date) %>%
+    summarise(revenue = sum(revenue, na.rm = TRUE)) %>% 
+    ungroup()
+
+gas <- gas %>%
+    mutate(revenue = ifelse(revenue > 22000000, NA, revenue),
+    revenue = ifelse(revenue < 13000000, NA, revenue),
+    revenue = ifelse(is.na(revenue), mean(revenue, na.rm = T), revenue))
+
+gas <- xts(gas$revenue, order.by = gas$date)
+lgas = log(gas)
+dgas <- na.locf(diff(gas), fromLast = T)
+ddgas <- na.locf(diff(dgas, lag = 12), fromLast = T)
+data <- ddgas length(data)
+adf.test(data)
+plot(data)
+acf2(data, max.lag = 100, main = '')
+
+sarima(gas, 0, 1, 1, 1, 1, 0, 12)
+sarima.for(gas, n.ahead = 12, 0, 1, 1, 1, 1, 0, 12)
+auto.arima(gas, trace = TRUE, ic = "bic", seasonal = TRUE, seasonal.test = "ocsb")
+
+ols <- tax_revenues %>%
+    filter(code == "0321", fiscal_year %in% c(2016:2019)) %>% filter(revenue != 0, !is.na(revenue)) %>%
+    filter(date < "2020-04-01") %>%
+    left_join(comparison_2 %>%
+                group_by(date) %>%
+                summarise(traffic = sum(transactions, na.rm = TRUE)) %>%
+                mutate(month = month(date) + 1,
+                       year = year(date),
+                       year = if_else(month > 12, year + 1, year),
+                       month = if_else(month > 12, month - 12, month), date_shifted = ymd(paste0(year, "-", month, "-01"))),
+    by = "date")
+
+plot <- ols %>%
+    ggplot(aes(x = date, y = revenue, color = quarter)) +
+    geom_line() +
+    geom_point() +
+    geom_line(aes(y = lag(traffic, 1))) +
+    geom_point(aes(y = lag(traffic, 1))) +
+    facet_wrap(. ~ fiscal_year, scales = "free_x", nrow = 1) + scale_color_ptol() +
+    theme_linedraw() +
+    scale_y_continuous(label = comma) +
+    theme(axis.text.x = element_blank(),
+    axis.title.x = element_blank(), axis.text.y = element_blank(), axis.title.y = element_blank(), legend.position = "none")
+
+ggsave("plot.png", plot, height = 3, width = 7)
+
+ols %>%
+    ggplot(aes(x = log(lag(traffic,1)), y = log(revenue), colour =
+    quarter)) +
+    geom_point() +
+    stat_smooth(method = "lm") + facet_wrap(. ~ quarter, scales = "free") + scale_color_ptol() +
+    theme_par() +
+    xlab("log(traffic)") + ylab("log(revenue)") + theme(legend.position = "none")
+
+ols %>%
+    ggplot(aes(x = lag(traffic,1), y = revenue, colour = quarter)) + geom_point() +
+    stat_smooth(method = "lm") +
+    scale_y_continuous(label = comma) + scale_x_continuous(label = comma) +
+    facet_wrap(. ~ quarter, scales = "free") + scale_color_ptol() +
+    theme_par() +
+    xlab("traffic") +
+    ylab("revenue") + theme(legend.position = "none")
+
+ols_output <- map(c("Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"), 
+                  function(x) {
+                        bind_rows( ols%>%
+                        filter(quarter == x) %>%
+                        linear_reg(log(revenue) ~ log(lag(traffic, 1))) %>% tidy() %>%
+                        mutate(type = "log",
+                        quarter = x), ols %>%
+                        filter(quarter == x) %>% linear_reg(revenue ~ lag(traffic, 1)) %>% tidy() %>%
+                        mutate(type = "normal",
+                        quarter = x) )
+                    }) %>% data.table::rbindlist()
+
+ols_output_log <- ols_output %>% filter(type == "log")
+ols_output <- ols_output %>% filter(type == "normal")
+ols_output <- left_join( ols_output %>%
+    filter(term == "lag(traffic, 1)") %>% rename(slope = estimate,
+    slope_se = std.error) %>% select(slope, slope_se, quarter),
+    ols_output %>%
+    filter(term != "lag(traffic, 1)") %>% rename(intercept = estimate,
+    intercept_se = std.error) %>% select(intercept, intercept_se, quarter),
+    by = "quarter")
+
+expectation <- sarima.for(gas, n.ahead = 12, 6, 0, 1, 1, 0, 0, 12) 
+expectation <- tibble(expectation$pred,
+                      expectation$se, 
+                      tax_revenues %>%
+                        filter(fiscal_year == 2019) %>%
+                        select(date) %>% 
+                        unique()
+                    ) 
+
+colnames(expectation) <- c("expectation", "error", "date")
+
+prediction <- tax_revenues %>% 
+                filter(code == "0321") %>% 
+                filter(revenue != 0, !is.na(revenue)) %>% 
+                filter(date < "2020-04-01") %>% 
+                left_join(comparison_2 %>%
+                            group_by(date) %>%
+                            summarise(traffic = sum(transactions, na.rm = TRUE)) %>%
+                            mutate(month = month(date) + 1, 
+                                   year = year(date),
+                                   year = if_else(month > 12, year + 1, year),
+                                   month = if_else(month > 12, month - 12, month), 
+                                   date_shifted = ymd(paste0(year, "-", month, "-01"))),
+                by = "date") %>%
+                left_join(ols_output, by = "quarter") %>%
+                left_join(expectation, by = "date") %>%
+                mutate(traffic = lag(traffic, 1),
+                       prediction = ifelse(fiscal_year == 2019, intercept + slope*traffic, NA),
+                       prediction_upper = ifelse(fiscal_year == 2019, (intercept + intercept_se) + (slope + slope_se) * traffic, NA), 
+                       prediction_lower = ifelse(fiscal_year == 2019, (intercept- intercept_se) + (slope - slope_se) * traffic, NA), 
+                       prediction_error = revenue - prediction, 
+                       expectation_upper = expectation + error, 
+                       expectation_lower = expectation - error)
+
+prediction %>%
+    filter(fiscal_year == 2019) %>%
+    ggplot(aes(x = date)) +
+    geom_point(aes(y = revenue), colour = "#DDAA33") + 
+    geom_line(aes(y = revenue), colour = "#DDAA33", size=1.5) +
+    geom_point(aes(y = expectation), colour = "#BB5566") + 
+    geom_line(aes(y = expectation), colour = "#BB5566", size=1.5) +
+    geom_point(aes(y = prediction), colour = "#228833") + 
+    geom_line(aes(y = prediction), colour = "#228833", size=1.5) +
+    geom_ribbon(aes(ymin = prediction_lower, 
+                    ymax =prediction_upper), 
+                fill = "#228833", 
+                colour = "transparent", 
+                alpha = 0.1) +
+    geom_ribbon(aes(ymin = expectation_lower, 
+                    ymax = expectation_upper),
+                fill = "#BB5566", 
+                colour = "transparent", 
+                alpha = 0.3) +
+    scale_y_continuous(label = comma) + 
+    theme_par() +
+    theme(axis.title.x = element_blank())
+    
+prediction %>%
+    filter(fiscal_year == 2019) %>% 
+    group_by(quarter) %>%
+    summarize(revenue = sum(revenue, na.rm = T),
+            prediction = sum(prediction, na.rm = T), 
+            prediction_upper = sum(prediction_upper, na.rm = T), 
+            prediciton_lower = sum(prediction_lower, na.rm = T), 
+            expectation = sum(expectation, na.rm = T), 
+            expectation_upper = sum(expectation_upper, na.rm = T),
+            expectation_lower = sum(expectation_lower, na.rm = T)) %>% 
+    View()
+
+{% endhighlight %}
+
+##### Appendix 2: Data Cleanup Code in R
 
 {% highlight r linenos %} 
 
@@ -807,207 +1004,6 @@ write_csv(class, "class.csv")
 write_csv(interchange, "interchange.csv")
 write_csv(comparison_1, "comparison1.csv")
 write_csv(comparison_2, "comparison2.csv")
-
-{% endhighlight %}
-
-##### Appendix 1: Data Analysis Code in R
-
-{% highlight r linenos %} 
-
-#-------- packages --------
-library(tidyverse) 
-library(ggplot2) 
-library(lubridate)
-library(directlabels) 
-library(ggrepel) 
-library(ggthemes) 
-library(scales) 
-library(xts)
-library(astsa) 
-library(forecast) 
-library(tseries) 
-library(broom)
-
-#-------- data and directory --------
-directory <- paste0(here::here(), "/data") 
-setwd(directory)
-load("traffic_breakdown.RData") 
-load("traffic_summary.RData") 
-load("class.RData") 
-load("comparison1.RData") 
-load("comparison2.RData") 
-load("interchange.RData") 
-load("tax_revenues.RData") 
-load("unemployment.RData")
-
-directory <- paste0(here::here(), "/output") setwd(directory)
-options(scipen = "100")
-
-#-------- functions --------
-linear_reg <- function(data, formula){ 
-    lm(formula, data)
-}
-
-#-------- analysis --------
-gas <- tax_revenues %>%
-    filter(revenue != 0, !is.na(revenue)) %>%
-    filter(code == "0321") %>%
-    filter(date < "2020-01-01", date >= "2007-01-01") %>% filter(fiscal_year < 2019) %>%
-    group_by(date) %>%
-    summarise(revenue = sum(revenue, na.rm = TRUE)) %>% 
-    ungroup()
-
-gas <- gas %>%
-    mutate(revenue = ifelse(revenue > 22000000, NA, revenue),
-    revenue = ifelse(revenue < 13000000, NA, revenue),
-    revenue = ifelse(is.na(revenue), mean(revenue, na.rm = T), revenue))
-
-gas <- xts(gas$revenue, order.by = gas$date)
-lgas = log(gas)
-dgas <- na.locf(diff(gas), fromLast = T)
-ddgas <- na.locf(diff(dgas, lag = 12), fromLast = T)
-data <- ddgas length(data)
-adf.test(data)
-plot(data)
-acf2(data, max.lag = 100, main = '')
-
-sarima(gas, 0, 1, 1, 1, 1, 0, 12)
-sarima.for(gas, n.ahead = 12, 0, 1, 1, 1, 1, 0, 12)
-auto.arima(gas, trace = TRUE, ic = "bic", seasonal = TRUE, seasonal.test = "ocsb")
-
-ols <- tax_revenues %>%
-    filter(code == "0321", fiscal_year %in% c(2016:2019)) %>% filter(revenue != 0, !is.na(revenue)) %>%
-    filter(date < "2020-04-01") %>%
-    left_join(comparison_2 %>%
-                group_by(date) %>%
-                summarise(traffic = sum(transactions, na.rm = TRUE)) %>%
-                mutate(month = month(date) + 1,
-                       year = year(date),
-                       year = if_else(month > 12, year + 1, year),
-                       month = if_else(month > 12, month - 12, month), date_shifted = ymd(paste0(year, "-", month, "-01"))),
-    by = "date")
-
-plot <- ols %>%
-    ggplot(aes(x = date, y = revenue, color = quarter)) +
-    geom_line() +
-    geom_point() +
-    geom_line(aes(y = lag(traffic, 1))) +
-    geom_point(aes(y = lag(traffic, 1))) +
-    facet_wrap(. ~ fiscal_year, scales = "free_x", nrow = 1) + scale_color_ptol() +
-    theme_linedraw() +
-    scale_y_continuous(label = comma) +
-    theme(axis.text.x = element_blank(),
-    axis.title.x = element_blank(), axis.text.y = element_blank(), axis.title.y = element_blank(), legend.position = "none")
-
-ggsave("plot.png", plot, height = 3, width = 7)
-
-ols %>%
-    ggplot(aes(x = log(lag(traffic,1)), y = log(revenue), colour =
-    quarter)) +
-    geom_point() +
-    stat_smooth(method = "lm") + facet_wrap(. ~ quarter, scales = "free") + scale_color_ptol() +
-    theme_par() +
-    xlab("log(traffic)") + ylab("log(revenue)") + theme(legend.position = "none")
-
-ols %>%
-    ggplot(aes(x = lag(traffic,1), y = revenue, colour = quarter)) + geom_point() +
-    stat_smooth(method = "lm") +
-    scale_y_continuous(label = comma) + scale_x_continuous(label = comma) +
-    facet_wrap(. ~ quarter, scales = "free") + scale_color_ptol() +
-    theme_par() +
-    xlab("traffic") +
-    ylab("revenue") + theme(legend.position = "none")
-
-ols_output <- map(c("Quarter 1", "Quarter 2", "Quarter 3", "Quarter 4"), 
-                  function(x) {
-                        bind_rows( ols%>%
-                        filter(quarter == x) %>%
-                        linear_reg(log(revenue) ~ log(lag(traffic, 1))) %>% tidy() %>%
-                        mutate(type = "log",
-                        quarter = x), ols %>%
-                        filter(quarter == x) %>% linear_reg(revenue ~ lag(traffic, 1)) %>% tidy() %>%
-                        mutate(type = "normal",
-                        quarter = x) )
-                    }) %>% data.table::rbindlist()
-
-ols_output_log <- ols_output %>% filter(type == "log")
-ols_output <- ols_output %>% filter(type == "normal")
-ols_output <- left_join( ols_output %>%
-    filter(term == "lag(traffic, 1)") %>% rename(slope = estimate,
-    slope_se = std.error) %>% select(slope, slope_se, quarter),
-    ols_output %>%
-    filter(term != "lag(traffic, 1)") %>% rename(intercept = estimate,
-    intercept_se = std.error) %>% select(intercept, intercept_se, quarter),
-    by = "quarter")
-
-expectation <- sarima.for(gas, n.ahead = 12, 6, 0, 1, 1, 0, 0, 12) 
-expectation <- tibble(expectation$pred,
-                      expectation$se, 
-                      tax_revenues %>%
-                        filter(fiscal_year == 2019) %>%
-                        select(date) %>% 
-                        unique()
-                    ) 
-
-colnames(expectation) <- c("expectation", "error", "date")
-
-prediction <- tax_revenues %>% 
-                filter(code == "0321") %>% 
-                filter(revenue != 0, !is.na(revenue)) %>% 
-                filter(date < "2020-04-01") %>% 
-                left_join(comparison_2 %>%
-                            group_by(date) %>%
-                            summarise(traffic = sum(transactions, na.rm = TRUE)) %>%
-                            mutate(month = month(date) + 1, 
-                                   year = year(date),
-                                   year = if_else(month > 12, year + 1, year),
-                                   month = if_else(month > 12, month - 12, month), 
-                                   date_shifted = ymd(paste0(year, "-", month, "-01"))),
-                by = "date") %>%
-                left_join(ols_output, by = "quarter") %>%
-                left_join(expectation, by = "date") %>%
-                mutate(traffic = lag(traffic, 1),
-                       prediction = ifelse(fiscal_year == 2019, intercept + slope*traffic, NA),
-                       prediction_upper = ifelse(fiscal_year == 2019, (intercept + intercept_se) + (slope + slope_se) * traffic, NA), 
-                       prediction_lower = ifelse(fiscal_year == 2019, (intercept- intercept_se) + (slope - slope_se) * traffic, NA), 
-                       prediction_error = revenue - prediction, 
-                       expectation_upper = expectation + error, 
-                       expectation_lower = expectation - error)
-
-prediction %>%
-    filter(fiscal_year == 2019) %>%
-    ggplot(aes(x = date)) +
-    geom_point(aes(y = revenue), colour = "#DDAA33") + 
-    geom_line(aes(y = revenue), colour = "#DDAA33", size=1.5) +
-    geom_point(aes(y = expectation), colour = "#BB5566") + 
-    geom_line(aes(y = expectation), colour = "#BB5566", size=1.5) +
-    geom_point(aes(y = prediction), colour = "#228833") + 
-    geom_line(aes(y = prediction), colour = "#228833", size=1.5) +
-    geom_ribbon(aes(ymin = prediction_lower, 
-                    ymax =prediction_upper), 
-                fill = "#228833", 
-                colour = "transparent", 
-                alpha = 0.1) +
-    geom_ribbon(aes(ymin = expectation_lower, 
-                    ymax = expectation_upper),
-                fill = "#BB5566", 
-                colour = "transparent", 
-                alpha = 0.3) +
-    scale_y_continuous(label = comma) + 
-    theme_par() +
-    theme(axis.title.x = element_blank())
-    
-prediction %>%
-    filter(fiscal_year == 2019) %>% 
-    group_by(quarter) %>%
-    summarize(revenue = sum(revenue, na.rm = T),
-            prediction = sum(prediction, na.rm = T), 
-            prediction_upper = sum(prediction_upper, na.rm = T), 
-            prediciton_lower = sum(prediction_lower, na.rm = T), 
-            expectation = sum(expectation, na.rm = T), 
-            expectation_upper = sum(expectation_upper, na.rm = T),
-            expectation_lower = sum(expectation_lower, na.rm = T)) %>% 
-    View()
 
 {% endhighlight %}
 
