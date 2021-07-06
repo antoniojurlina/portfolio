@@ -833,6 +833,8 @@ This data set was somewhat unbalanced (missing periods for a few cross-sections)
 
 ##### Appendix 1 - Index Area Components
 
+<br>
+
 * <details>
     <summary> Size of Government: </summary>
         
@@ -843,12 +845,67 @@ This data set was somewhat unbalanced (missing periods for a few cross-sections)
     (c) Government enterprises and investment
     <br>
     (d) Top marginal tax rate
-    <br>
-        (i) Top marginal income tax rate
-    <br>
-        (ii) Top marginal income and payroll tax rate
     </details>
 
+* <details>
+    <summary> Legal System and Property Rights: </summary>
+        
+    (a) Judicial independence
+    <br>
+    (b) Impartial courts
+    <br>
+    (c) Protection of property rights
+    <br>
+    (d) Military interference in rule of law and politics
+    <br>
+    (e) Integrity of the legal system
+    <br>
+    (f) Legal enforcement of contracts
+    <br>
+    (g) Regulatory costs of the sale of real property
+    <br> 
+    (h) Reliability of police
+    <br>
+    (i) Business costs of crime
+    </details>
+
+* <details>
+    <summary> Sound Money: </summary>
+        
+    (a) Money growth
+    <br>
+    (b) Standard deviation of inflation
+    <br>
+    (c) Inflation: most recent year
+    <br>
+    (d) Freedom to own foreign currency bank
+    </details>
+
+* <details>
+    <summary> Freedom to Trade Internationally: </summary>
+        
+    (a) Tariffs
+    <br>
+    (b) Regulatory trade barriers
+    <br>
+    (c) Black-market exchange rates
+    <br>
+    (d) Controls of the movement of capital and people
+    </details>
+
+* <details>
+    <summary> Regulation: </summary>
+        
+    (a) Credit market regulations
+    <br>
+    (b) Labor market regulations
+    <br>
+    (c) Business regulations
+    </details>
+
+<br>
+
+##### Appendix 2 - Summary Statistics
 
 
 ##### **Works Cited**
