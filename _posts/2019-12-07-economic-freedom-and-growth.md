@@ -500,15 +500,15 @@ After scouring EViews help pages and related forums and blogposts, I have conclu
 
 *Figure 5 - Residuals versus Fitted Values plots*
 
-<div class="row mt-3">
-    <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/hs-pooled.png" data-zoomable>
+<div class="row-grid">
+    <div class="column-grid">
+        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/assets/img/hs-pooled.png" data-zoomable>
     </div>
-    <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/hs-non-oecd.png" data-zoomable>
+    <div class="column-grid">
+        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/assets/img/hs-non-oecd.png" data-zoomable>
     </div>
-    <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/hs-oecd.png" data-zoomable>
+    <div class="column-grid">
+        <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/assets/img/hs-oecd.png" data-zoomable>
     </div>
 </div>
 
