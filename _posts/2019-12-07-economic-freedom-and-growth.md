@@ -9,7 +9,7 @@ description: Using an index to determine potential economic relationships (with 
 
 ##### **Summary**
 
-In an attempt to venture solo, while an undergraduate student in economics, I worked on a probit model designed to study the effect traffic congestion has on satisfaction with work and place of residence. The question seemed straightforward, and the dependent variables were already either presented as binary or Likert scales that could be easily turned into one. Data came from the city of Cardiff, UK, in the form of an online questionnaire. I find that an increase in the perceived level of congestion makes individuals less happy with working and living in Cardiff. After adjusting for all the potential issues (like hetersokedasticity) this data might have, the results seem quite robust across two probit models. Included, also, is a link to the GitHub [repository](https://github.com/antoniojurlina/econometrics) containing the data I worked with and the Stata do-file.
+The Economic Freedom Index is published yearly by the Fraser Institute. Latest edition is comprised of five areas used to construct a scale of economic freedom, with each area rated on a scale of 1 to 10. In this project, I use this index along with GDP data for 52 countries, ranging between 1970 and 2015, to estimate the effects of index components on GDP growth. I beging by running a preliminary OLS panel model, followed by several statistical tests designed to probe for the presence of multicollinearity, autocorrelation, heteroskedastisicty and effectiveness of my proposed approach. Eventually, I settled on a feasible generalized least squares model for panel data. The project concludes with a strong indication that the freedom to trade interantionally and sound money are important predictors of GDP growth. Included, also, is a link to the GitHub [repository](https://github.com/antoniojurlina/economic_freedom_and_growth) containing the data I worked with and the EViews files. I chose to work in EViews in order to learn how it works, while I was still builidng my econometrics toolset. After having dealt with everything it has to offer, it is clear to me that there is much better software and statistical languages out there. I would recommend R and Stata for this (and any other similar) project, over EViews.  
 
 **1. Review**
 
@@ -830,6 +830,10 @@ Across all model formulations, freedom to trade internationally remained very ro
 ###### *Limitations and future research*
 
 This data set was somewhat unbalanced (missing periods for a few cross-sections), resulting in the omission of those observations. Along with balanced panel data, the set needs to extend over a longer time frame, given that in the process of correcting for autocorrelation, the number of observations got further reduced. It would also be useful to detect breakpoints in the time series, centered around significant economic events (like the Great Recession), and perform the estimation around them. Much like a longer time frame, more countries included in the set would be useful. The issue lies in procuring the necessary data, especially further into the past, given that some countries do not provide any data or provide data that is highly questionable.
+
+**8. GitHub repository**
+
+For data, code, and similar projects, visit [github.com/antoniojurlina/economic_freedom_and_growth](https://github.com/antoniojurlina/economic_freedom_and_growth).
 
 ##### Appendix 1 - Index Area Components
 
