@@ -266,6 +266,8 @@ One of the primary issues with deconstructing an index is the causal relationshi
 </tbody>
 </table>
 
+<br>
+
 ###### *Autocorrelation*
 
 Since the primary statistical software used in estimation doesn’t allow for direct autocorrelation testing, several indirect ways shall be explored, to detect any potential autocorrelation. First, simply observing graphs of residuals from the three OLS approaches, can be very indicative of any potential autocorrelation. Indeed, by looking at the attached graphs (see Appendix 4), it seems highly possible that autocorrelation is present. The order is harder to discern. Furthermore, Durbin-Watson statistic can be used for identification of first-order autocorrelation. The autocorrelation coefficient, $$\rho$$, (with stable errors) is located on the interval −1 < $$\rho$$ < 1, and the Durbin-Watson test statistic is approximately equal to 4, 2 and 0, for the $$\rho$$ values of -1, 0, and 1, respectively. Therefore, the d-statistic serves as a rough guide of first order autocorrelation. In the first (pooled) OLS estimate, d is 2.7. Being further from 2 (in the positive direction), indicates that autocorrelation is more likely. The same can be said for the d values of the second (non- OECD) and third (OECD) OLS estimates, for which d values are 2.4 and 2.9, respectively (see Figure 2). Finally, a feasible GLS model is estimated, with the addition of autocorrelation parameters. These are added individually, starting with a parameter for first order autocorrelation, up to the point where their p-values start to become insignificant at conventional confidence levels (see Figure 4). The results indicate a presence of first and second order autocorrelation, with any subsequent level added failing to pass as significant or reducing the number of observations past the optimal point.
@@ -509,6 +511,8 @@ After scouring EViews help pages and related forums and blogposts, I have conclu
         <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/hs-oecd.png" data-zoomable>
     </div>
 </div>
+
+<br>
 
 ###### *Redundant Fixed Effects*
 

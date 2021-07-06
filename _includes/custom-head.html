@@ -62,3 +62,9 @@ window.onload = wrap_img;
     document.getElementsByClassName("page-link")[0].href="https://antoniojurlina.github.io"
     });
 </script>
+
+{% if site.enable_medium_zoom %}
+<!-- Medium Zoom JS -->
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@{{ site.medium_zoom.version }}/dist/medium-zoom.min.js" integrity="{{ site.medium_zoom.integrity }}" crossorigin="anonymous"></script>
+<script src="{{ '/assets/js/zoom.js' | relative_url }}"></script>
+{% endif %}
