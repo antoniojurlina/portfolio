@@ -833,6 +833,22 @@ This data set was somewhat unbalanced (missing periods for a few cross-sections)
 
 ##### Appendix 1 - Index Area Components
 
+* <details>
+    <summary> Size of Government: </summary>
+        
+    (a) Government Consumption
+    <br>
+    (b) Transfers and subsidies
+    <br>
+    (c) Government enterprises and investment
+    <br>
+    (d) Top marginal tax rate
+    <br>
+        (i) Top marginal income tax rate
+    <br>
+        (ii) Top marginal income and payroll tax rate
+    </details>
+
 
 
 ##### **Works Cited**
