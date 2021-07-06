@@ -10,13 +10,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Initial economic impact time series analysis in R." />
 <meta property="og:description" content="Initial economic impact time series analysis in R." />
-<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/2020/05/01/covd-and-gas-tax.html" />
-<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/2020/05/01/covd-and-gas-tax.html" />
+<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/2020/05/01/covid-and-gas-tax.html" />
+<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/2020/05/01/covid-and-gas-tax.html" />
 <meta property="og:site_name" content="portfolio" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-05-01T13:11:22-05:00" />
 <script type="application/ld+json">
-{"url":"https://antoniojurlina.github.io/portfolio/2020/05/01/covd-and-gas-tax.html","@type":"BlogPosting","headline":"COVID-19 and Maine Gas Tax","dateModified":"2020-05-01T13:11:22-05:00","datePublished":"2020-05-01T13:11:22-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/2020/05/01/covd-and-gas-tax.html"},"description":"Initial economic impact time series analysis in R.","@context":"https://schema.org"}</script>
+{"url":"https://antoniojurlina.github.io/portfolio/2020/05/01/covid-and-gas-tax.html","@type":"BlogPosting","headline":"COVID-19 and Maine Gas Tax","dateModified":"2020-05-01T13:11:22-05:00","datePublished":"2020-05-01T13:11:22-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/2020/05/01/covid-and-gas-tax.html"},"description":"Initial economic impact time series analysis in R.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/portfolio/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://antoniojurlina.github.io/portfolio/feed.xml" title="portfolio" /><link rel="shortcut icon" type="image/x-icon" href="/portfolio/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -125,7 +125,7 @@ window.onload = wrap_img;
 
 <p>In order to predict the expected losses of decreased traffic volume this reported is broken up into three steps. First, a seasonal ARIMA model is used in order to forecast the general revenue trend the state would have expected to see, had there been no major shock to the economy. Second, the relationship between traffic volume and gasoline tax revenue is estimated through a linear regression model and the expected revenue is predicted using known traffic data. Finally, the entire model is tested within the last fiscal year with available data (which is fiscal year 2019). This allows for comparison of values calculated within steps one and two with actual data.</p>
 
-<p><strong>Note:</strong> This project was done at the request of Maine government with an expectation of certain data privacy regarding tax revenues. Therefore, I have removed some values from the figures and omitted the entire part of the project where predictions are made for the fiscal year 2020 expected tax revenue. What’s shown is the process of determining the expected trend using seasonal ARIMA and an OLS model that determines the relationship between gasoline and tax revenue. These are used later on for future projections. I test the model against known (2019) data and it holds up really well.</p>
+<p><strong>Note:</strong> This project was done at the request of Maine government with an expectation of certain data privacy regarding tax revenues. Therefore, I have removed some values from the figures and omitted the entire part of the project where predictions are made for the fiscal year 2020 expected tax revenue. What’s shown is the process of determining the expected trend using seasonal ARIMA and an OLS model that determines the relationship between gasoline and tax revenue. These are used later on for future projections. I tested the model against known (2019) data and it holds up really well.</p>
 
 <h5 id="step-1-forecasting">Step 1: Forecasting</h5>
 
@@ -420,7 +420,7 @@ window.onload = wrap_img;
 
 <p>For data, code, and similar projects, visit <a href="https://github.com/antoniojurlina/time_series_econometrics/tree/main/project%204">https://github.com/antoniojurlina/time_series_econometrics</a>.</p>
 
-<h5 id="appendix-1-data-analysis-code-in-r">Appendix 1: Data Analysis Code in R</h5>
+<h5 id="appendix-data-analysis-code-in-r">Appendix: Data Analysis Code in R</h5>
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
@@ -824,7 +824,7 @@ window.onload = wrap_img;
   </ol>
 </div>
 
-  </div><a class="u-url" href="/portfolio/2020/05/01/covd-and-gas-tax.html" hidden></a>
+  </div><a class="u-url" href="/portfolio/2020/05/01/covid-and-gas-tax.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
