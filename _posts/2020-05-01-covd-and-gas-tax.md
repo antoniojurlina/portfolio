@@ -22,7 +22,7 @@ Figure 3 shows what the autocorrelations (both partial and complete) look like f
 
 With this in mind (and a few minor alterations around each term), the model with the lowest reported AIC and BIC is SARIMA$$(0,1,1)(1,1,0)_{12}$$ or
 
-$$$$
+$$(1-\phi_1B^{12})(1-B)(1-B^{12})Y_t=(1-\theta_1B)\varepsilon_t$$
 
 where the moving average is 1, seasonal autoregressive lag is 1 and the data has been differenced once monthly and once seasonally. As can be noted by Figure 4, residuals seem to be distributed randomly and independently. Table 1 reports the estimates of the model. Finally, Figure 5 shows what the expected forecast 12 months ahead is. This forecast covers fiscal year 2019, for which data is available.
 
@@ -33,14 +33,20 @@ Plotting traffic and revenue over time, on the same plot (as can be seen in Figu
 Now, as they are synced up, quarterly slope signs of each series are identical and therefore a straightforward linear regression should be all that is necessary. However, to further capture the possible quarterly idiosyncrasy of the data and further reduce variation, regressions are performed within each quarter. Additionally, future data for state traffic levels and tax revenue used for economic impact analysis of COVID-19 closures will concern the last quarter of fiscal year 2020, starting with April. Therefore, it seemed prudent to isolate quarterly effects in order to obtain the most accurate estimates.
 
 Figure 6 and Table 2 show the results of the linear regression. As can be noted, the relationships are fairly straightforward and statistically significant. For each 1% increase in traffic volume, there is 54, 38, 90, and 56 percent increase in revenue for quarters 1 through 4, respectively. This data can now be used to estimate revenue from traffic. In this case, revenue is simply
+
 <br>
+
 _revenue = intercept + coefficient \* traffic_
+
 <br>
+
 and traffic volume is obtained from monthly turnpike data across Maine.
 
 ##### Step 3: Putting it all together
 
 This one is straightforward, as Figures 8 and 9 illustrate. Fiscal year 2019 contains three lines: actual revenue (yellow), OLS predicted revenue (green) and time series forecast of expected revenue (red). Furthermore, Table 3 shows the difference between expected and predicted revenue. For fiscal year 2019, this doesn’t provide new information, because there were no unexpected shocks, and all the models arrive at the same conclusion (mostly). However, the purpose of running the model across 2019 was only to determine its validity. Matching results were expected. Fiscal year 2020 is where it is actually going to be used to make predictions.
+
+##### Appendix: R Code
 
 {% highlight r linenos %} 
 
