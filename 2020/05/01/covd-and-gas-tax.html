@@ -109,7 +109,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      12 min read
+      24 min read
     
 </span></p>
 
@@ -129,9 +129,45 @@ window.onload = wrap_img;
 
 <p>Looking at Figure 1, which shows monthly gasoline tax revenue between 2007 and 2018, several issues need to be addressed before any modelling is to occur. Within the red boxes are monthly values that drastically diverge from the expected trend and the observed mean. This series should be considered a proxy for the real variable of interest. The actual information we could say the state is interested in is the amount of revenue generated each month. However, the state is aware only of the taxes it actually collects, when it collects them. This means that collection processes and lags between the point in time when revenue is generated and when it is collected, need to be taken into account. With this in mind, these points are deemed outliers and reverted to the mean of the remainder of the series.</p>
 
+<p><br /></p>
+
+<p><em>Figure 1 - Gas Tax Revenue Jan 2007 – Jun 2018</em></p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gas_tax_revenue.png" data-zoomable="" />
+    </div>
+</div>
+
+<p><br /></p>
+
 <p>Furthermore, there is clear seasonality in the data. Each fiscal year resembles the one before. Also, there is a slight upward trend in the data: although barely discernable, it is still worth noting. An augmented Dickey-Fuller (ADF) test, one that accounts for seasonality with a trend, failed to reject the presence of unit roots with a statistic of -1.04. To detrend the data, remove the seasonal pattern and lose the unit root issue, the series was differenced monthly and seasonally. That is, each month’s revenue was subtracted from the one a month away and a year away. Running an ADF test on this series, gives the statistic of -6.79 which strongly indicates no more unit root issues. The final series, which now appears to be stationary, can be seen in Figure 2.</p>
 
+<p><br /></p>
+
+<p><em>Figure 2 - Cleaned-up Gas Tax Revenue Jan 2007 – Jun 2018</em></p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gas_tax_revenue_clean.png" data-zoomable="" />
+    </div>
+</div>
+
+<p><br /></p>
+
 <p>Figure 3 shows what the autocorrelations (both partial and complete) look like for the series. Lines colored red represent the seasonal lags (at 12, 24, etc. to account for the monthly nature of the series). Looking at the complete autocorrelation plot (ACF), there is no significant tailing off within a season. However, two red lines above the line of significance suggest that it would be wise to include a seasonal autoregressive term. Looking at the partial autocorrelation plot (PACF), there is some tailing off within a season and no seasonal pattern of significance, suggesting that a moving average term should be added.</p>
+
+<p><br /></p>
+
+<p><em>Figure 3 - ACF (top) and PACF (bottom), seasonal lags in red</em></p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/acf_pacf.png" data-zoomable="" />
+    </div>
+</div>
+
+<p><br /></p>
 
 <p>With this in mind (and a few minor alterations around each term), the model with the lowest reported AIC and BIC is SARIMA<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><msub><mo stretchy="false">)</mo><mn>12</mn></msub></mrow><annotation encoding="application/x-tex">(0,1,1)(1,1,0)_{12}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> or</p>
 
@@ -140,6 +176,14 @@ window.onload = wrap_img;
 <p>where the moving average is 1, seasonal autoregressive lag is 1 and the data has been differenced once monthly and once seasonally. As can be noted by Figure 4, residuals seem to be distributed randomly and independently. Table 1 reports the estimates of the model. Finally, Figure 5 shows what the expected forecast 12 months ahead is. This forecast covers fiscal year 2019, for which data is available.</p>
 
 <p><br /></p>
+
+<p><em>Figure 4 - Analysis of model residuals</em></p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/model_residuals.png" data-zoomable="" />
+    </div>
+</div>
 
 <p><em>Table 1. SARIMA estimation results</em></p>
 
@@ -178,6 +222,14 @@ window.onload = wrap_img;
 </tbody>
 </table>
 
+<p><em>Figure 5 - Forecast for 2019 fiscal year</em></p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/sarima.png" data-zoomable="" />
+    </div>
+</div>
+
 <p><br /></p>
 
 <h5 id="step-2-revenue-vs-traffic">Step 2: Revenue vs. Traffic</h5>
@@ -185,6 +237,14 @@ window.onload = wrap_img;
 <p>Plotting traffic and revenue over time, on the same plot (as can be seen in Figure 7), reveals a few interesting things. They both follow the same seasonal pattern over time (with a month lag between the two) and both have quarterly trends that can be individually considered. First of all, the points are separated into quarterly sets and then shifted over by a month so that the highest and lowest points of each series sync up. This lag is assumed to exist because it must take the state some time (presumably a month) to collect the tax after the traffic levels have been observed.</p>
 
 <p><br /></p>
+
+<p><em>Figure 6 - OLS estimates</em></p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/ols_estimates.png" data-zoomable="" />
+    </div>
+</div>
 
 <p><em>Table 2. OLS estimates</em></p>
 
@@ -238,6 +298,18 @@ window.onload = wrap_img;
 <p><br /></p>
 
 <p>and traffic volume is obtained from monthly turnpike data across Maine.</p>
+
+<p><br /></p>
+
+<p><em>Figure 7 - Organizing traffic (bottom) and revenue (top) data</em></p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/traffic_revenue_data.png" data-zoomable="" />
+    </div>
+</div>
+
+<p><br /></p>
 
 <h5 id="step-3-putting-it-all-together">Step 3: Putting it all together</h5>
 
@@ -326,7 +398,1031 @@ window.onload = wrap_img;
 
 <p><br /></p>
 
-<h5 id="appendix-r-code">Appendix: R Code</h5>
+<p><em>Figure 8 - Tax revenue data (yellow), OLS prediction (green), SARIMA forecast (red); shaded region represents 99% CI</em></p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/final_figure.png" data-zoomable="" />
+    </div>
+</div>
+
+<p><br /></p>
+
+<p><em>Figure 9 - Tax revenue data (yellow), OLS prediction (green), SARIMA forecast (red); shaded region represents 99% CI, (close up of 2019 fiscal year)</em></p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/final_figure_zoom.png" data-zoomable="" />
+    </div>
+</div>
+
+<p><br /></p>
+
+<h5 id="appendix-1-data-cleanup-code-in-r">Appendix 1: Data Cleanup Code in R</h5>
+
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+</pre></td><td class="code"><pre><span class="w"> 
+
+</span><span class="c1">#-------- packages --------</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">tidylog</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">rebus</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">readxl</span><span class="p">)</span><span class="w">
+</span><span class="n">library</span><span class="p">(</span><span class="n">lubridate</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- data and directory --------</span><span class="w">
+</span><span class="n">directory</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">here</span><span class="o">::</span><span class="n">here</span><span class="p">(),</span><span class="w"> </span><span class="s2">"/data"</span><span class="p">)</span><span class="w">
+</span><span class="n">setwd</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span><span class="w">
+
+</span><span class="n">tab_2020</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_xlsx</span><span class="p">(</span><span class="s2">"Maine Traffic - DOT Sensor.xlsx"</span><span class="p">,</span><span class="w"> </span><span class="n">sheet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"2020"</span><span class="p">,</span><span class="w"> </span><span class="n">skip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">tab_2019</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_xlsx</span><span class="p">(</span><span class="s2">"Maine Traffic - DOT Sensor.xlsx"</span><span class="p">,</span><span class="w"> </span><span class="n">sheet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"2019"</span><span class="p">,</span><span class="w"> </span><span class="n">skip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="p">)</span><span class="w">
+</span><span class="n">classifications_2019</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_xlsx</span><span class="p">(</span><span class="s2">"Maine Traffic - DOT Sensor.xlsx"</span><span class="p">,</span><span class="w"> </span><span class="n">range</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"'2019 Classifications'!A1:CA37"</span><span class="p">)</span><span class="w">
+</span><span class="n">classifications_2020</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_xlsx</span><span class="p">(</span><span class="s2">"Maine Traffic - DOT Sensor.xlsx"</span><span class="p">,</span><span class="w"> </span><span class="n">sheet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"2020 Classifications"</span><span class="p">)</span><span class="w">
+</span><span class="n">other_class_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_xlsx</span><span class="p">(</span><span class="s2">"Maine Traffic - DOT Sensor.xlsx"</span><span class="p">,</span><span class="w"> </span><span class="n">sheet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Other Class Data"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">class</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"class temp.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">interchange</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"interchange temp.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">comparison_1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"comparison1 temp.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">comparison_2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"comparison2 temp.csv"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">tax_revenues</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"tax_revenues.csv"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="o">-</span><span class="n">X18</span><span class="p">)</span><span class="w">
+
+</span><span class="n">unemployment_claims</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"unemployment_claims.csv"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">State</span><span class="p">))</span><span class="w">
+</span><span class="n">unemployment</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"unemployment.csv"</span><span class="p">)</span><span class="w"> 
+</span><span class="n">monthly_inflation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"monthly_inflation.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">fuel_efficiency</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"fuel_efficiency.csv"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- cleaning tab_2019 --------</span><span class="w">
+</span><span class="n">fix</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"3/31/19"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/1/19"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"4/2/19"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/3/19"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"4/4/19"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/5/19"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"4/6/19"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/7/19"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"4/8/19"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/9/19"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"4/10/19"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/11/19"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"4/12/19"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/13/19"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mdy</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="nf">as.character</span><span class="p">()</span><span class="w">
+  
+
+</span><span class="n">dates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tibble</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unlist</span><span class="p">(</span><span class="n">tab_2019</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">41</span><span class="p">]),</span><span class="w">
+                </span><span class="n">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">tab_2019</span><span class="p">)[</span><span class="m">5</span><span class="o">:</span><span class="m">41</span><span class="p">])</span><span class="w">
+
+</span><span class="n">dates</span><span class="p">[</span><span class="m">24</span><span class="o">:</span><span class="m">37</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fix</span><span class="w">
+
+</span><span class="n">dates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dates</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="n">date</span><span class="p">))</span><span class="w">
+
+</span><span class="n">tab_2019</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tab_2019</span><span class="p">[</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">66</span><span class="p">,</span><span class="w"> </span><span class="m">67</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="m">42</span><span class="o">:</span><span class="m">46</span><span class="p">))</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">41</span><span class="p">){</span><span class="w">
+  </span><span class="n">vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tab_2019</span><span class="p">[,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="nf">as.character</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_split</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">","</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">unlist</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">numbers</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_detect</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">which</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">NAs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_detect</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="s2">"N"</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">which</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="p">[</span><span class="n">numbers</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="n">numbers</span><span class="p">],</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="p">[</span><span class="n">NAs</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NA</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="w">
+  
+  </span><span class="n">tab_2019</span><span class="p">[,</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">tab_2019</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tab_2019</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"day"</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"traffic"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">tab_2019</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">left_join</span><span class="p">(</span><span class="n">tab_2019</span><span class="p">,</span><span class="w"> </span><span class="n">dates</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"day"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">tab_2019</span><span class="o">$</span><span class="n">day</span><span class="p">,</span><span class="w"> 
+                              </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"..."</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">)))</span><span class="w">
+
+</span><span class="n">days_short</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sun"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Mon"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Tue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Wed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Thu"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Fri"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Sat"</span><span class="p">)</span><span class="w">
+</span><span class="n">days_long</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sunday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Monday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Tuesday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Wednesday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Thursday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Friday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Saturday"</span><span class="p">)</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">seq_along</span><span class="p">(</span><span class="n">days_short</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">tab_2019</span><span class="o">$</span><span class="n">day</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="n">str_detect</span><span class="p">(</span><span class="n">tab_2019</span><span class="o">$</span><span class="n">day</span><span class="p">,</span><span class="w"> 
+                                </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">days_short</span><span class="p">[</span><span class="n">i</span><span class="p">]))]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">days_long</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">tab_2019</span><span class="o">$</span><span class="n">code</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract_all</span><span class="p">(</span><span class="n">tab_2019</span><span class="o">$</span><span class="n">`Site Name`</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPACE</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">END</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">unlist</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" "</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">()</span><span class="w">
+
+</span><span class="n">tab_2019</span><span class="o">$</span><span class="n">`Site Name`</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">tab_2019</span><span class="o">$</span><span class="n">`Site Name`</span><span class="p">,</span><span class="w"> 
+                                       </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPACE</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">END</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">str_to_title</span><span class="p">()</span><span class="w">
+
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">tab_2019</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span><span class="w"> </span><span class="s2">"town"</span><span class="p">,</span><span class="w"> </span><span class="s2">"county"</span><span class="p">,</span><span class="w"> </span><span class="s2">"description"</span><span class="p">,</span><span class="w"> </span><span class="s2">"day"</span><span class="p">,</span><span class="w"> </span><span class="s2">"traffic"</span><span class="p">,</span><span class="w"> </span><span class="s2">"date"</span><span class="p">,</span><span class="w"> </span><span class="s2">"code"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">tab_2019</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tab_2019</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="n">county</span><span class="p">,</span><span class="w"> </span><span class="n">town</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">day</span><span class="p">,</span><span class="w"> </span><span class="n">traffic</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- cleaning tab_2020 --------</span><span class="w">
+</span><span class="n">fix</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"3/17/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"3/18/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"3/19/20"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"3/20/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"3/21/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"3/22/20"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"3/23/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"3/24/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"3/25/20"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"3/26/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"3/27/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"3/28/20"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"3/29/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"3/30/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"3/31/20"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"4/1/20"</span><span class="p">,</span><span class="w"> </span><span class="s2">"4/2/20"</span><span class="p">,</span><span class="w"> </span><span class="s2">"4/3/20"</span><span class="p">,</span><span class="w"> 
+         </span><span class="s2">"4/4/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/5/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/6/20"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"4/7/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/8/20"</span><span class="p">,</span><span class="w">	</span><span class="s2">"4/9/20"</span><span class="p">,</span><span class="w">	
+         </span><span class="s2">"4/10/20"</span><span class="p">,</span><span class="w"> </span><span class="s2">"4/11/20"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mdy</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="nf">as.character</span><span class="p">()</span><span class="w">
+
+</span><span class="n">dates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tibble</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unlist</span><span class="p">(</span><span class="n">tab_2020</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">41</span><span class="p">]),</span><span class="w">
+                </span><span class="n">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">tab_2020</span><span class="p">)[</span><span class="m">5</span><span class="o">:</span><span class="m">41</span><span class="p">])</span><span class="w">
+
+</span><span class="n">dates</span><span class="p">[</span><span class="m">12</span><span class="o">:</span><span class="m">37</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">fix</span><span class="w">
+
+</span><span class="n">dates</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dates</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="n">date</span><span class="p">))</span><span class="w">
+
+</span><span class="n">tab_2020</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tab_2020</span><span class="p">[</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">67</span><span class="p">,</span><span class="w"> </span><span class="m">68</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">41</span><span class="p">){</span><span class="w">
+  </span><span class="n">vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tab_2020</span><span class="p">[,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="nf">as.character</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_split</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">","</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">unlist</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">numbers</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_detect</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">which</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">NAs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_detect</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="s2">"N"</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">which</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="p">[</span><span class="n">numbers</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="n">numbers</span><span class="p">],</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="p">[</span><span class="n">NAs</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NA</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="w">
+  
+  </span><span class="n">tab_2020</span><span class="p">[,</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">tab_2020</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tab_2020</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">5</span><span class="o">:</span><span class="m">41</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"day"</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"traffic"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">tab_2020</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">left_join</span><span class="p">(</span><span class="n">tab_2020</span><span class="p">,</span><span class="w"> </span><span class="n">dates</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"day"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">day</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">tab_2020</span><span class="o">$</span><span class="n">day</span><span class="p">,</span><span class="w"> 
+                              </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"..."</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">)))</span><span class="w">
+
+</span><span class="n">days_short</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sun"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Mon"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Tue"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Wed"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Thu"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Fri"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Sat"</span><span class="p">)</span><span class="w">
+</span><span class="n">days_long</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"Sunday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Monday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Tuesday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Wednesday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Thursday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Friday"</span><span class="p">,</span><span class="w"> </span><span class="s2">"Saturday"</span><span class="p">)</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">seq_along</span><span class="p">(</span><span class="n">days_short</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">tab_2020</span><span class="o">$</span><span class="n">day</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="n">str_detect</span><span class="p">(</span><span class="n">tab_2020</span><span class="o">$</span><span class="n">day</span><span class="p">,</span><span class="w"> 
+                                </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">days_short</span><span class="p">[</span><span class="n">i</span><span class="p">]))]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">days_long</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">tab_2020</span><span class="o">$</span><span class="n">code</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract_all</span><span class="p">(</span><span class="n">tab_2020</span><span class="o">$</span><span class="n">`Site Name`</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPACE</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">END</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">unlist</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" "</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">()</span><span class="w">
+
+</span><span class="n">tab_2020</span><span class="o">$</span><span class="n">`Site Name`</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">tab_2020</span><span class="o">$</span><span class="n">`Site Name`</span><span class="p">,</span><span class="w"> 
+                                       </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SPACE</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">END</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">str_to_title</span><span class="p">()</span><span class="w">
+
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">tab_2020</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"id"</span><span class="p">,</span><span class="w"> </span><span class="s2">"town"</span><span class="p">,</span><span class="w"> </span><span class="s2">"county"</span><span class="p">,</span><span class="w"> </span><span class="s2">"description"</span><span class="p">,</span><span class="w"> </span><span class="s2">"day"</span><span class="p">,</span><span class="w"> </span><span class="s2">"traffic"</span><span class="p">,</span><span class="w"> </span><span class="s2">"date"</span><span class="p">,</span><span class="w"> </span><span class="s2">"code"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">tab_2020</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tab_2020</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="n">county</span><span class="p">,</span><span class="w"> </span><span class="n">town</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">day</span><span class="p">,</span><span class="w"> </span><span class="n">traffic</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- cleaning classifications_2019 --------</span><span class="w">
+</span><span class="n">types</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tibble</span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unlist</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">-1</span><span class="p">]),</span><span class="w">
+                </span><span class="n">place</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">)[</span><span class="m">-1</span><span class="p">])</span><span class="w">
+
+</span><span class="n">types</span><span class="o">$</span><span class="n">type</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="n">str_detect</span><span class="p">(</span><span class="n">types</span><span class="o">$</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Pass"</span><span class="p">))]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Pass. Veh"</span><span class="w">
+</span><span class="n">types</span><span class="o">$</span><span class="n">type</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="n">str_detect</span><span class="p">(</span><span class="n">types</span><span class="o">$</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"SU"</span><span class="p">))]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"SU Trucks"</span><span class="w">
+
+</span><span class="n">classifications_2019</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">classifications_2019</span><span class="p">[</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w"> 
+
+</span><span class="n">classifications_2019</span><span class="o">$</span><span class="n">day</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract_all</span><span class="p">(</span><span class="n">classifications_2019</span><span class="o">$</span><span class="n">...1</span><span class="p">,</span><span class="w">
+                                            </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">WRD</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">SPACE</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">unlist</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">str_remove</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" "</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2019</span><span class="o">$</span><span class="n">...1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">classifications_2019</span><span class="o">$</span><span class="n">...1</span><span class="p">,</span><span class="w"> 
+                                            </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">WRD</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">SPACE</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2019</span><span class="o">$</span><span class="n">...1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dmy</span><span class="p">(</span><span class="n">classifications_2019</span><span class="o">$</span><span class="n">...1</span><span class="p">)</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">79</span><span class="p">){</span><span class="w">
+  </span><span class="n">vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">classifications_2019</span><span class="p">[,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="nf">as.character</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_split</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">","</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">unlist</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">numbers</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_detect</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">which</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">NAs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_detect</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="s2">"N"</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">which</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="p">[</span><span class="n">numbers</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="n">numbers</span><span class="p">],</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="p">[</span><span class="n">NAs</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NA</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="w">
+  
+  </span><span class="n">classifications_2019</span><span class="p">[,</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">index</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_detect</span><span class="p">(</span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">),</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DOT</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">DOT</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">DOT</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">which</span><span class="p">()</span><span class="w">
+
+</span><span class="n">names</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">)[</span><span class="o">-</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1</span><span class="p">)</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">seq_along</span><span class="p">(</span><span class="n">names</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">number</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">which</span><span class="p">(</span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w">
+  </span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">)[</span><span class="n">number</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="s2">"_1"</span><span class="p">)</span><span class="w">
+  </span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">)[</span><span class="n">number</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="s2">"_2"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">)[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"date"</span><span class="w">
+
+</span><span class="n">types</span><span class="o">$</span><span class="n">place</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">)[</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">80</span><span class="p">)]</span><span class="w">
+
+</span><span class="n">classifications_2019</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">79</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"place"</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"traffic"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2019</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">left_join</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">,</span><span class="w"> </span><span class="n">types</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"place"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2019</span><span class="o">$</span><span class="n">place</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">classifications_2019</span><span class="o">$</span><span class="n">place</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"_"</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">DGT</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2019</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">separate</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">place</span><span class="p">,</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"town"</span><span class="p">,</span><span class="w"> </span><span class="s2">"description"</span><span class="p">),</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\\("</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2019</span><span class="o">$</span><span class="n">description</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">classifications_2019</span><span class="o">$</span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\\)"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- cleaning classifications_2020 --------</span><span class="w">
+</span><span class="n">types</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tibble</span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unlist</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">-1</span><span class="p">]),</span><span class="w">
+                </span><span class="n">place</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">)[</span><span class="m">-1</span><span class="p">])</span><span class="w">
+
+</span><span class="n">types</span><span class="o">$</span><span class="n">type</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="n">str_detect</span><span class="p">(</span><span class="n">types</span><span class="o">$</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Pass"</span><span class="p">))]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"Pass. Veh"</span><span class="w">
+</span><span class="n">types</span><span class="o">$</span><span class="n">type</span><span class="p">[</span><span class="n">which</span><span class="p">(</span><span class="n">str_detect</span><span class="p">(</span><span class="n">types</span><span class="o">$</span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"SU"</span><span class="p">))]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"SU Trucks"</span><span class="w">
+
+</span><span class="n">classifications_2020</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">classifications_2020</span><span class="p">[</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="p">]</span><span class="w"> 
+
+</span><span class="n">classifications_2020</span><span class="o">$</span><span class="n">day</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract_all</span><span class="p">(</span><span class="n">classifications_2020</span><span class="o">$</span><span class="n">...1</span><span class="p">,</span><span class="w">
+                                            </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">WRD</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">SPACE</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">unlist</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">str_remove</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" "</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2020</span><span class="o">$</span><span class="n">...1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">classifications_2020</span><span class="o">$</span><span class="n">...1</span><span class="p">,</span><span class="w"> 
+                                            </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">WRD</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">SPACE</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2020</span><span class="o">$</span><span class="n">...1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dmy</span><span class="p">(</span><span class="n">classifications_2020</span><span class="o">$</span><span class="n">...1</span><span class="p">)</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">79</span><span class="p">){</span><span class="w">
+  </span><span class="n">vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">classifications_2020</span><span class="p">[,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="nf">as.character</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_split</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">","</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">unlist</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">numbers</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_detect</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">which</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">NAs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_detect</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="s2">"N"</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">which</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="p">[</span><span class="n">numbers</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="n">numbers</span><span class="p">],</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="p">[</span><span class="n">NAs</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NA</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="w">
+  
+  </span><span class="n">classifications_2020</span><span class="p">[,</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">index</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_detect</span><span class="p">(</span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">),</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DOT</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">DOT</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">DOT</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">which</span><span class="p">()</span><span class="w">
+
+</span><span class="n">names</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">)[</span><span class="o">-</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1</span><span class="p">)</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">seq_along</span><span class="p">(</span><span class="n">names</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">number</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">which</span><span class="p">(</span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w">
+  </span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">)[</span><span class="n">number</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="s2">"_1"</span><span class="p">)</span><span class="w">
+  </span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">)[</span><span class="n">number</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="s2">"_2"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">)[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"date"</span><span class="w">
+
+</span><span class="n">types</span><span class="o">$</span><span class="n">place</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">)[</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">80</span><span class="p">)]</span><span class="w">
+
+</span><span class="n">classifications_2020</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">79</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"place"</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"traffic"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2020</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">left_join</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">,</span><span class="w"> </span><span class="n">types</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"place"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2020</span><span class="o">$</span><span class="n">place</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">classifications_2020</span><span class="o">$</span><span class="n">place</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"_"</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">DGT</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2020</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">separate</span><span class="p">(</span><span class="n">classifications_2020</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">place</span><span class="p">,</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"town"</span><span class="p">,</span><span class="w"> </span><span class="s2">"description"</span><span class="p">),</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\\("</span><span class="p">)</span><span class="w">
+
+</span><span class="n">classifications_2020</span><span class="o">$</span><span class="n">description</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">classifications_2020</span><span class="o">$</span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\\)"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- cleaning other_class_data --------</span><span class="w">
+</span><span class="n">types</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tibble</span><span class="p">(</span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">unlist</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">[</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">-1</span><span class="p">]),</span><span class="w">
+                </span><span class="n">place</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">)[</span><span class="m">-1</span><span class="p">])</span><span class="w">
+
+</span><span class="n">other_class_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">other_class_data</span><span class="p">[</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">9</span><span class="p">,</span><span class="w"> </span><span class="m">10</span><span class="p">,</span><span class="w"> </span><span class="m">11</span><span class="p">,</span><span class="w"> </span><span class="m">19</span><span class="p">),</span><span class="w"> </span><span class="p">]</span><span class="w"> 
+
+</span><span class="n">other_class_data</span><span class="o">$</span><span class="n">day</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract_all</span><span class="p">(</span><span class="n">other_class_data</span><span class="o">$</span><span class="n">...1</span><span class="p">,</span><span class="w">
+                                            </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">WRD</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">SPACE</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">unlist</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">str_remove</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">" "</span><span class="p">)</span><span class="w">
+
+</span><span class="n">other_class_data</span><span class="o">$</span><span class="n">...1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">other_class_data</span><span class="o">$</span><span class="n">...1</span><span class="p">,</span><span class="w"> 
+                                            </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">WRD</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> 
+                                              </span><span class="n">SPACE</span><span class="p">)</span><span class="w">
+
+</span><span class="n">other_class_data</span><span class="o">$</span><span class="n">...1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">dmy</span><span class="p">(</span><span class="n">other_class_data</span><span class="o">$</span><span class="n">...1</span><span class="p">)</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">55</span><span class="p">){</span><span class="w">
+  </span><span class="n">vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">other_class_data</span><span class="p">[,</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="nf">as.character</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_split</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">","</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">unlist</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">numbers</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_detect</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">which</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">NAs</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">str_detect</span><span class="p">(</span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="s2">"N"</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+    </span><span class="n">which</span><span class="p">()</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="p">[</span><span class="n">numbers</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract</span><span class="p">(</span><span class="n">vector</span><span class="p">[</span><span class="n">numbers</span><span class="p">],</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="p">[</span><span class="n">NAs</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="kc">NA</span><span class="w">
+  
+  </span><span class="n">vector</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="w">
+  
+  </span><span class="n">other_class_data</span><span class="p">[,</span><span class="w"> </span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">vector</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">index</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_detect</span><span class="p">(</span><span class="n">colnames</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">),</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DOT</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">DOT</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">DOT</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">which</span><span class="p">()</span><span class="w">
+
+</span><span class="n">names</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">)[</span><span class="o">-</span><span class="n">index</span><span class="p">]</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="n">head</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">-1</span><span class="p">)</span><span class="w">
+
+</span><span class="k">for</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="nf">seq_along</span><span class="p">(</span><span class="n">names</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="n">number</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">which</span><span class="p">(</span><span class="n">colnames</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w">
+  </span><span class="n">colnames</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">)[</span><span class="n">number</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="s2">"_1"</span><span class="p">)</span><span class="w">
+  </span><span class="n">colnames</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">)[</span><span class="n">number</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">paste0</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="w"> </span><span class="s2">"_2"</span><span class="p">)</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span><span class="n">colnames</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">)[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s2">"date"</span><span class="w">
+
+</span><span class="n">types</span><span class="o">$</span><span class="n">place</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">colnames</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">)[</span><span class="o">-</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">56</span><span class="p">)]</span><span class="w">
+
+</span><span class="n">other_class_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">,</span><span class="w"> </span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">55</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"place"</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"traffic"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">other_class_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">left_join</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">,</span><span class="w"> </span><span class="n">types</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"place"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">other_class_data</span><span class="o">$</span><span class="n">place</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">other_class_data</span><span class="o">$</span><span class="n">place</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"_"</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">DGT</span><span class="p">)</span><span class="w">
+
+</span><span class="n">other_class_data</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">separate</span><span class="p">(</span><span class="n">other_class_data</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">place</span><span class="p">,</span><span class="w"> </span><span class="n">into</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"town"</span><span class="p">,</span><span class="w"> </span><span class="s2">"description"</span><span class="p">),</span><span class="w"> </span><span class="n">sep</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\\("</span><span class="p">)</span><span class="w">
+
+</span><span class="n">other_class_data</span><span class="o">$</span><span class="n">description</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">other_class_data</span><span class="o">$</span><span class="n">description</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"\\)"</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- cleaning class data --------</span><span class="w">
+</span><span class="n">class</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">class</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">Vehicle</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">2</span><span class="o">:</span><span class="m">159</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"date"</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"transactions"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">class</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">class</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mdy</span><span class="p">(</span><span class="n">date</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#-------- cleaning interchange data --------</span><span class="w">
+</span><span class="n">interchange</span><span class="o">$</span><span class="n">X7</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_extract_all</span><span class="p">(</span><span class="n">interchange</span><span class="o">$</span><span class="n">plaza</span><span class="p">,</span><span class="w"> 
+                                  </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">unlist</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> </span><span class="nf">as.numeric</span><span class="p">()</span><span class="w">
+
+</span><span class="n">interchange</span><span class="o">$</span><span class="n">plaza</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">str_remove_all</span><span class="p">(</span><span class="n">interchange</span><span class="o">$</span><span class="n">plaza</span><span class="p">,</span><span class="w"> 
+                                    </span><span class="n">pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">START</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">one_or_more</span><span class="p">(</span><span class="n">DGT</span><span class="p">)</span><span class="w"> </span><span class="o">%R%</span><span class="w"> </span><span class="n">SPACE</span><span class="p">)</span><span class="w">
+
+</span><span class="n">interchange</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">interchange</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">X7</span><span class="p">,</span><span class="w"> </span><span class="n">plaza</span><span class="p">,</span><span class="w"> </span><span class="n">revenue</span><span class="p">,</span><span class="w"> </span><span class="n">transactions</span><span class="p">,</span><span class="w"> 
+         </span><span class="n">average_fare</span><span class="p">,</span><span class="w"> </span><span class="n">average_daily_transactions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">average_daily_trans</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- cleaning comparison data --------</span><span class="w">
+</span><span class="n">comparison_1</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">comparison_1</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">revenue</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="p">,</span><span class="w"> </span><span class="n">subtype</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">date</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mdy</span><span class="p">(</span><span class="n">date</span><span class="p">))</span><span class="w">
+
+</span><span class="n">comparison_2</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">comparison_2</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">transactions</span><span class="p">,</span><span class="w"> </span><span class="n">vehicle</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">date</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mdy</span><span class="p">(</span><span class="n">date</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#-------- cleaning tax revenue data --------</span><span class="w">
+</span><span class="n">tax_revenues</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tax_revenues</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">6</span><span class="o">:</span><span class="m">17</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"month"</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"revenue"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fiscal_year</span><span class="p">)</span><span class="w">
+
+</span><span class="n">change</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">which</span><span class="p">(</span><span class="n">tax_revenues</span><span class="o">$</span><span class="n">month</span><span class="w"> </span><span class="o">%in%</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s2">"July"</span><span class="p">,</span><span class="w"> </span><span class="s2">"August"</span><span class="p">,</span><span class="w"> 
+                                           </span><span class="s2">"September"</span><span class="p">,</span><span class="w"> </span><span class="s2">"October"</span><span class="p">,</span><span class="w"> 
+                                           </span><span class="s2">"November"</span><span class="p">,</span><span class="w"> </span><span class="s2">"December"</span><span class="p">))</span><span class="w">
+
+</span><span class="n">tax_revenues</span><span class="o">$</span><span class="n">year</span><span class="p">[</span><span class="n">change</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tax_revenues</span><span class="o">$</span><span class="n">year</span><span class="p">[</span><span class="n">change</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="m">1</span><span class="w">
+
+</span><span class="n">tax_revenues</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">tax_revenues</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w"> </span><span class="s2">"01"</span><span class="p">)),</span><span class="w">
+         </span><span class="n">quarter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">recode</span><span class="p">(</span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="s2">"July"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 1"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"August"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 1"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"September"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 1"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"October"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 2"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"November"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 2"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"December"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 2"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"January"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 3"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"February"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 3"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"March"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 3"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"April"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 4"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"May"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 4"</span><span class="p">,</span><span class="w">
+                                 </span><span class="s2">"June"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"Quarter 4"</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">fiscal_year</span><span class="p">,</span><span class="w"> </span><span class="n">quarter</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="n">fund</span><span class="p">,</span><span class="w"> </span><span class="n">category</span><span class="p">,</span><span class="w"> </span><span class="n">code</span><span class="p">,</span><span class="w"> </span><span class="n">tax</span><span class="p">,</span><span class="w"> </span><span class="n">revenue</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- cleaning unemployment claims data --------</span><span class="w">
+</span><span class="n">unemployment_claims</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unemployment_claims</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mdy</span><span class="p">(</span><span class="n">`Filed week ended`</span><span class="p">),</span><span class="w">
+         </span><span class="n">month</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">month</span><span class="p">(</span><span class="n">date</span><span class="p">),</span><span class="w">
+         </span><span class="n">year</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">year</span><span class="p">(</span><span class="n">date</span><span class="p">))</span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">group_by</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">summarise</span><span class="p">(</span><span class="n">claims</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">`Initial Claims`</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">ungroup</span><span class="p">()</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="s2">"-01"</span><span class="p">)))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">claims</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- cleaning unemployment data --------</span><span class="w">
+</span><span class="n">unemployment</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">unemployment</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">pivot_longer</span><span class="p">(</span><span class="n">cols</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="o">:</span><span class="m">14</span><span class="p">,</span><span class="w"> </span><span class="n">names_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"month"</span><span class="p">,</span><span class="w"> </span><span class="n">values_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"value"</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ymd</span><span class="p">(</span><span class="n">paste0</span><span class="p">(</span><span class="n">year</span><span class="p">,</span><span class="w"> </span><span class="s2">"-"</span><span class="p">,</span><span class="w"> </span><span class="n">month</span><span class="p">,</span><span class="w"> </span><span class="s2">"-01"</span><span class="p">)))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">value</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">category</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">)</span><span class="w">
+  
+
+</span><span class="c1">#-------- cleaning inflation data --------</span><span class="w">
+</span><span class="n">monthly_inflation</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">monthly_inflation</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">filter</span><span class="p">(</span><span class="o">!</span><span class="nf">is.na</span><span class="p">(</span><span class="n">date</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">select</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="w"> </span><span class="n">inflation</span><span class="p">)</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w">
+  </span><span class="n">mutate</span><span class="p">(</span><span class="n">date</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mdy</span><span class="p">(</span><span class="n">date</span><span class="p">))</span><span class="w">
+
+</span><span class="c1">#-------- merging data --------</span><span class="w">
+</span><span class="n">traffic_summary</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">bind_rows</span><span class="p">(</span><span class="n">tab_2019</span><span class="p">,</span><span class="w"> </span><span class="n">tab_2020</span><span class="p">)</span><span class="w">
+
+</span><span class="n">traffic_breakdown</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">bind_rows</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">,</span><span class="w"> 
+                                    </span><span class="n">classifications_2020</span><span class="p">,</span><span class="w">
+                                    </span><span class="n">other_class_data</span><span class="p">)</span><span class="w">
+
+</span><span class="n">rm</span><span class="p">(</span><span class="n">classifications_2019</span><span class="p">,</span><span class="w"> </span><span class="n">classifications_2020</span><span class="p">,</span><span class="w"> </span><span class="n">other_class_data</span><span class="p">,</span><span class="w"> </span><span class="n">dates</span><span class="p">,</span><span class="w">
+   </span><span class="n">types</span><span class="p">,</span><span class="w"> </span><span class="n">tab_2019</span><span class="p">,</span><span class="w"> </span><span class="n">tab_2020</span><span class="p">,</span><span class="w"> </span><span class="n">days_long</span><span class="p">,</span><span class="w"> </span><span class="n">days_short</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">fix</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="n">names</span><span class="p">,</span><span class="w">
+   </span><span class="n">NAs</span><span class="p">,</span><span class="w"> </span><span class="n">number</span><span class="p">,</span><span class="w"> </span><span class="n">numbers</span><span class="p">,</span><span class="w"> </span><span class="n">vector</span><span class="p">,</span><span class="w"> </span><span class="n">change</span><span class="p">)</span><span class="w">
+
+</span><span class="c1">#-------- saving data --------</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">traffic_summary</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"traffic_summary.RData"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">traffic_breakdown</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"traffic_breakdown.RData"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">class</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"class.RData"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">interchange</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"interchange.RData"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">comparison_1</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"comparison1.RData"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">comparison_2</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"comparison2.RData"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">tax_revenues</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"tax_revenues.RData"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">unemployment_claims</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"unemployment_claims.RData"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">monthly_inflation</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"monthly_inflation.RData"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">unemployment</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"unemployment.RData"</span><span class="p">)</span><span class="w">
+</span><span class="n">save</span><span class="p">(</span><span class="n">fuel_efficiency</span><span class="p">,</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">"fuel_efficiency.RData"</span><span class="p">)</span><span class="w">
+
+</span><span class="n">write_csv</span><span class="p">(</span><span class="n">traffic_summary</span><span class="p">,</span><span class="w"> </span><span class="s2">"traffic_summary.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">write_csv</span><span class="p">(</span><span class="n">traffic_breakdown</span><span class="p">,</span><span class="w"> </span><span class="s2">"traffic_breakdown.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">write_csv</span><span class="p">(</span><span class="n">class</span><span class="p">,</span><span class="w"> </span><span class="s2">"class.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">write_csv</span><span class="p">(</span><span class="n">interchange</span><span class="p">,</span><span class="w"> </span><span class="s2">"interchange.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">write_csv</span><span class="p">(</span><span class="n">comparison_1</span><span class="p">,</span><span class="w"> </span><span class="s2">"comparison1.csv"</span><span class="p">)</span><span class="w">
+</span><span class="n">write_csv</span><span class="p">(</span><span class="n">comparison_2</span><span class="p">,</span><span class="w"> </span><span class="s2">"comparison2.csv"</span><span class="p">)</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<h5 id="appendix-1-data-analysis-code-in-r">Appendix 1: Data Analysis Code in R</h5>
 
 <figure class="highlight"><pre><code class="language-r" data-lang="r"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
 2
