@@ -461,4 +461,11 @@ canvas { filter: invert(100%); }
 
 li .post-meta-description { color: rgba(255, 255, 255, 0.69) !important; }
 
+.row-grid { display: flex; flex-wrap: wrap; padding: 0 4px; }
+
+/* Create two equal columns that sits next to each other */
+.column-grid { flex: 50%; padding: 0 4px; }
+
+.column-grid img { margin-top: 8px; vertical-align: middle; }
+
 /*# sourceMappingURL=style.css.map */
