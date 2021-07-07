@@ -205,9 +205,13 @@ _Table 2. Summary statistics of non-categorical variables_
 
 A simple OLS approach, in which the variable of interest is the log of total earnings (sum of the fare, tip, surcharge and tax), is the baseline approach of this project. Independent variables are pickup latitude, pickup longitude, trip distance, and number of passengers. Next, a GAM is estimated over the same basic formula, but with smoothing applied to latitude, longitude and trip distance (with an assumption that the exact shape of the effect these variables have on final earnings is unknown). The use of the GAM (to be followed with kriging of residuals) comes from a very similar idea Gámez et al.[^2] had in their work on estimating housing prices in Albacete by incorporating the neighborhood effects through spatial autocorrelation estimation and subsequent kriging of GAM residuals. In Manhattan, the assumption is that downtown pickups result in higher earnings. This indicates a certain weight neighboring points will have on each other as an isotropic spatial autocorrelation process. Therefore, the residuals of the GAM are expected to be biased, and kriging will be performed to account for and fix this. Kriging itself has a random component to it, as the underlying Gaussian process is used to interpolate predictions[^3] [^4] [^5], which is what inspired the final aspect of this project, Random Forests.
 
+<br>
+
 $$log(Y)=\alpha * X$$ 
 
 _Note: $$\alpha$$ is a single-column matrix of parameter values to be estimated, X is a n:1+m matrix of independent variables where n is the number of observations in data and m is the number of variables_
+
+<br>
 
 Much like kriging, Random Forest models (as the name implies) rely on an underlying random process and are used in estimating spatial models and making predictions[^6] [^7]. In this project, a Random Forest model is used to estimate Equation 1, by growing 500 random decision trees across the data space and averaging them out into a prediction set. For the purposes of training the three models and subsequently testing them, the data is split into two subsets: first one contains a random subset of 75% of the data for training the models, while the second contains the remaining 25% for testing the predictions and estimating root mean square errors (Figure 3). These two datasets are used for the OLS, the GAM and kriging combination (with a spherical effect variogram model of the spatial dependence), and the Random Forest.
 
@@ -458,8 +462,6 @@ For data, code, and similar projects, visit [https://github.com/antoniojurlina/s
 
 ##### Appendix 1: Distributions
 
-<br>
-
 *GAM+Krige prediction distribution (red) vs. actual data (blue)*
 
 <div class="row mt-3">
@@ -467,8 +469,6 @@ For data, code, and similar projects, visit [https://github.com/antoniojurlina/s
         <img class="img-fluid rounded z-depth-1" src="{{ site.baseurl }}/images/predictions_distribution.png" data-zoomable>
     </div>
 </div>
-
-<br>
 
 ##### Appendix 2: R Code
 
@@ -522,6 +522,7 @@ train_sf <- st_as_sf(train_sf)
 test_sf <- st_as_sf(test_sf)
 
 manhattan <- readRDS("manhattan.rds")
+
 #-------- visualization and summary--------
 ggmap(manhattan, darken = 0.5) +
 	scale_fill_viridis(option = 'plasma') +
