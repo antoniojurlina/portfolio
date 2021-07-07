@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Predictive power - Kriging and Machine Learning
+title: Predictive Power - Kriging and Machine Learning
 date: 2020-12-04 09:37:17 PDT
 description: Comparing the predictive power of kriging and Random Forests in R.
 ---
@@ -205,7 +205,7 @@ _Table 2. Summary statistics of non-categorical variables_
 
 A simple OLS approach, in which the variable of interest is the log of total earnings (sum of the fare, tip, surcharge and tax), is the baseline approach of this project. Independent variables are pickup latitude, pickup longitude, trip distance, and number of passengers. Next, a GAM is estimated over the same basic formula, but with smoothing applied to latitude, longitude and trip distance (with an assumption that the exact shape of the effect these variables have on final earnings is unknown). The use of the GAM (to be followed with kriging of residuals) comes from a very similar idea Gámez et al.[^2] had in their work on estimating housing prices in Albacete by incorporating the neighborhood effects through spatial autocorrelation estimation and subsequent kriging of GAM residuals. In Manhattan, the assumption is that downtown pickups result in higher earnings. This indicates a certain weight neighboring points will have on each other as an isotropic spatial autocorrelation process. Therefore, the residuals of the GAM are expected to be biased, and kriging will be performed to account for and fix this. Kriging itself has a random component to it, as the underlying Gaussian process is used to interpolate predictions[^3] [^4] [^5], which is what inspired the final aspect of this project, Random Forests.
 
-$$log(Y)=\alphaX$$ 
+$$log(Y)=\alpha * X$$ 
 
 _Note: $$\alpha$$ is a single-column matrix of parameter values to be estimated, X is a n:1+m matrix of independent variables where n is the number of observations in data and m is the number of variables_
 
@@ -213,7 +213,7 @@ Much like kriging, Random Forest models (as the name implies) rely on an underly
 
 <br>
 
-*Figure 3 - Temporal breakdown of the dependent variable*
+*Figure 3 - Test vs. train data set comparison*
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
