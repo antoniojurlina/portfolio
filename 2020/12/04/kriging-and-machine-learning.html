@@ -4,9 +4,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Predictive power - Kriging and Machine Learning | portfolio</title>
+<title>Predictive Power - Kriging and Machine Learning | portfolio</title>
 <meta name="generator" content="Jekyll v4.1.1" />
-<meta property="og:title" content="Predictive power - Kriging and Machine Learning" />
+<meta property="og:title" content="Predictive Power - Kriging and Machine Learning" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Comparing the predictive power of kriging and Random Forests in R." />
 <meta property="og:description" content="Comparing the predictive power of kriging and Random Forests in R." />
@@ -16,7 +16,7 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-12-04T10:37:17-06:00" />
 <script type="application/ld+json">
-{"url":"https://antoniojurlina.github.io/portfolio/2020/12/04/kriging-and-machine-learning.html","@type":"BlogPosting","headline":"Predictive power - Kriging and Machine Learning","dateModified":"2020-12-04T10:37:17-06:00","datePublished":"2020-12-04T10:37:17-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/2020/12/04/kriging-and-machine-learning.html"},"description":"Comparing the predictive power of kriging and Random Forests in R.","@context":"https://schema.org"}</script>
+{"url":"https://antoniojurlina.github.io/portfolio/2020/12/04/kriging-and-machine-learning.html","@type":"BlogPosting","headline":"Predictive Power - Kriging and Machine Learning","dateModified":"2020-12-04T10:37:17-06:00","datePublished":"2020-12-04T10:37:17-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/2020/12/04/kriging-and-machine-learning.html"},"description":"Comparing the predictive power of kriging and Random Forests in R.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/portfolio/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://antoniojurlina.github.io/portfolio/feed.xml" title="portfolio" /><link rel="shortcut icon" type="image/x-icon" href="/portfolio/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -103,7 +103,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Predictive power - Kriging and Machine Learning</h1><p class="page-description">Comparing the predictive power of kriging and Random Forests in R.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-12-04T10:37:17-06:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Predictive Power - Kriging and Machine Learning</h1><p class="page-description">Comparing the predictive power of kriging and Random Forests in R.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-12-04T10:37:17-06:00" itemprop="datePublished">
         Dec 4, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -318,7 +318,7 @@ window.onload = wrap_img;
 
 <p>A simple OLS approach, in which the variable of interest is the log of total earnings (sum of the fare, tip, surcharge and tax), is the baseline approach of this project. Independent variables are pickup latitude, pickup longitude, trip distance, and number of passengers. Next, a GAM is estimated over the same basic formula, but with smoothing applied to latitude, longitude and trip distance (with an assumption that the exact shape of the effect these variables have on final earnings is unknown). The use of the GAM (to be followed with kriging of residuals) comes from a very similar idea Gámez et al.<sup id="fnref:2" role="doc-noteref"><a href="#fn:2" class="footnote" rel="footnote">2</a></sup> had in their work on estimating housing prices in Albacete by incorporating the neighborhood effects through spatial autocorrelation estimation and subsequent kriging of GAM residuals. In Manhattan, the assumption is that downtown pickups result in higher earnings. This indicates a certain weight neighboring points will have on each other as an isotropic spatial autocorrelation process. Therefore, the residuals of the GAM are expected to be biased, and kriging will be performed to account for and fix this. Kriging itself has a random component to it, as the underlying Gaussian process is used to interpolate predictions<sup id="fnref:3" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> <sup id="fnref:4" role="doc-noteref"><a href="#fn:4" class="footnote" rel="footnote">4</a></sup> <sup id="fnref:5" role="doc-noteref"><a href="#fn:5" class="footnote" rel="footnote">5</a></sup>, which is what inspired the final aspect of this project, Random Forests.</p>
 
-<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>Y</mi><mo stretchy="false">)</mo><mo>=</mo><mstyle mathcolor="#cc0000"><mtext>\alphaX</mtext></mstyle></mrow><annotation encoding="application/x-tex">log(Y)=\alphaX</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord text" style="color:#cc0000;"><span class="mord" style="color:#cc0000;">\alphaX</span></span></span></span></span></span>
+<span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>l</mi><mi>o</mi><mi>g</mi><mo stretchy="false">(</mo><mi>Y</mi><mo stretchy="false">)</mo><mo>=</mo><mi>α</mi><mo>∗</mo><mi>X</mi></mrow><annotation encoding="application/x-tex">log(Y)=\alpha * X</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">o</span><span class="mord mathdefault" style="margin-right:0.03588em;">g</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.46528em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.07847em;">X</span></span></span></span></span>
 
 <p><em>Note: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>α</mi></mrow><annotation encoding="application/x-tex">\alpha</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.0037em;">α</span></span></span></span> is a single-column matrix of parameter values to be estimated, X is a n:1+m matrix of independent variables where n is the number of observations in data and m is the number of variables</em></p>
 
@@ -326,7 +326,7 @@ window.onload = wrap_img;
 
 <p><br /></p>
 
-<p><em>Figure 3 - Temporal breakdown of the dependent variable</em></p>
+<p><em>Figure 3 - Test vs. train data set comparison</em></p>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
