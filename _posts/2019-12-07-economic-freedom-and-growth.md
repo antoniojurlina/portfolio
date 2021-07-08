@@ -1,8 +1,10 @@
 ---
+toc: true
 layout: post
 title: Economic Freedom and Growth
 date: 2019-12-07 15:12:31 PDT
 description: Using an index to determine potential economic relationships (with code in EViews).
+categories: [projects, EViews]
 ---
 
 <br> 

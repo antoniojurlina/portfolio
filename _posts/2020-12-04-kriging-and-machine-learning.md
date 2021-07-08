@@ -1,8 +1,10 @@
 ---
+toc: true
 layout: post
 title: Predictive Power - Kriging and Machine Learning
 date: 2020-12-04 09:37:17 PDT
 description: Comparing the predictive power of kriging and Random Forests in R.
+categories: [projects, R]
 ---
 
 <br> 

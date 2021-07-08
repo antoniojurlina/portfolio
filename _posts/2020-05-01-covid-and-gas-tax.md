@@ -1,8 +1,10 @@
 ---
+toc: true
 layout: post
 title: COVID-19 and Maine Gas Tax
 date: 2020-05-01 11:11:22 PDT
 description: Initial economic impact time series analysis in R.
+categories: [projects, R]
 ---
 
 <br> 
