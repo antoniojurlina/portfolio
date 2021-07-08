@@ -10,13 +10,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="An inital econometric approach using a probit model written in Stata." />
 <meta property="og:description" content="An inital econometric approach using a probit model written in Stata." />
-<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/2019/04/30/congestion-and-satisfaction.html" />
-<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/2019/04/30/congestion-and-satisfaction.html" />
+<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/projects/stata/2019/04/30/congestion-and-satisfaction.html" />
+<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/projects/stata/2019/04/30/congestion-and-satisfaction.html" />
 <meta property="og:site_name" content="portfolio" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-04-30T19:13:45-05:00" />
 <script type="application/ld+json">
-{"url":"https://antoniojurlina.github.io/portfolio/2019/04/30/congestion-and-satisfaction.html","@type":"BlogPosting","headline":"How does traffic congestion impact life satisfaction?","dateModified":"2019-04-30T19:13:45-05:00","datePublished":"2019-04-30T19:13:45-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/2019/04/30/congestion-and-satisfaction.html"},"description":"An inital econometric approach using a probit model written in Stata.","@context":"https://schema.org"}</script>
+{"url":"https://antoniojurlina.github.io/portfolio/projects/stata/2019/04/30/congestion-and-satisfaction.html","@type":"BlogPosting","headline":"How does traffic congestion impact life satisfaction?","dateModified":"2019-04-30T19:13:45-05:00","datePublished":"2019-04-30T19:13:45-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/projects/stata/2019/04/30/congestion-and-satisfaction.html"},"description":"An inital econometric approach using a probit model written in Stata.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/portfolio/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://antoniojurlina.github.io/portfolio/feed.xml" title="portfolio" /><link rel="shortcut icon" type="image/x-icon" href="/portfolio/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -114,34 +114,54 @@ window.onload = wrap_img;
 </span></p>
 
     
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/portfolio/categories/#projects">projects</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/portfolio/categories/#Stata">Stata</a>
+        
+      
+      </p>
+    
 
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p><br /></p>
+    <ul class="section-nav">
+<li class="toc-entry toc-h5"><a href="#summary">Summary</a></li>
+<li class="toc-entry toc-h5"><a href="#part-i">Part I</a></li>
+<li class="toc-entry toc-h5"><a href="#part-ii">Part II</a></li>
+<li class="toc-entry toc-h5"><a href="#stata-code">Stata code</a></li>
+<li class="toc-entry toc-h5"><a href="#works-cited">Works Cited</a></li>
+</ul><p><br></p>
 
-<h5 id="summary"><strong>Summary</strong></h5>
+<h5 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Summary</strong>
+</h5>
 
 <p>In an attempt to venture solo, while an undergraduate student in economics, I worked on a probit model designed to study the effect traffic congestion has on satisfaction with work and place of residence. The question seemed straightforward, and the dependent variables were already either presented as binary or Likert scales that could be easily turned into one. Data came from the city of Cardiff, UK, in the form of an online questionnaire. I find that an increase in the perceived level of congestion makes individuals less happy with working and living in Cardiff. After adjusting for all the potential issues (like hetersokedasticity) this data might have, the results seem quite robust across two probit models. Included, also, is a link to the GitHub <a href="https://github.com/antoniojurlina/econometrics">repository</a> containing the data I worked with and the Stata do-file.</p>
 
-<h5 id="part-i"><strong>Part I</strong></h5>
+<h5 id="part-i">
+<a class="anchor" href="#part-i" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Part I</strong>
+</h5>
 
 <p><strong>1. Data</strong></p>
 
 <p>Council authority of Cardiff has, in cooperation with Cardiff Business Partnership, conducted an online survey, yielding 2,094 responses. After data clean-up process, 2,045 observations remained. While most variables were dropped, 17 were deemed significant enough to include (see Table 1). Missing values were filled with unconditional means, except in the case of the variables describing the primary method of transportation and proximity of a train station, where 19 and 32 observations with missing values were dropped, respectively. Variables regarding age, income and employment duration were acquired via drop-down answer menus on the survey, with each answer constituting a specific bracket. For the sake of continuity and interpretability, these answers were encoded as the midpoint value of each bracket. Since each set of brackets concluded with an open ended one (e.g. more than 10, 65+, etc.), and no middle point could be determined, each of those categories was encoded as the sum of the size of the largest bracket (for the relevant variable) and the bracket’s lower bound.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Table 1 - Data Summary</em></p>
 
 <table>
 <colgroup>
-<col width="30%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="30%" />
+<col width="30%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="30%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -293,7 +313,7 @@ window.onload = wrap_img;
 </tbody>
 </table>
 
-<p><br /></p>
+<p><br></p>
 
 <p><strong>2. Methodology</strong></p>
 
@@ -309,50 +329,52 @@ window.onload = wrap_img;
 
 <p><strong>3. Hypotheses</strong></p>
 
-<hr />
+<hr>
 
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>01</mn></msub></mrow><annotation encoding="application/x-tex">H_{01}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: <em>Congestion has no significant impact on job satisfaction for residents of Cardiff.</em></p>
 
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mrow><mi>A</mi><mn>1</mn></mrow></msub></mrow><annotation encoding="application/x-tex">H_{A1}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">A</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: <em>Congestion has a negative impact on job satisfaction for residents of Cardiff.</em></p>
 
-<hr />
+<hr>
 
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mn>02</mn></msub></mrow><annotation encoding="application/x-tex">H_{02}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">0</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: <em>Congestion has no significant impact on satisfaction with place of residence.</em></p>
 
 <p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mrow><mi>A</mi><mn>2</mn></mrow></msub></mrow><annotation encoding="application/x-tex">H_{A2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.32833099999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight">A</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>: <em>Congestion has a negative impact on satisfaction with place of residence.</em></p>
 
-<hr />
+<hr>
 
 <p>Models are demonstrating the conditional probability of a specific outcome occurring (<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>Y</mi><mi>i</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">Y_i = 1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.83333em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.22222em;">Y</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.31166399999999994em;"><span style="top:-2.5500000000000003em;margin-left:-0.22222em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">i</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span> meaning satisfied with job for Model 1 and satisfied with place of residence for Model 2), for 3 which the marginal effects show how a unit change for <strong>congestion</strong> increases (or decreases) the probability of the given outcome occurring (et ceteris paribus).</p>
 
-<p><br /></p>
+<p><br></p>
 
-<h5 id="part-ii"><strong>Part II</strong></h5>
+<h5 id="part-ii">
+<a class="anchor" href="#part-ii" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Part II</strong>
+</h5>
 
 <p><strong>1. Satisfaction with working and living in Cardiff</strong></p>
 
-<hr />
+<hr>
 
 <p><em>I am quite confident that an increase in perceived level of congestion makes individuals 4% less likely to be satisfied with working in Cardiff.</em></p>
 
-<hr />
+<hr>
 
 <p><em>I am quite confident that an increase in perceived level of congestion makes individuals 5% less likely to be satisfied with living in Cardiff.</em></p>
 
-<hr />
+<hr>
 
 <p>Tables 2 and 3 present more detailed results for these claims and state the possibility of a mistake being made. Numbers showing the impact of congestion on satisfaction with working and living in Cardiff are positive. This is a consequence of the way the survey was designed (1 is very bad and 5 is very good) and should be interpreted with an opposite sign. Literature review supports this finding. High levels of traffic congestion are associated with mental and physical stress<sup id="fnref:11" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup> <sup id="fnref:12" role="doc-noteref"><a href="#fn:12" class="footnote" rel="footnote">12</a></sup>, which are further aggravated with the inability to complete daily routines <sup id="fnref:13" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>. Furthermore, long work commutes cause residual stress in the workplace <sup id="fnref:7:1" role="doc-noteref"><a href="#fn:7" class="footnote" rel="footnote">7</a></sup> <sup id="fnref:14" role="doc-noteref"><a href="#fn:14" class="footnote" rel="footnote">14</a></sup> <sup id="fnref:15" role="doc-noteref"><a href="#fn:15" class="footnote" rel="footnote">15</a></sup>. Kahneman et al.<sup id="fnref:8:1" role="doc-noteref"><a href="#fn:8" class="footnote" rel="footnote">8</a></sup> found that work commutes were most frequently associated with negative feelings, out of all daily habits.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Table 2 - Model 1 marginal effects</em></p>
 
 <table>
 <colgroup>
-<col width="50%" />
-<col width="10%" />
-<col width="20%" />
-<col width="20%" />
+<col width="50%">
+<col width="10%">
+<col width="20%">
+<col width="20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -366,19 +388,22 @@ window.onload = wrap_img;
 <tr>
 <td>Quality of public transportation</td>
 <td> </td>
-<td>0.049<strong>***</strong></td>
+<td>0.049<strong>***</strong>
+</td>
 <td>0.011</td>
 </tr>
 <tr>
 <td>Being able to get from place to place with little traffic (i.e. congestion)</td>
 <td> </td>
-<td>0.041<strong>***</strong></td>
+<td>0.041<strong>***</strong>
+</td>
 <td>0.011</td>
 </tr>
 <tr>
 <td>Work proximity</td>
 <td> </td>
-<td>0.023<strong>***</strong></td>
+<td>0.023<strong>***</strong>
+</td>
 <td>0.008</td>
 </tr>
 <tr>
@@ -396,7 +421,8 @@ window.onload = wrap_img;
 <tr>
 <td>Overall satisfaction with life</td>
 <td> </td>
-<td>-0.027<strong>**</strong></td>
+<td>-0.027<strong>**</strong>
+</td>
 <td>0.011</td>
 </tr>
 <tr>
@@ -408,7 +434,8 @@ window.onload = wrap_img;
 <tr>
 <td>Income</td>
 <td> </td>
-<td>0.000<strong>***</strong></td>
+<td>0.000<strong>***</strong>
+</td>
 <td>0.000</td>
 </tr>
 <tr>
@@ -420,7 +447,8 @@ window.onload = wrap_img;
 <tr>
 <td>Sex</td>
 <td> </td>
-<td>-0.072<strong>***</strong></td>
+<td>-0.072<strong>***</strong>
+</td>
 <td>0.022</td>
 </tr>
 <tr>
@@ -438,46 +466,50 @@ window.onload = wrap_img;
 <tr>
 <td>Overall satisfaction with place of residence</td>
 <td> </td>
-<td>0.094<strong>***</strong></td>
+<td>0.094<strong>***</strong>
+</td>
 <td>0.023</td>
 </tr>
 <tr>
 <td>Train station proximity</td>
-<td>Yes <br /> No</td>
-<td>-0.204<strong>***</strong> <br /> -0.219<strong>***</strong></td>
-<td>0.058 <br /> 0.027</td>
+<td>Yes <br> No</td>
+<td>-0.204<strong>***</strong> <br> -0.219<strong>***</strong>
+</td>
+<td>0.058 <br> 0.027</td>
 </tr>
 <tr>
 <td>Education</td>
 <td> </td>
-<td>0.024<strong>**</strong></td>
+<td>0.024<strong>**</strong>
+</td>
 <td>0.010</td>
 </tr>
 <tr>
 <td>Primary mode of transportation</td>
-<td>Public <br /> Drive</td>
-<td> 0.010 <br /> 0.076<strong>***</strong></td>
-<td>0.033 <br /> 0.027</td>
+<td>Public <br> Drive</td>
+<td> 0.010 <br> 0.076<strong>***</strong>
+</td>
+<td>0.033 <br> 0.027</td>
 </tr>
 </tbody>
 </table>
 
 <p><em>* - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Public transportation plays a major role in mitigating the effects of congestion on satisfaction<sup id="fnref:16" role="doc-noteref"><a href="#fn:16" class="footnote" rel="footnote">16</a></sup>. However, while it is the most accepted solution to congestion<sup id="fnref:17" role="doc-noteref"><a href="#fn:17" class="footnote" rel="footnote">17</a></sup>, it only works if it is appropriately scaled with the needs of the public<sup id="fnref:18" role="doc-noteref"><a href="#fn:18" class="footnote" rel="footnote">18</a></sup>. In Cardiff, an increase in perceived quality of public transportation makes individuals 4% (on average) more likely to feel satisfied with their work and 6% (on average) more likely to feel satisfied with where they live, holding everything else the same. Moreover, utilizing public transportation systems decreases the likelihood of being satisfied with place of residence by 6% (on average), holding everything else the same. Those most likely to utilize public transportation live inside the urban area while those living in the suburbs are more likely to drive to work. Therefore, this decrease in likelihood of being satisfied with the place of residence, based on public transport utilization, indicates a preference for living outside of the city. Furthermore, driving decreases the likelihood of being satisfied with working in Cardiff by 8% (on average), holding everything else the same (see Tables 2 and 3 for more detailed results and the likelihood of mistakes being reported). Finally, living close to work increases the likelihood of being satisfied with working in Cardiff by 2% (on average), holding everything else the same.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Table 3 - Model 2 marginal effects</em></p>
 
 <table>
 <colgroup>
-<col width="50%" />
-<col width="10%" />
-<col width="20%" />
-<col width="20%" />
+<col width="50%">
+<col width="10%">
+<col width="20%">
+<col width="20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -491,13 +523,15 @@ window.onload = wrap_img;
 <tr>
 <td>Quality of public transportation</td>
 <td> </td>
-<td>0.062<strong>***</strong></td>
+<td>0.062<strong>***</strong>
+</td>
 <td>0.010</td>
 </tr>
 <tr>
 <td>Being able to get from place to place with little traffic (i.e. congestion)</td>
 <td> </td>
-<td>0.052<strong>***</strong></td>
+<td>0.052<strong>***</strong>
+</td>
 <td>0.010</td>
 </tr>
 <tr>
@@ -515,13 +549,15 @@ window.onload = wrap_img;
 <tr>
 <td>Ease of getting to work</td>
 <td> </td>
-<td>-0.021<strong>*</strong></td>
+<td>-0.021<strong>*</strong>
+</td>
 <td>0.012</td>
 </tr>
 <tr>
 <td>Overall satisfaction with workplace</td>
 <td> </td>
-<td>0.086<strong>***</strong></td>
+<td>0.086<strong>***</strong>
+</td>
 <td>0.020</td>
 </tr>
 <tr>
@@ -533,7 +569,8 @@ window.onload = wrap_img;
 <tr>
 <td>Income</td>
 <td> </td>
-<td>0.000<strong>***</strong></td>
+<td>0.000<strong>***</strong>
+</td>
 <td>0.000</td>
 </tr>
 <tr>
@@ -551,7 +588,8 @@ window.onload = wrap_img;
 <tr>
 <td>Relationship</td>
 <td> </td>
-<td>0.106<strong>***</strong></td>
+<td>0.106<strong>***</strong>
+</td>
 <td>0.023</td>
 </tr>
 <tr>
@@ -568,28 +606,29 @@ window.onload = wrap_img;
 </tr>
 <tr>
 <td>Train station proximity</td>
-<td>Yes <br /> No</td>
-<td>0.212<strong>***</strong> <br /> 0.121</td>
-<td>0.075 <br /> 0.077</td>
+<td>Yes <br> No</td>
+<td>0.212<strong>***</strong> <br> 0.121</td>
+<td>0.075 <br> 0.077</td>
 </tr>
 <tr>
 <td>Education</td>
 <td> </td>
-<td>0.019<strong>***</strong></td>
+<td>0.019<strong>***</strong>
+</td>
 <td>0.009</td>
 </tr>
 <tr>
 <td>Primary mode of transportation</td>
-<td>Public <br /> Drive</td>
-<td> -0.055<strong>*</strong> <br /> -0.030</td>
-<td>0.032 <br /> 0.026</td>
+<td>Public <br> Drive</td>
+<td> -0.055<strong>*</strong> <br> -0.030</td>
+<td>0.032 <br> 0.026</td>
 </tr>
 </tbody>
 </table>
 
 <p><em>* - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>While there are negative effects of congestion on satisfaction with working and living in Cardiff, those effects are smaller than anticipated. This could be because working during a period of recession or post-recession<sup id="fnref:19" role="doc-noteref"><a href="#fn:19" class="footnote" rel="footnote">19</a></sup> recovery causes enough satisfaction that lessens the burdens of daily commute<sup id="fnref:13:1" role="doc-noteref"><a href="#fn:13" class="footnote" rel="footnote">13</a></sup>. Additionally, as noted by Stokols et al. <sup id="fnref:11:1" role="doc-noteref"><a href="#fn:11" class="footnote" rel="footnote">11</a></sup>, congestion is only relevant when it significantly differs from the expected traffic levels. If people are exposed to similar congestion levels every day, negative effects are diminished.</p>
 
@@ -607,9 +646,11 @@ window.onload = wrap_img;
 
 <p>For data, code, and similar projects, visit <a href="https://github.com/antoniojurlina/econometrics">https://github.com/antoniojurlina/econometrics</a>.</p>
 
-<p><br /></p>
+<p><br></p>
 
-<h5 id="stata-code"><strong>Stata code</strong></h5>
+<h5 id="stata-code">
+<a class="anchor" href="#stata-code" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Stata code</strong>
+</h5>
 
 <figure class="highlight"><pre><code class="language-stata" data-lang="stata"> 
     cls
@@ -784,76 +825,78 @@ window.onload = wrap_img;
 
     save CBP_survey_clean.dta, replace</code></pre></figure>
 
-<p><br /></p>
+<p><br></p>
 
-<h5 id="works-cited"><strong>Works Cited</strong></h5>
+<h5 id="works-cited">
+<a class="anchor" href="#works-cited" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Works Cited</strong>
+</h5>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
-      <p>Blanchflower, D. G., &amp; Oswald, A. J. (2004). Well-being over time in Britain and the USA. Journal of Public Economics, 88, 1359-1386. doi:10.1016/S0047-2727(02)00168-8 <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Blanchflower, D. G., &amp; Oswald, A. J. (2004). Well-being over time in Britain and the USA. Journal of Public Economics, 88, 1359-1386. doi:10.1016/S0047-2727(02)00168-8 <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:2" role="doc-endnote">
-      <p>Fetai, B., Abduli, S., &amp; Qirici, S. (2015). An Ordered Probit Model of Job Satisfaction in the Former Yugoslav Republic of Macedonia. Procedia Economics and Finance, 33, 350- 357. doi:10.1016/S2212-5671(15)01719-0 <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Fetai, B., Abduli, S., &amp; Qirici, S. (2015). An Ordered Probit Model of Job Satisfaction in the Former Yugoslav Republic of Macedonia. Procedia Economics and Finance, 33, 350- 357. doi:10.1016/S2212-5671(15)01719-0 <a href="#fnref:2" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:3" role="doc-endnote">
-      <p>Rayton, B. A. (2006). Examining the interconnection of job satisfaction and organizational commitment: An application of the bivariate probit model. Int. J. of Human Resource Management, 17(1), 139-154. doi:10.1080/09585190500366649 <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Rayton, B. A. (2006). Examining the interconnection of job satisfaction and organizational commitment: An application of the bivariate probit model. Int. J. of Human Resource Management, 17(1), 139-154. doi:10.1080/09585190500366649 <a href="#fnref:3" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:4" role="doc-endnote">
-      <p>Richey, S. (2012). Determinants of Community Satisfaction and its Relative Importance for Life Satisfaction. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Richey, S. (2012). Determinants of Community Satisfaction and its Relative Importance for Life Satisfaction. <a href="#fnref:4" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:5" role="doc-endnote">
-      <p>Auh, S., &amp; Cook, C. (2009). Quality of Community Life Among Rural Residents: An Integrated Model. Social Indicators Research, 94(3), 377-389. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Auh, S., &amp; Cook, C. (2009). Quality of Community Life Among Rural Residents: An Integrated Model. Social Indicators Research, 94(3), 377-389. <a href="#fnref:5" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:6" role="doc-endnote">
-      <p>Lipsetz, D. A. (2000). Residential Satisfaction: Identifying the differences between suburban-ites and urbanites. Columbus: Ohio State University. <a href="#fnref:6" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Lipsetz, D. A. (2000). Residential Satisfaction: Identifying the differences between suburban-ites and urbanites. Columbus: Ohio State University. <a href="#fnref:6" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:7" role="doc-endnote">
-      <p>Novaco, R. W., Stokols, D., &amp; Milanesi, L. (1990). Objective and subjective dimensions of travel impedance as determinants of commuting stress. American Journal of Community Psychology, 18, 231–257. <a href="#fnref:7" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:7:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+      <p>Novaco, R. W., Stokols, D., &amp; Milanesi, L. (1990). Objective and subjective dimensions of travel impedance as determinants of commuting stress. American Journal of Community Psychology, 18, 231–257. <a href="#fnref:7" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:7:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
     <li id="fn:8" role="doc-endnote">
-      <p>Kahneman, D., Krueger, A. B., Schkade, D., Schwarz, N., &amp; Stone, A. (2004). A survey method for characterizing daily life experience: The day reconstruction method (DRM). Science, 306, 1776–1780. <a href="#fnref:8" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:8:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+      <p>Kahneman, D., Krueger, A. B., Schkade, D., Schwarz, N., &amp; Stone, A. (2004). A survey method for characterizing daily life experience: The day reconstruction method (DRM). Science, 306, 1776–1780. <a href="#fnref:8" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:8:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
     <li id="fn:9" role="doc-endnote">
-      <p>Shimon L. Dolan &amp; Eric Gosselin, 2000. “Job satisfaction and life satisfaction: Analysis of a reciprocal model with social demographic moderators,” Economics Working Papers 484, Department of Economics and Business, Universitat Pompeu Fabra. <a href="#fnref:9" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Shimon L. Dolan &amp; Eric Gosselin, 2000. “Job satisfaction and life satisfaction: Analysis of a reciprocal model with social demographic moderators,” Economics Working Papers 484, Department of Economics and Business, Universitat Pompeu Fabra. <a href="#fnref:9" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:10" role="doc-endnote">
-      <p>Ilies, R., Wilson, K. S., &amp; Wagner, D. T. (2009). The Spillover of Daily Job Satisfaction Onto Employees’ Family Lives: The Facilitating Role of Work-Family Integration. Academy of Management Journal, 52(1), 87-102. doi:10.5465/AMJ.2009.36461938 <a href="#fnref:10" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Ilies, R., Wilson, K. S., &amp; Wagner, D. T. (2009). The Spillover of Daily Job Satisfaction Onto Employees’ Family Lives: The Facilitating Role of Work-Family Integration. Academy of Management Journal, 52(1), 87-102. doi:10.5465/AMJ.2009.36461938 <a href="#fnref:10" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:11" role="doc-endnote">
-      <p>Stokols, D., Novaco, R. W., Stokols, J., &amp; Campbell, J. (1978). Traffic Congestion, Type A Behavior, and Stress. Journal of Applied Psychology, 63(4), 467-480. doi:10.1037/0021- 9010.63.4.467 <a href="#fnref:11" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:11:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+      <p>Stokols, D., Novaco, R. W., Stokols, J., &amp; Campbell, J. (1978). Traffic Congestion, Type A Behavior, and Stress. Journal of Applied Psychology, 63(4), 467-480. doi:10.1037/0021- 9010.63.4.467 <a href="#fnref:11" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:11:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
     <li id="fn:12" role="doc-endnote">
-      <p>Novaco, R. W., &amp; Gonzales, O. I. (2009). Commuting and well-being. In Y. Amichai- Hamburger (Ed.), Technology and well-being (pp. 174–205). New York: Cambridge University Press. <a href="#fnref:12" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Novaco, R. W., &amp; Gonzales, O. I. (2009). Commuting and well-being. In Y. Amichai- Hamburger (Ed.), Technology and well-being (pp. 174–205). New York: Cambridge University Press. <a href="#fnref:12" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:13" role="doc-endnote">
-      <p>Olsson, L. E., Garling, T., Ettema, D., Friman, M., &amp; Fujii, S. (2013). Happiness and Satisfaction with Work Commute. Soc Indic Res, 111, 255-263. doi:10.1007/s11205-012- 0003-2 <a href="#fnref:13" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:13:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+      <p>Olsson, L. E., Garling, T., Ettema, D., Friman, M., &amp; Fujii, S. (2013). Happiness and Satisfaction with Work Commute. Soc Indic Res, 111, 255-263. doi:10.1007/s11205-012- 0003-2 <a href="#fnref:13" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:13:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
     <li id="fn:14" role="doc-endnote">
-      <p>Glass, D. C., Singer, J., &amp; Pennebaker, J. Behavioral and physiological effects of uncontrollable environmental events. In D. Stokols (Ed.), Perspectives on environment and behavior. New York: Plenum, 1977. <a href="#fnref:14" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Glass, D. C., Singer, J., &amp; Pennebaker, J. Behavioral and physiological effects of uncontrollable environmental events. In D. Stokols (Ed.), Perspectives on environment and behavior. New York: Plenum, 1977. <a href="#fnref:14" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:15" role="doc-endnote">
-      <p>Sherrod, D. R. Crowding, perceived control, and behavioral aftereffects. Journal of Applied Social Psychology, 1974, 4, 171-186. <a href="#fnref:15" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Sherrod, D. R. Crowding, perceived control, and behavioral aftereffects. Journal of Applied Social Psychology, 1974, 4, 171-186. <a href="#fnref:15" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:16" role="doc-endnote">
-      <p>Kottenhoff, K., &amp; Freij, K. B. (2009). The role of public transport for feasibility and acceptability of congestion charging – The case of Stockholm. Transportation Research Part A, 43, 297-305. doi:10.1016/j.tra.2008.09.004 <a href="#fnref:16" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Kottenhoff, K., &amp; Freij, K. B. (2009). The role of public transport for feasibility and acceptability of congestion charging – The case of Stockholm. Transportation Research Part A, 43, 297-305. doi:10.1016/j.tra.2008.09.004 <a href="#fnref:16" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:17" role="doc-endnote">
-      <p>Schlag, B., Teubel, U., 1997. Public acceptability of transport pricing. IATSS Research, 21(2). <a href="#fnref:17" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Schlag, B., Teubel, U., 1997. Public acceptability of transport pricing. IATSS Research, 21(2). <a href="#fnref:17" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:18" role="doc-endnote">
-      <p>Transport for London (TfL), 2005. Central London Congestion Charging. Impacts monitoring, Third Annual Report, April 2005 <a href="#fnref:18" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Transport for London (TfL), 2005. Central London Congestion Charging. Impacts monitoring, Third Annual Report, April 2005 <a href="#fnref:18" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:19" role="doc-endnote">
-      <p>Gross Domestic Product Preliminary Estimate: Q4 2014 (pp. 1-20, Rep.). (2015). Office for National Statistics. <a href="#fnref:19" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Gross Domestic Product Preliminary Estimate: Q4 2014 (pp. 1-20, Rep.). (2015). Office for National Statistics. <a href="#fnref:19" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:20" role="doc-endnote">
-      <p>Jaensirisak, S., Wardman, M., May, A.D., 2005. Explaining variations in public acceptability of road pricing schemes. Journal of Transport Economics and Policy 39, 127–154. <a href="#fnref:20" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Jaensirisak, S., Wardman, M., May, A.D., 2005. Explaining variations in public acceptability of road pricing schemes. Journal of Transport Economics and Policy 39, 127–154. <a href="#fnref:20" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
   </ol>
 </div>
 
-  </div><a class="u-url" href="/portfolio/2019/04/30/congestion-and-satisfaction.html" hidden></a>
+  </div><a class="u-url" href="/portfolio/projects/stata/2019/04/30/congestion-and-satisfaction.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">

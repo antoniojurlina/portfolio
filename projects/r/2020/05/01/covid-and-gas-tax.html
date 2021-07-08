@@ -10,13 +10,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Initial economic impact time series analysis in R." />
 <meta property="og:description" content="Initial economic impact time series analysis in R." />
-<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/2020/05/01/covid-and-gas-tax.html" />
-<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/2020/05/01/covid-and-gas-tax.html" />
+<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/projects/r/2020/05/01/covid-and-gas-tax.html" />
+<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/projects/r/2020/05/01/covid-and-gas-tax.html" />
 <meta property="og:site_name" content="portfolio" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2020-05-01T13:11:22-05:00" />
 <script type="application/ld+json">
-{"url":"https://antoniojurlina.github.io/portfolio/2020/05/01/covid-and-gas-tax.html","@type":"BlogPosting","headline":"COVID-19 and Maine Gas Tax","dateModified":"2020-05-01T13:11:22-05:00","datePublished":"2020-05-01T13:11:22-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/2020/05/01/covid-and-gas-tax.html"},"description":"Initial economic impact time series analysis in R.","@context":"https://schema.org"}</script>
+{"url":"https://antoniojurlina.github.io/portfolio/projects/r/2020/05/01/covid-and-gas-tax.html","@type":"BlogPosting","headline":"COVID-19 and Maine Gas Tax","dateModified":"2020-05-01T13:11:22-05:00","datePublished":"2020-05-01T13:11:22-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/projects/r/2020/05/01/covid-and-gas-tax.html"},"description":"Initial economic impact time series analysis in R.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/portfolio/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://antoniojurlina.github.io/portfolio/feed.xml" title="portfolio" /><link rel="shortcut icon" type="image/x-icon" href="/portfolio/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -114,62 +114,82 @@ window.onload = wrap_img;
 </span></p>
 
     
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/portfolio/categories/#projects">projects</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/portfolio/categories/#R">R</a>
+        
+      
+      </p>
+    
 
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p><br /></p>
+    <ul class="section-nav">
+<li class="toc-entry toc-h5"><a href="#summary">Summary</a></li>
+<li class="toc-entry toc-h5"><a href="#step-1-forecasting">Step 1: Forecasting</a></li>
+<li class="toc-entry toc-h5"><a href="#step-2-revenue-vs-traffic">Step 2: Revenue vs. Traffic</a></li>
+<li class="toc-entry toc-h5"><a href="#step-3-putting-it-all-together">Step 3: Putting it all together</a></li>
+<li class="toc-entry toc-h5"><a href="#github-repository">GitHub repository</a></li>
+<li class="toc-entry toc-h5"><a href="#appendix-data-analysis-code-in-r">Appendix: Data Analysis Code in R</a></li>
+</ul><p><br></p>
 
-<h5 id="summary"><strong>Summary</strong></h5>
+<h5 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Summary</strong>
+</h5>
 <p>This report covers the attempt to estimate the effect of COVID-19 pandemic on gasoline tax revenue in Maine. Around the world, most economies have responded with lockdowns of varying degrees, in order to curtail the spread of the virus. Following this pattern, the state of Maine has imposed mandatory closures of non-essential businesses and reduced access to public areas. An inevitable outcome of this approach has been a significant reduction in traffic levels. Given that most activities require a certain amount of motor vehicle travel, these closures resulted in less distance being traveled and therefore less gasoline being purchased. For the past decade, the state has relied on a steady revenue stream from the tax on gasoline. This has accounted for nearly 70% percent of the Highway Fund and around 5% of the total tax revenue for a given fiscal<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> year.</p>
 
 <p>In order to predict the expected losses of decreased traffic volume this reported is broken up into three steps. First, a seasonal ARIMA model is used in order to forecast the general revenue trend the state would have expected to see, had there been no major shock to the economy. Second, the relationship between traffic volume and gasoline tax revenue is estimated through a linear regression model and the expected revenue is predicted using known traffic data. Finally, the entire model is tested within the last fiscal year with available data (which is fiscal year 2019). This allows for comparison of values calculated within steps one and two with actual data.</p>
 
 <p><strong>Note:</strong> This project was done at the request of Maine government with an expectation of certain data privacy regarding tax revenues. Therefore, I have removed some values from the figures and omitted the entire part of the project where predictions are made for the fiscal year 2020 expected tax revenue. What’s shown is the process of determining the expected trend using seasonal ARIMA and an OLS model that determines the relationship between gasoline and tax revenue. These are used later on for future projections. I tested the model against known (2019) data and it holds up really well.</p>
 
-<h5 id="step-1-forecasting">Step 1: Forecasting</h5>
+<h5 id="step-1-forecasting">
+<a class="anchor" href="#step-1-forecasting" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 1: Forecasting</h5>
 
 <p>Looking at Figure 1, which shows monthly gasoline tax revenue between 2007 and 2018, several issues need to be addressed before any modelling is to occur. Within the red boxes are monthly values that drastically diverge from the expected trend and the observed mean. This series should be considered a proxy for the real variable of interest. The actual information we could say the state is interested in is the amount of revenue generated each month. However, the state is aware only of the taxes it actually collects, when it collects them. This means that collection processes and lags between the point in time when revenue is generated and when it is collected, need to be taken into account. With this in mind, these points are deemed outliers and reverted to the mean of the remainder of the series.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Figure 1 - Gas Tax Revenue Jan 2007 – Jun 2018</em></p>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gas_tax_revenue.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gas_tax_revenue.png" data-zoomable="">
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Furthermore, there is clear seasonality in the data. Each fiscal year resembles the one before. Also, there is a slight upward trend in the data: although barely discernable, it is still worth noting. An augmented Dickey-Fuller (ADF) test, one that accounts for seasonality with a trend, failed to reject the presence of unit roots with a statistic of -1.04. To detrend the data, remove the seasonal pattern and lose the unit root issue, the series was differenced monthly and seasonally. That is, each month’s revenue was subtracted from the one a month away and a year away. Running an ADF test on this series, gives the statistic of -6.79 which strongly indicates no more unit root issues. The final series, which now appears to be stationary, can be seen in Figure 2.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Figure 2 - Cleaned-up Gas Tax Revenue Jan 2007 – Jun 2018</em></p>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gas_tax_revenue_clean.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gas_tax_revenue_clean.png" data-zoomable="">
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Figure 3 shows what the autocorrelations (both partial and complete) look like for the series. Lines colored red represent the seasonal lags (at 12, 24, etc. to account for the monthly nature of the series). Looking at the complete autocorrelation plot (ACF), there is no significant tailing off within a season. However, two red lines above the line of significance suggest that it would be wise to include a seasonal autoregressive term. Looking at the partial autocorrelation plot (PACF), there is some tailing off within a season and no seasonal pattern of significance, suggesting that a moving average term should be added.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Figure 3 - ACF (top) and PACF (bottom), seasonal lags in red</em></p>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/acf_pacf.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/acf_pacf.png" data-zoomable="">
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
 <p>With this in mind (and a few minor alterations around each term), the model with the lowest reported AIC and BIC is SARIMA<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo stretchy="false">)</mo><mo stretchy="false">(</mo><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mo separator="true">,</mo><mn>0</mn><msub><mo stretchy="false">)</mo><mn>12</mn></msub></mrow><annotation encoding="application/x-tex">(0,1,1)(1,1,0)_{12}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">(</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">0</span><span class="mclose"><span class="mclose">)</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> or</p>
 
@@ -177,13 +197,13 @@ window.onload = wrap_img;
 
 <p>where the moving average is 1, seasonal autoregressive lag is 1 and the data has been differenced once monthly and once seasonally. As can be noted by Figure 4, residuals seem to be distributed randomly and independently. Table 1 reports the estimates of the model. Finally, Figure 5 shows what the expected forecast 12 months ahead is. This forecast covers fiscal year 2019, for which data is available.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Figure 4 - Analysis of model residuals</em></p>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/model_residuals.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/model_residuals.png" data-zoomable="">
     </div>
 </div>
 
@@ -191,11 +211,11 @@ window.onload = wrap_img;
 
 <table>
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col width="20%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -228,23 +248,24 @@ window.onload = wrap_img;
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/sarima.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/sarima.png" data-zoomable="">
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
-<h5 id="step-2-revenue-vs-traffic">Step 2: Revenue vs. Traffic</h5>
+<h5 id="step-2-revenue-vs-traffic">
+<a class="anchor" href="#step-2-revenue-vs-traffic" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 2: Revenue vs. Traffic</h5>
 
 <p>Plotting traffic and revenue over time, on the same plot (as can be seen in Figure 7), reveals a few interesting things. They both follow the same seasonal pattern over time (with a month lag between the two) and both have quarterly trends that can be individually considered. First of all, the points are separated into quarterly sets and then shifted over by a month so that the highest and lowest points of each series sync up. This lag is assumed to exist because it must take the state some time (presumably a month) to collect the tax after the traffic levels have been observed.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Figure 6 - OLS estimates</em></p>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/ols_estimates.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/ols_estimates.png" data-zoomable="">
     </div>
 </div>
 
@@ -252,11 +273,11 @@ window.onload = wrap_img;
 
 <table>
 <colgroup>
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
-<col width="20%" />
+<col width="20%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
+<col width="20%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -270,67 +291,76 @@ window.onload = wrap_img;
 <tbody>
 <tr>
 <td>intercept</td>
-<td><strong>8.168***</strong> <br /> (0.667)</td>
-<td><strong>10.616***</strong> <br /> (2.63)</td>
-<td><strong>2.559*</strong> <br /> (2.93)</td>
-<td><strong>7.744*</strong> <br /> (3.689)</td>
+<td>
+<strong>8.168***</strong> <br> (0.667)</td>
+<td>
+<strong>10.616***</strong> <br> (2.63)</td>
+<td>
+<strong>2.559*</strong> <br> (2.93)</td>
+<td>
+<strong>7.744*</strong> <br> (3.689)</td>
 </tr>
 <tr>
 <td>log(traffic)</td>
-<td><strong>0.539***</strong> <br /> (0.042)</td>
-<td><strong>0.383**</strong> <br /> (0.167)</td>
-<td><strong>0.899***</strong> <br /> (0.188)</td>
-<td><strong>0.561**</strong> <br /> (0.234)</td>
+<td>
+<strong>0.539***</strong> <br> (0.042)</td>
+<td>
+<strong>0.383**</strong> <br> (0.167)</td>
+<td>
+<strong>0.899***</strong> <br> (0.188)</td>
+<td>
+<strong>0.561**</strong> <br> (0.234)</td>
 </tr>
 </tbody>
 </table>
 
 <p><em>* - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Now, as they are synced up, quarterly slope signs of each series are identical and therefore a straightforward linear regression should be all that is necessary. However, to further capture the possible quarterly idiosyncrasy of the data and further reduce variation, regressions are performed within each quarter. Additionally, future data for state traffic levels and tax revenue used for economic impact analysis of COVID-19 closures will concern the last quarter of fiscal year 2020, starting with April. Therefore, it seemed prudent to isolate quarterly effects in order to obtain the most accurate estimates.</p>
 
 <p>Figure 6 and Table 2 show the results of the linear regression. As can be noted, the relationships are fairly straightforward and statistically significant. For each 1% increase in traffic volume, there is 54, 38, 90, and 56 percent increase in revenue for quarters 1 through 4, respectively. This data can now be used to estimate revenue from traffic. In this case, revenue is simply</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>revenue = intercept + coefficient * traffic</em></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>and traffic volume is obtained from monthly turnpike data across Maine.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Figure 7 - Organizing traffic (bottom) and revenue (top) data</em></p>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/traffic_revenue_data.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/traffic_revenue_data.png" data-zoomable="">
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
-<h5 id="step-3-putting-it-all-together">Step 3: Putting it all together</h5>
+<h5 id="step-3-putting-it-all-together">
+<a class="anchor" href="#step-3-putting-it-all-together" aria-hidden="true"><span class="octicon octicon-link"></span></a>Step 3: Putting it all together</h5>
 
 <p>This one is straightforward, as Figures 8 and 9 illustrate. Fiscal year 2019 contains three lines: actual revenue (yellow), OLS predicted revenue (green) and time series forecast of expected revenue (red). Furthermore, Table 3 shows the difference between expected and predicted revenue. For fiscal year 2019, this doesn’t provide new information, because there were no unexpected shocks, and all the models arrive at the same conclusion (mostly). However, the purpose of running the model across 2019 was only to determine its validity. Matching results were expected. Fiscal year 2020 is where it is actually going to be used to make predictions.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Table 3. Tax revenue comparison for fiscal year 2019, in US$</em></p>
 
 <table>
 <colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -402,7 +432,7 @@ window.onload = wrap_img;
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/final_figure.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/final_figure.png" data-zoomable="">
     </div>
 </div>
 
@@ -410,19 +440,22 @@ window.onload = wrap_img;
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/final_figure_zoom.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/final_figure_zoom.png" data-zoomable="">
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
-<h5 id="github-repository">GitHub repository</h5>
+<h5 id="github-repository">
+<a class="anchor" href="#github-repository" aria-hidden="true"><span class="octicon octicon-link"></span></a>GitHub repository</h5>
 
 <p>For data, code, and similar projects, visit <a href="https://github.com/antoniojurlina/time_series_econometrics/tree/main/project%204">https://github.com/antoniojurlina/time_series_econometrics</a>.</p>
 
-<h5 id="appendix-data-analysis-code-in-r">Appendix: Data Analysis Code in R</h5>
+<h5 id="appendix-data-analysis-code-in-r">
+<a class="anchor" href="#appendix-data-analysis-code-in-r" aria-hidden="true"><span class="octicon octicon-link"></span></a>Appendix: Data Analysis Code in R</h5>
 
-<figure class="highlight"><pre><code class="language-r" data-lang="r"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+<figure class="highlight"><pre><code class="language-r" data-lang="r"><table class="rouge-table"><tbody><tr>
+<td class="gutter gl"><pre class="lineno">1
 2
 3
 4
@@ -618,7 +651,8 @@ window.onload = wrap_img;
 194
 195
 196
-</pre></td><td class="code"><pre><span class="w"> 
+</pre></td>
+<td class="code"><pre><span class="w"> 
 
 </span><span class="c1">#-------- packages --------</span><span class="w">
 </span><span class="n">library</span><span class="p">(</span><span class="n">tidyverse</span><span class="p">)</span><span class="w"> 
@@ -814,17 +848,18 @@ window.onload = wrap_img;
             </span><span class="n">expectation_upper</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">expectation_upper</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">),</span><span class="w">
             </span><span class="n">expectation_lower</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">expectation_lower</span><span class="p">,</span><span class="w"> </span><span class="n">na.rm</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">T</span><span class="p">))</span><span class="w"> </span><span class="o">%&gt;%</span><span class="w"> 
     </span><span class="n">View</span><span class="p">()</span>
-</pre></td></tr></tbody></table></code></pre></figure>
+</pre></td>
+</tr></tbody></table></code></pre></figure>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
-      <p>in Maine, fiscal year spans July of last year to June of current year. That is, fiscal year 2018 starts in July 2017 and ends in June 2018. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>in Maine, fiscal year spans July of last year to June of current year. That is, fiscal year 2018 starts in July 2017 and ends in June 2018. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
   </ol>
 </div>
 
-  </div><a class="u-url" href="/portfolio/2020/05/01/covid-and-gas-tax.html" hidden></a>
+  </div><a class="u-url" href="/portfolio/projects/r/2020/05/01/covid-and-gas-tax.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">

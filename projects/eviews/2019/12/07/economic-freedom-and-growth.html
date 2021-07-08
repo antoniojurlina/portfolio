@@ -10,13 +10,13 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Using an index to determine potential economic relationships (with code in EViews)." />
 <meta property="og:description" content="Using an index to determine potential economic relationships (with code in EViews)." />
-<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/2019/12/07/economic-freedom-and-growth.html" />
-<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/2019/12/07/economic-freedom-and-growth.html" />
+<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/projects/eviews/2019/12/07/economic-freedom-and-growth.html" />
+<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/projects/eviews/2019/12/07/economic-freedom-and-growth.html" />
 <meta property="og:site_name" content="portfolio" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-12-07T16:12:31-06:00" />
 <script type="application/ld+json">
-{"url":"https://antoniojurlina.github.io/portfolio/2019/12/07/economic-freedom-and-growth.html","@type":"BlogPosting","headline":"Economic Freedom and Growth","dateModified":"2019-12-07T16:12:31-06:00","datePublished":"2019-12-07T16:12:31-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/2019/12/07/economic-freedom-and-growth.html"},"description":"Using an index to determine potential economic relationships (with code in EViews).","@context":"https://schema.org"}</script>
+{"url":"https://antoniojurlina.github.io/portfolio/projects/eviews/2019/12/07/economic-freedom-and-growth.html","@type":"BlogPosting","headline":"Economic Freedom and Growth","dateModified":"2019-12-07T16:12:31-06:00","datePublished":"2019-12-07T16:12:31-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/projects/eviews/2019/12/07/economic-freedom-and-growth.html"},"description":"Using an index to determine potential economic relationships (with code in EViews).","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/portfolio/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://antoniojurlina.github.io/portfolio/feed.xml" title="portfolio" /><link rel="shortcut icon" type="image/x-icon" href="/portfolio/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
@@ -114,13 +114,43 @@ window.onload = wrap_img;
 </span></p>
 
     
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/portfolio/categories/#projects">projects</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/portfolio/categories/#EViews">EViews</a>
+        
+      
+      </p>
+    
 
     </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p><br /></p>
+    <ul class="section-nav">
+<li class="toc-entry toc-h5"><a href="#summary">Summary</a>
+<ul>
+<li class="toc-entry toc-h6"><a href="#multicollinearity">Multicollinearity</a></li>
+<li class="toc-entry toc-h6"><a href="#autocorrelation">Autocorrelation</a></li>
+<li class="toc-entry toc-h6"><a href="#heteroskedasticity">Heteroskedasticity</a></li>
+<li class="toc-entry toc-h6"><a href="#redundant-fixed-effects">Redundant Fixed Effects</a></li>
+<li class="toc-entry toc-h6"><a href="#hausman-test">Hausman Test</a></li>
+<li class="toc-entry toc-h6"><a href="#limitations-and-future-research">Limitations and future research</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h5"><a href="#appendix-1---index-area-components">Appendix 1 - Index Area Components</a></li>
+<li class="toc-entry toc-h5"><a href="#appendix-2---summary-statistics">Appendix 2 - Summary Statistics</a></li>
+<li class="toc-entry toc-h5"><a href="#appendix-3---summary-graphs">Appendix 3 - Summary Graphs</a></li>
+<li class="toc-entry toc-h5"><a href="#appendix-4---residuals-plots-before">Appendix 4 - Residuals Plots (before)</a></li>
+<li class="toc-entry toc-h5"><a href="#appendix-5---residuals-plots-after">Appendix 5 - Residuals Plots (after)</a></li>
+<li class="toc-entry toc-h5"><a href="#appendix-6---eviews-code">Appendix 6 - EViews Code</a></li>
+<li class="toc-entry toc-h5"><a href="#works-cited">Works Cited</a></li>
+</ul><p><br></p>
 
-<h5 id="summary"><strong>Summary</strong></h5>
+<h5 id="summary">
+<a class="anchor" href="#summary" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Summary</strong>
+</h5>
 
 <p>The Economic Freedom Index is published yearly by the Fraser Institute. Latest edition is comprised of five areas used to construct a scale of economic freedom, with each area rated on a scale of 1 to 10. In this project, I use this index along with GDP data for 52 countries, ranging between 1970 and 2015, to estimate the relationship between index components and GDP growth. I begin by running a preliminary OLS panel model, followed by several statistical tests designed to probe for the presence of multicollinearity, autocorrelation, heteroskedastisicty and effectiveness of my proposed approach. Eventually, I settled on a feasible generalized least squares model for panel data. The project concludes with a strong indication that the freedom to trade interantionally and sound money are important predictors of GDP growth. Included, also, is a link to the GitHub <a href="https://github.com/antoniojurlina/economic_freedom_and_growth">repository</a> containing the data I worked with and the EViews files. I chose to work in EViews in order to learn how it works, while I was still builidng my econometrics toolset. After having dealt with everything it has to offer, it is clear to me that there is much better software and statistical languages out there. I would recommend R and Stata for this (and any other similar) project, over EViews.</p>
 
@@ -151,33 +181,33 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p>The data set used for this project was created using three different sources. The EFI was obtained from the Fraser Institute<sup id="fnref:25:2" role="doc-noteref"><a href="#fn:25" class="footnote" rel="footnote">25</a></sup>, data on GDP per capita was obtained from the World Bank Group<sup id="fnref:26" role="doc-noteref"><a href="#fn:26" class="footnote" rel="footnote">26</a></sup>, recorded in 2018 US dollars. GDP was chosen to be per capita specifically to avoid any issues with population size differences among countries. Finally, a dummy variable on whether nations are members of the OECD was created using the list of member nations from the OECD website<sup id="fnref:27" role="doc-noteref"><a href="#fn:27" class="footnote" rel="footnote">27</a></sup>. These variables are organized as panel data with 52 countries, ranging from 1970 to 2015. Countries were selected based on data availability, to avoid missing values that would result in omitted observations during estimation. Summary statistics (minimum, maximum, mean, and standard deviation) for all variables can be seen in Appendix 2 and graphs representing these variables, faceted by country, can be seen in Appendix 3.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Figure 1 - Economic Freedom of the World 2015 Report (The Fraser Institute)</em></p>
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/economic-freedom.jpeg" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/economic-freedom.jpeg" data-zoomable="">
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
 <p><strong>4. Preliminary Estimates</strong></p>
 
 <p>The first step of the analysis revolved around estimating an OLS version of the model in Equation 1. Results were estimated in three different ways – by grouping all countries together, by using only OECD member countries and by using only non-member countries. This dummy variable was introduced due to the special economic relationships fostered by OECD member nations, to stabilize unobservable heterogeneity between members and non-members. The use of the dummy variable was also inspired by previous research, especially that of Mankiw, Romer and Weil<sup id="fnref:28" role="doc-noteref"><a href="#fn:28" class="footnote" rel="footnote">28</a></sup>. Detailed results are presented in Figure 2.</p>
 
-<p><br /></p>
+<p><br></p>
 
-<p><em>Figure 2 - Panel Least Squares Regressions</em> <br />
+<p><em>Figure 2 - Panel Least Squares Regressions</em> <br>
 <em>Dependent variable: log growth of GDP per capita (1975 - 2015)</em></p>
 
 <table>
 <colgroup>
-<col width="50%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
+<col width="50%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -190,45 +220,55 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <tbody>
 <tr>
 <td>Intercept</td>
-<td>0.441 <br /> (0.034)</td>
-<td>0.372 <br /> (0.054)</td>
-<td>0.526 <br /> (0.046)</td>
+<td>0.441 <br> (0.034)</td>
+<td>0.372 <br> (0.054)</td>
+<td>0.526 <br> (0.046)</td>
 </tr>
 <tr>
 <td>log GDP per capita</td>
-<td><strong>-0.071***</strong> <br /> (0.005)</td>
-<td><strong>-0.072***</strong> <br /> (0.009)</td>
-<td><strong>-0.072***</strong>  <br /> (0.007)</td>
+<td>
+<strong>-0.071***</strong> <br> (0.005)</td>
+<td>
+<strong>-0.072***</strong> <br> (0.009)</td>
+<td>
+<strong>-0.072***</strong>  <br> (0.007)</td>
 </tr>
 <tr>
 <td>Size of Government</td>
-<td>0.005 <br /> (0.004)</td>
-<td>0.006 <br /> (0.006)</td>
-<td>0.002 <br /> (0.005)</td>
+<td>0.005 <br> (0.004)</td>
+<td>0.006 <br> (0.006)</td>
+<td>0.002 <br> (0.005)</td>
 </tr>
 <tr>
 <td>Legal System &amp; Property Rights</td>
-<td>-0.003 <br /> (0.003)</td>
-<td>-0.005 <br /> (0.005)</td>
-<td>-0.002 <br /> (0.004)</td>
+<td>-0.003 <br> (0.003)</td>
+<td>-0.005 <br> (0.005)</td>
+<td>-0.002 <br> (0.004)</td>
 </tr>
 <tr>
 <td>Sound Money</td>
-<td>-0.004 <br /> (0.002)</td>
-<td><strong>-0.006**</strong> <br /> (0.003)</td>
-<td>-0.000 <br /> (0.004)</td>
+<td>-0.004 <br> (0.002)</td>
+<td>
+<strong>-0.006**</strong> <br> (0.003)</td>
+<td>-0.000 <br> (0.004)</td>
 </tr>
 <tr>
 <td>Regulation</td>
-<td><strong>0.024***</strong> <br /> (0.005)</td>
-<td><strong>0.024***</strong> <br /> (0.008)</td>
-<td><strong>0.025***</strong> <br /> (0.007)</td>
+<td>
+<strong>0.024***</strong> <br> (0.005)</td>
+<td>
+<strong>0.024***</strong> <br> (0.008)</td>
+<td>
+<strong>0.025***</strong> <br> (0.007)</td>
 </tr>
 <tr>
 <td>Freedom to Trade Internationally</td>
-<td><strong>0.013***</strong> <br /> (0.003)</td>
-<td><strong>0.017***</strong> <br /> (0.004)</td>
-<td><strong>0.008***</strong> <br /> (0.004)</td>
+<td>
+<strong>0.013***</strong> <br> (0.003)</td>
+<td>
+<strong>0.017***</strong> <br> (0.004)</td>
+<td>
+<strong>0.008***</strong> <br> (0.004)</td>
 </tr>
 <tr>
 <td>Observations</td>
@@ -237,10 +277,10 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td>241</td>
 </tr>
 <tr>
-<td>Cross-sections <br /> (periods)</td>
-<td>52 <br /> (9)</td>
-<td>24 <br /> (9)</td>
-<td>28 <br /> (9)</td>
+<td>Cross-sections <br> (periods)</td>
+<td>52 <br> (9)</td>
+<td>24 <br> (9)</td>
+<td>28 <br> (9)</td>
 </tr>
 <tr>
 <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">R^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></td>
@@ -249,10 +289,10 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td>0.46</td>
 </tr>
 <tr>
-<td>F-statistic <br /> (p-value)</td>
-<td>5.03 <br /> (0.000)</td>
-<td>3.88 <br /> (0.000)</td>
-<td>5.4 <br /> (0.000)</td>
+<td>F-statistic <br> (p-value)</td>
+<td>5.03 <br> (0.000)</td>
+<td>3.88 <br> (0.000)</td>
+<td>5.4 <br> (0.000)</td>
 </tr>
 <tr>
 <td>Durbin-Watson statistic</td>
@@ -265,7 +305,7 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p><em>* - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>As Figure 2 shows, <em>Freedom to Trade Internationally</em> and <em>Regulation</em> have a significant effect across three model runs, and <em>Sound Money</em> has a significant effect for non-OECD countries only. Any one-point increase in the <em>Freedom to Trade Internationally</em> index is correlated with a 1.3 % (pooled), 1.7 % (non-OECD) and 0.8% (OECD) increase in the growth rate of GDP per capita, on average. Any one-point increase in the <em>Regulation</em> index is correlated with a 2.4 % (pooled), 2.4 % (non-OECD) and 2.5% (OECD) increase in the growth rate of GDP per capita, on average. Finally, any one-point increase in the <em>Sound Money</em> index for non-OECD countries is correlated with a 0.6 % decrease in the growth rate of GDP per capita, on average. To reiterate, an increase in index score across all three of the variables mentioned indicates an increase in economic freedom, as per EFI design.</p>
 
@@ -273,24 +313,26 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p>Although the results seem significant at first glance, there are many causes for concern regarding the validity of parameter identification in a simple OLS approach to this data set. This section is dedicated to discovering possible violations of Gauss-Markovian assumptions and checking the validity of model design.</p>
 
-<h6 id="multicollinearity"><em>Multicollinearity</em></h6>
+<h6 id="multicollinearity">
+<a class="anchor" href="#multicollinearity" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>Multicollinearity</em>
+</h6>
 
 <p>One of the primary issues with deconstructing an index is the causal relationships between some of the subcomponents. It seems reasonable to assume that size of the government, amount of regulation and property rights are correlated with one another. This can result in multicollinearity among explanatory variables, affecting the robustness of the estimates. The correlation matrix in Figure 3 indicates strong correlation (over 0.5) between the five areas of the EFI. This serves as a rough estimate of multicollinearity present in the model, indicating that estimates need to be interpreted conservatively. For future reference, multicollinearity should be further confirmed by estimating the model and changing the data slightly, many times over, seeing how the estimates react. Also, dependent variables should be dropped, and model estimated without some, to see the effect on estimates. Significant estimate changes in both these approaches would indicate a presence of multicollinearity. Finally, a variance inflation factor should be calculated, as it gives an exact numeric value for evaluation. Since multicollinearity doesn’t change the BLUE properties of the model, and due to time limitations, the model will be left as is.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Figure 3. Correlation Matrix</em></p>
 
 <table>
 <colgroup>
-<col width="30%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
+<col width="30%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -378,29 +420,31 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 </tbody>
 </table>
 
-<p><br /></p>
+<p><br></p>
 
-<h6 id="autocorrelation"><em>Autocorrelation</em></h6>
+<h6 id="autocorrelation">
+<a class="anchor" href="#autocorrelation" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>Autocorrelation</em>
+</h6>
 
 <p>Since the primary statistical software used in estimation doesn’t allow for direct autocorrelation testing, several indirect ways shall be explored, to detect any potential autocorrelation. First, simply observing graphs of residuals from the three OLS approaches, can be very indicative of any potential autocorrelation. Indeed, by looking at the attached graphs (see Appendix 4), it seems highly possible that autocorrelation is present. The order is harder to discern. Furthermore, Durbin-Watson statistic can be used for identification of first-order autocorrelation. The autocorrelation coefficient, <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ρ</span></span></span></span>, (with stable errors) is located on the interval −1 &lt; <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ρ</span></span></span></span> &lt; 1, and the Durbin-Watson test statistic is approximately equal to 4, 2 and 0, for the <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ρ</span></span></span></span> values of -1, 0, and 1, respectively. Therefore, the d-statistic serves as a rough guide of first order autocorrelation. In the first (pooled) OLS estimate, d is 2.7. Being further from 2 (in the positive direction), indicates that autocorrelation is more likely. The same can be said for the d values of the second (non- OECD) and third (OECD) OLS estimates, for which d values are 2.4 and 2.9, respectively (see Figure 2). Finally, a feasible GLS model is estimated, with the addition of autocorrelation parameters. These are added individually, starting with a parameter for first order autocorrelation, up to the point where their p-values start to become insignificant at conventional confidence levels (see Figure 4). The results indicate a presence of first and second order autocorrelation, with any subsequent level added failing to pass as significant or reducing the number of observations past the optimal point.</p>
 
-<p><br /></p>
+<p><br></p>
 
-<p><em>Figure 4. FGLS Regression - Sensitivity Testing for Autocorrelation</em> <br />
+<p><em>Figure 4. FGLS Regression - Sensitivity Testing for Autocorrelation</em> <br>
 <em>Dependent variable: log growth of GDP per capita (1975 - 2015)</em></p>
 
 <table>
 <colgroup>
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -419,111 +463,126 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <tbody>
 <tr>
 <td>Intercept</td>
-<td>0.365 <br /> (0.032)</td>
-<td>0.320 <br /> (0.059)</td>
-<td>0.430 <br /> (0.038)</td>
-<td>0.239 <br /> (0.024)</td>
-<td>0.225 <br /> (0.049)</td>
-<td>0.286 <br /> (0.022)</td>
-<td>0.164 <br /> (0.062)</td>
-<td>0.112 <br /> (0.092)</td>
-<td>0.240 <br /> (0.106)</td>
+<td>0.365 <br> (0.032)</td>
+<td>0.320 <br> (0.059)</td>
+<td>0.430 <br> (0.038)</td>
+<td>0.239 <br> (0.024)</td>
+<td>0.225 <br> (0.049)</td>
+<td>0.286 <br> (0.022)</td>
+<td>0.164 <br> (0.062)</td>
+<td>0.112 <br> (0.092)</td>
+<td>0.240 <br> (0.106)</td>
 </tr>
 <tr>
 <td>log GDP per capita</td>
-<td>-0.063*** <br /> (0.006)</td>
-<td>-0.065*** <br /> (0.011)</td>
-<td>-0.064*** <br /> (0.007)</td>
-<td>-0.037*** <br /> (0.004)</td>
-<td>-0.048*** <br /> (0.010)</td>
-<td>-0.031*** <br /> (0.004)</td>
-<td>-0.023*** <br /> (0.009)</td>
-<td>0.016 <br /> (0.017)</td>
-<td>-0.032*** <br /> (0.009)</td>
+<td>-0.063*** <br> (0.006)</td>
+<td>-0.065*** <br> (0.011)</td>
+<td>-0.064*** <br> (0.007)</td>
+<td>-0.037*** <br> (0.004)</td>
+<td>-0.048*** <br> (0.010)</td>
+<td>-0.031*** <br> (0.004)</td>
+<td>-0.023*** <br> (0.009)</td>
+<td>0.016 <br> (0.017)</td>
+<td>-0.032*** <br> (0.009)</td>
 </tr>
 <tr>
 <td>Size of Government</td>
-<td>0.008 <br /> (0.003)</td>
-<td>0.006 <br /> (0.006)</td>
-<td>0.009 <br /> (0.004)</td>
-<td>0.005* <br /> (0.003)</td>
-<td>0.006 <br /> (0.005)</td>
-<td>0.005** <br /> (0.002)</td>
-<td>0.000 <br /> (0.005)</td>
-<td>-0.002 <br /> (0.008)</td>
-<td>0.003 <br /> (0.005)</td>
+<td>0.008 <br> (0.003)</td>
+<td>0.006 <br> (0.006)</td>
+<td>0.009 <br> (0.004)</td>
+<td>0.005* <br> (0.003)</td>
+<td>0.006 <br> (0.005)</td>
+<td>0.005** <br> (0.002)</td>
+<td>0.000 <br> (0.005)</td>
+<td>-0.002 <br> (0.008)</td>
+<td>0.003 <br> (0.005)</td>
 </tr>
 <tr>
 <td>Legal System &amp; Property Rights</td>
-<td>0.001 <br /> (0.003)</td>
-<td>-0.004 <br /> (0.006)</td>
-<td>0.006 <br /> (0.004)</td>
-<td>-0.001 <br /> (0.003)</td>
-<td>-0.004 <br /> (0.005)</td>
-<td>0.000 <br /> (0.003)</td>
-<td>0.000 <br /> (0.005)</td>
-<td>0.000* <br /> (0.007)</td>
-<td>0.000 <br /> (0.008)</td>
+<td>0.001 <br> (0.003)</td>
+<td>-0.004 <br> (0.006)</td>
+<td>0.006 <br> (0.004)</td>
+<td>-0.001 <br> (0.003)</td>
+<td>-0.004 <br> (0.005)</td>
+<td>0.000 <br> (0.003)</td>
+<td>0.000 <br> (0.005)</td>
+<td>0.000* <br> (0.007)</td>
+<td>0.000 <br> (0.008)</td>
 </tr>
 <tr>
 <td>Sound Money</td>
-<td>-0.004** <br /> (0.002)</td>
-<td>-0.007** <br /> (0.003)</td>
-<td>-0.001 <br /> (0.003)</td>
-<td>-0.009*** <br /> (0.002)</td>
-<td>-0.010*** <br /> (0.003)</td>
-<td>-0.006*** <br /> (0.002)</td>
-<td>-0.008*** <br /> (0.003)</td>
-<td>-0.006 <br /> (0.004)</td>
-<td>-0.008* <br /> (0.004)</td>
+<td>-0.004** <br> (0.002)</td>
+<td>-0.007** <br> (0.003)</td>
+<td>-0.001 <br> (0.003)</td>
+<td>-0.009*** <br> (0.002)</td>
+<td>-0.010*** <br> (0.003)</td>
+<td>-0.006*** <br> (0.002)</td>
+<td>-0.008*** <br> (0.003)</td>
+<td>-0.006 <br> (0.004)</td>
+<td>-0.008* <br> (0.004)</td>
 </tr>
 <tr>
 <td>Regulation</td>
-<td>0.019*** <br /> (0.005)</td>
-<td>0.024*** <br /> (0.009)</td>
-<td>0.014** <br /> (0.006)</td>
-<td>0.009** <br /> (0.004)</td>
-<td>0.019** <br /> (0.009)</td>
-<td>0.003 <br /> (0.003)</td>
-<td>0.003 <br /> (0.007)</td>
-<td>0.012 <br /> (0.016)</td>
-<td>0.005 <br /> (0.006)</td>
+<td>0.019*** <br> (0.005)</td>
+<td>0.024*** <br> (0.009)</td>
+<td>0.014** <br> (0.006)</td>
+<td>0.009** <br> (0.004)</td>
+<td>0.019** <br> (0.009)</td>
+<td>0.003 <br> (0.003)</td>
+<td>0.003 <br> (0.007)</td>
+<td>0.012 <br> (0.016)</td>
+<td>0.005 <br> (0.006)</td>
 </tr>
 <tr>
 <td>Freedom to Trade Internationally</td>
-<td>0.013*** <br /> (0.003)</td>
-<td>0.016*** <br /> (0.005)</td>
-<td>0.008*** <br /> (0.003)</td>
-<td>0.017*** <br /> (0.002)</td>
-<td>0.018*** <br /> (0.004)</td>
-<td>0.009*** <br /> (0.002)</td>
-<td>0.022*** <br /> (0.005)</td>
-<td>0.017* <br /> (0.009)</td>
-<td>0.009 <br /> (0.006)</td>
+<td>0.013*** <br> (0.003)</td>
+<td>0.016*** <br> (0.005)</td>
+<td>0.008*** <br> (0.003)</td>
+<td>0.017*** <br> (0.002)</td>
+<td>0.018*** <br> (0.004)</td>
+<td>0.009*** <br> (0.002)</td>
+<td>0.022*** <br> (0.005)</td>
+<td>0.017* <br> (0.009)</td>
+<td>0.009 <br> (0.006)</td>
 </tr>
 <tr>
 <td>AR(1)</td>
-<td><strong>-0.351***</strong> <br /> (0.053)</td>
-<td><strong>-0.226***</strong> <br /> (0.089)</td>
-<td><strong>-0.478***</strong> <br /> (0.065)</td>
-<td><strong>-0.590***</strong> <br /> (0.050)</td>
-<td><strong>-0.406***</strong> <br /> (0.089)</td>
-<td><strong>-0.821***</strong> <br /> (0.054)</td>
-<td><strong>-0.517***</strong> <br /> (0.073)</td>
-<td><strong>-0.498***</strong> <br /> (0.121)</td>
-<td><strong>-0.586***</strong> <br /> (0.009)</td>
+<td>
+<strong>-0.351***</strong> <br> (0.053)</td>
+<td>
+<strong>-0.226***</strong> <br> (0.089)</td>
+<td>
+<strong>-0.478***</strong> <br> (0.065)</td>
+<td>
+<strong>-0.590***</strong> <br> (0.050)</td>
+<td>
+<strong>-0.406***</strong> <br> (0.089)</td>
+<td>
+<strong>-0.821***</strong> <br> (0.054)</td>
+<td>
+<strong>-0.517***</strong> <br> (0.073)</td>
+<td>
+<strong>-0.498***</strong> <br> (0.121)</td>
+<td>
+<strong>-0.586***</strong> <br> (0.009)</td>
 </tr>
 <tr>
 <td>AR(2)</td>
 <td> </td>
 <td> </td>
 <td> </td>
-<td><strong>-0.469***</strong> <br /> (0.049)</td>
-<td><strong>-0.447***</strong> <br /> (0.089)</td>
-<td><strong>-0.607***</strong> <br /> (0.051)</td>
-<td><strong>-0.513***</strong> <br /> (0.064)</td>
-<td><strong>-0.585***</strong> <br /> (0.095)</td>
-<td><strong>-0.552***</strong> <br /> (0.079)</td>
+<td>
+<strong>-0.469***</strong> <br> (0.049)</td>
+<td>
+<strong>-0.447***</strong> <br> (0.089)</td>
+<td>
+<strong>-0.607***</strong> <br> (0.051)</td>
+<td>
+<strong>-0.513***</strong> <br> (0.064)</td>
+<td>
+<strong>-0.585***</strong> <br> (0.095)</td>
+<td>
+<strong>-0.552***</strong> <br> (0.079)</td>
 </tr>
 <tr>
 <td>AR(5)</td>
@@ -533,9 +592,11 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td> </td>
 <td> </td>
 <td> </td>
-<td><strong>-0.089***</strong> <br /> (0.049)</td>
-<td><strong>-0.262***</strong> <br /> (0.100)</td>
-<td>0.008 <br /> (0.055)</td>
+<td>
+<strong>-0.089***</strong> <br> (0.049)</td>
+<td>
+<strong>-0.262***</strong> <br> (0.100)</td>
+<td>0.008 <br> (0.055)</td>
 </tr>
 <tr>
 <td>Observations</td>
@@ -550,16 +611,16 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td>100</td>
 </tr>
 <tr>
-<td>Cross-section <br /> (periods)</td>
-<td>52 <br /> (8)</td>
-<td>24 <br /> (8)</td>
-<td>28 <br /> (8)</td>
-<td>52 <br /> (7)</td>
-<td>24 <br /> (7)</td>
-<td>28 <br /> (7)</td>
-<td>50 <br /> (4)</td>
-<td>22 <br /> (4)</td>
-<td>28 <br /> (4)</td>
+<td>Cross-section <br> (periods)</td>
+<td>52 <br> (8)</td>
+<td>24 <br> (8)</td>
+<td>28 <br> (8)</td>
+<td>52 <br> (7)</td>
+<td>24 <br> (7)</td>
+<td>28 <br> (7)</td>
+<td>50 <br> (4)</td>
+<td>22 <br> (4)</td>
+<td>28 <br> (4)</td>
 </tr>
 <tr>
 <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">R^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></td>
@@ -574,16 +635,16 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td>0.78</td>
 </tr>
 <tr>
-<td>F-statistic <br /> (p-value)</td>
-<td>4.3 <br /> (0.000)</td>
-<td>2.66 <br /> (0.000)</td>
-<td>6.03 <br /> (0.000)</td>
-<td>5.03 <br /> (0.000)</td>
-<td>2.17 <br /> (0.002)</td>
-<td>11.79 <br /> (0.000)</td>
-<td>4.72 <br /> (0.000)</td>
-<td>3.49 <br /> (0.000)</td>
-<td>6.18 <br /> (0.000)</td>
+<td>F-statistic <br> (p-value)</td>
+<td>4.3 <br> (0.000)</td>
+<td>2.66 <br> (0.000)</td>
+<td>6.03 <br> (0.000)</td>
+<td>5.03 <br> (0.000)</td>
+<td>2.17 <br> (0.002)</td>
+<td>11.79 <br> (0.000)</td>
+<td>4.72 <br> (0.000)</td>
+<td>3.49 <br> (0.000)</td>
+<td>6.18 <br> (0.000)</td>
 </tr>
 <tr>
 <td>Durbin-Watson statistic</td>
@@ -602,44 +663,48 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p><em>Note: This approach assumes there might be first, second and fifth order autocorrelation. The fifth order autocorrelation is assumed because growth is studied through 5-year periods. Sensitivity analysis is looking for AR terms that are significant at standard confidence levels and that produce d-statistics closest to 2. Significance levels are as follows: * - 90 % significance / ** - 95 % significance / *** - 99 % significance.</em></p>
 
-<p><br /></p>
+<p><br></p>
 
-<h6 id="heteroskedasticity"><em>Heteroskedasticity</em></h6>
+<h6 id="heteroskedasticity">
+<a class="anchor" href="#heteroskedasticity" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>Heteroskedasticity</em>
+</h6>
 
 <p>After scouring EViews help pages and related forums and blogposts, I have concluded that the current version of the statistical software just doesn’t provide support when it comes to testing for heteroskedasticity in panel data through direct tests. With that in mind, there were two options left for attempting to detect possible heteroskedasticity in the data. First approach is a common-sense (backed by econometrics textbooks<sup id="fnref:29" role="doc-noteref"><a href="#fn:29" class="footnote" rel="footnote">29</a></sup> <sup id="fnref:30" role="doc-noteref"><a href="#fn:30" class="footnote" rel="footnote">30</a></sup>) approach, that assumes there is high probability of heteroskedastic errors occurring in cross-sectional data. This seems intuitively reasonable as well – countries vary greatly in GDP per capita and economic freedom measures, indicating a strong possibility of errors having varying degrees of statistical dispersion. Furthermore, Figure 5 plots residuals against fitted values, for the three OLS estimates (pooled, non-OECD, and OECD). These graphs indicate that errors are indeed not uniformly dispersed and that heteroskedasticity is likely present between cross-sections (i.e. countries). Finally, plots showing within-country fitted values and residuals aren’t feasible since there are only 10 periods under consideration meaning that there aren’t enough points to visually estimate the shape of error dispersion.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Figure 5 - Residuals versus Fitted Values plots</em></p>
 
 <div class="row-grid">
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-pooled.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-pooled.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-non-oecd.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-non-oecd.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-oecd.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-oecd.png" data-zoomable="">
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
-<h6 id="redundant-fixed-effects"><em>Redundant Fixed Effects</em></h6>
+<h6 id="redundant-fixed-effects">
+<a class="anchor" href="#redundant-fixed-effects" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>Redundant Fixed Effects</em>
+</h6>
 
 <p>Figure 6 shows the results of redundant fixed effects tests, performed on the three OLS models. With future revised estimation in mind, the tests were completed for fixed cross-sectional effects, fixed period effects, and both. In each case, across all the model version, tests confirm that all model specifications are supported, with significant p-values across multiple tests.</p>
 
-<p><br /></p>
+<p><br></p>
 
-<p><em>Figure 6 - Redundant Fixed Effects Test</em> <br /></p>
+<p><em>Figure 6 - Redundant Fixed Effects Test</em> <br></p>
 
 <table>
 <colgroup>
-<col width="50%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
+<col width="50%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -652,63 +717,83 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <tbody>
 <tr>
 <td>Cross-Section F</td>
-<td><strong>3.039***</strong> <br /> (0.000)</td>
-<td><strong>3.057***</strong> <br /> (0.000)</td>
-<td><strong>2.782***</strong> <br /> (0.000)</td>
+<td>
+<strong>3.039***</strong> <br> (0.000)</td>
+<td>
+<strong>3.057***</strong> <br> (0.000)</td>
+<td>
+<strong>2.782***</strong> <br> (0.000)</td>
 </tr>
 <tr>
 <td>Cross-Section Chi-Square</td>
-<td><strong>152.544***</strong> <br /> (0.000)</td>
-<td><strong>72.255***</strong> <br /> (0.000)</td>
-<td><strong>77.188***</strong>  <br /> (0.000)</td>
+<td>
+<strong>152.544***</strong> <br> (0.000)</td>
+<td>
+<strong>72.255***</strong> <br> (0.000)</td>
+<td>
+<strong>77.188***</strong>  <br> (0.000)</td>
 </tr>
 <tr>
 <td>Period F</td>
-<td><strong>38.593***</strong> <br /> (0.000)</td>
-<td><strong>13.747***</strong> <br /> (0.000)</td>
-<td><strong>54.386***</strong>  <br /> (0.000)</td>
+<td>
+<strong>38.593***</strong> <br> (0.000)</td>
+<td>
+<strong>13.747***</strong> <br> (0.000)</td>
+<td>
+<strong>54.386***</strong>  <br> (0.000)</td>
 </tr>
 <tr>
 <td>Period Chi-Square</td>
-<td><strong>264.110***</strong> <br /> (0.000)</td>
-<td><strong>103.413***</strong> <br /> (0.000)</td>
-<td><strong>279.292***</strong>  <br /> (0.000)</td>
+<td>
+<strong>264.110***</strong> <br> (0.000)</td>
+<td>
+<strong>103.413***</strong> <br> (0.000)</td>
+<td>
+<strong>279.292***</strong>  <br> (0.000)</td>
 </tr>
 <tr>
 <td>Cross-Section/Period F</td>
-<td><strong>10.400***</strong> <br /> (0.000)</td>
-<td><strong>6.794***</strong> <br /> (0.000)</td>
-<td><strong>16.360***</strong>  <br /> (0.000)</td>
+<td>
+<strong>10.400***</strong> <br> (0.000)</td>
+<td>
+<strong>6.794***</strong> <br> (0.000)</td>
+<td>
+<strong>16.360***</strong>  <br> (0.000)</td>
 </tr>
 <tr>
 <td>Cross-Section Chi-Square</td>
-<td><strong>424.806***</strong> <br /> (0.000)</td>
-<td><strong>165.049***</strong> <br /> (0.000)</td>
-<td><strong>326.592***</strong>  <br /> (0.000)</td>
+<td>
+<strong>424.806***</strong> <br> (0.000)</td>
+<td>
+<strong>165.049***</strong> <br> (0.000)</td>
+<td>
+<strong>326.592***</strong>  <br> (0.000)</td>
 </tr>
 </tbody>
 </table>
 
-<p><em>Note: * - 90 % significance / ** - 95 % significance / *** - 99 % significance</em> <br />
-<em>Null: Cross-Section/Period/Both Effects specifications are redundant,</em> <br />
+<p><em>Note: * - 90 % significance / ** - 95 % significance / *** - 99 % significance</em> <br>
+<em>Null: Cross-Section/Period/Both Effects specifications are redundant,</em> <br>
 <em>Alternative: Cross-Section/Period/Both Effects specifications are valid</em></p>
 
-<p><br /></p>
+<p><br></p>
 
-<h6 id="hausman-test"><em>Hausman Test</em></h6>
+<h6 id="hausman-test">
+<a class="anchor" href="#hausman-test" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>Hausman Test</em>
+</h6>
 
 <p>Hausman Test null hypothesis states that there is no correlation between unique errors and regressors (meaning that the random effects model is preferred) against an alternative that there is correlation between unique errors and regressors (meaning that the fixed effects model is preferred). This test could only be performed on cross-sectional fixed effects and not two-way fixed effects since EViews doesn’t estimate two-way random effects tests on unbalanced data for the purposes of further testing. Hausman test results (see Figure 7) reject the null hypothesis and the alternative is accepted – fixed effects model is appropriate.</p>
 
-<p><br /></p>
+<p><br></p>
 
-<p><em>Figure 7 - Random versus Fixed Effects Test</em> <br /></p>
+<p><em>Figure 7 - Random versus Fixed Effects Test</em> <br></p>
 
 <table>
 <colgroup>
-<col width="50%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
+<col width="50%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -721,9 +806,12 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <tbody>
 <tr>
 <td>Chi-Square statistic</td>
-<td><strong>146.276***</strong> <br /> (0.000)</td>
-<td><strong>52.771***</strong> <br /> (0.000)</td>
-<td><strong>37.882***</strong> <br /> (0.000)</td>
+<td>
+<strong>146.276***</strong> <br> (0.000)</td>
+<td>
+<strong>52.771***</strong> <br> (0.000)</td>
+<td>
+<strong>37.882***</strong> <br> (0.000)</td>
 </tr>
 <tr>
 <td>degrees of freedom</td>
@@ -736,26 +824,26 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p><em>Note: * - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><strong>6. Revised Estimates</strong></p>
 
 <p>Following all the tests performed, I have decided to reformulate the previous cross-section fixed effects OLS model. For more precise parameter identification and robust standard errors, cross-sectional heteroskedasticity and first (and possibly second) order autocorrelation need to be addressed. Therefore, the revised model is structured as a cross-section fixed effects GLS model, with two terms for autocorrelation and cross-section weights which assume the presence of heteroskedasticity in the relevant dimension. Estimates for this model are presented in Figure 8, split up between estimates for all countries, only non-OECD countries, and only OECD countries.</p>
 
-<p><br /></p>
+<p><br></p>
 
-<p><em>Figure 8. Panel EGLS Regression (Cross-Section Weights)</em> <br />
+<p><em>Figure 8. Panel EGLS Regression (Cross-Section Weights)</em> <br>
 <em>Dependent variable: log growth of GDP per capita (1975 - 2015)</em></p>
 
 <table>
 <colgroup>
-<col width="30%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
-<col width="10%" />
+<col width="30%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
+<col width="10%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -780,83 +868,110 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 </tr>
 <tr>
 <td>Intercept</td>
-<td><strong>0.228***</strong> <br /> (0.014)</td>
-<td><strong>0.441***</strong> <br /> (0.034)</td>
-<td><strong>0.217***</strong> <br /> (0.028)</td>
-<td><strong>0.372***</strong> <br /> (0.054)</td>
-<td><strong>0.280***</strong> <br /> (0.016)</td>
-<td><strong>0.526***</strong> <br /> (0.046)</td>
+<td>
+<strong>0.228***</strong> <br> (0.014)</td>
+<td>
+<strong>0.441***</strong> <br> (0.034)</td>
+<td>
+<strong>0.217***</strong> <br> (0.028)</td>
+<td>
+<strong>0.372***</strong> <br> (0.054)</td>
+<td>
+<strong>0.280***</strong> <br> (0.016)</td>
+<td>
+<strong>0.526***</strong> <br> (0.046)</td>
 </tr>
 <tr>
 <td>log GDP per capita</td>
-<td><strong>-0.032***</strong> <br /> (0.003)</td>
-<td><strong>-0.071***</strong> <br /> (0.005)</td>
-<td><strong>-0.044***</strong> <br /> (0.007)</td>
-<td><strong>-0.072***</strong> <br /> (0.009)</td>
-<td><strong>-0.027***</strong> <br /> (0.003)</td>
-<td><strong>-0.072***</strong> <br /> (0.007)</td>
+<td>
+<strong>-0.032***</strong> <br> (0.003)</td>
+<td>
+<strong>-0.071***</strong> <br> (0.005)</td>
+<td>
+<strong>-0.044***</strong> <br> (0.007)</td>
+<td>
+<strong>-0.072***</strong> <br> (0.009)</td>
+<td>
+<strong>-0.027***</strong> <br> (0.003)</td>
+<td>
+<strong>-0.072***</strong> <br> (0.007)</td>
 </tr>
 <tr>
 <td>Size of Government</td>
-<td><strong>0.005***</strong> <br /> (0.003)</td>
-<td>0.005 <br /> (0.004)</td>
-<td>0.005 <br /> (0.003)</td>
-<td>0.006 <br /> (0.006)</td>
-<td>0.002 <br /> (0.001)</td>
-<td>0.002 <br /> (0.005)</td>
+<td>
+<strong>0.005***</strong> <br> (0.003)</td>
+<td>0.005 <br> (0.004)</td>
+<td>0.005 <br> (0.003)</td>
+<td>0.006 <br> (0.006)</td>
+<td>0.002 <br> (0.001)</td>
+<td>0.002 <br> (0.005)</td>
 </tr>
 <tr>
 <td>Legal System &amp; Property Rights</td>
-<td>0.001 <br /> (0.002)</td>
-<td>-0.003 <br /> (0.003)</td>
-<td>0.001 <br /> (0.003)</td>
-<td>-0.005 <br /> (0.005)</td>
-<td>-0.002 <br /> (0.002)</td>
-<td>-0.002 <br /> (0.004)</td>
+<td>0.001 <br> (0.002)</td>
+<td>-0.003 <br> (0.003)</td>
+<td>0.001 <br> (0.003)</td>
+<td>-0.005 <br> (0.005)</td>
+<td>-0.002 <br> (0.002)</td>
+<td>-0.002 <br> (0.004)</td>
 </tr>
 <tr>
 <td>Sound Money</td>
-<td><strong>-0.007***</strong> <br /> (0.001)</td>
-<td>-0.004 <br /> (0.002)</td>
-<td><strong>-0.009***</strong> <br /> (0.002)</td>
-<td><strong>-0.006**</strong> <br /> (0.003)</td>
-<td><strong>-0.006***</strong> <br /> (0.001)</td>
-<td>0.000 <br /> (0.004)</td>
+<td>
+<strong>-0.007***</strong> <br> (0.001)</td>
+<td>-0.004 <br> (0.002)</td>
+<td>
+<strong>-0.009***</strong> <br> (0.002)</td>
+<td>
+<strong>-0.006**</strong> <br> (0.003)</td>
+<td>
+<strong>-0.006***</strong> <br> (0.001)</td>
+<td>0.000 <br> (0.004)</td>
 </tr>
 <tr>
 <td>Regulation</td>
-<td>0.003 <br /> (0.003)</td>
-<td><strong>0.024***</strong> <br /> (0.005)</td>
-<td><strong>0.013**</strong> <br /> (0.006)</td>
-<td><strong>0.024***</strong> <br /> (0.008)</td>
-<td>0.001 <br /> (0.002)</td>
-<td><strong>0.025***</strong> <br /> (0.004)</td>
+<td>0.003 <br> (0.003)</td>
+<td>
+<strong>0.024***</strong> <br> (0.005)</td>
+<td>
+<strong>0.013**</strong> <br> (0.006)</td>
+<td>
+<strong>0.024***</strong> <br> (0.008)</td>
+<td>0.001 <br> (0.002)</td>
+<td>
+<strong>0.025***</strong> <br> (0.004)</td>
 </tr>
 <tr>
 <td>Freedom to Trade Internationally</td>
-<td><strong>0.014***</strong> <br /> (0.002)</td>
-<td><strong>0.013***</strong> <br /> (0.003)</td>
-<td><strong>0.017***</strong> <br /> (0.006)</td>
-<td><strong>0.017***</strong> <br /> (0.004)</td>
-<td><strong>0.010***</strong> <br /> (0.002)</td>
-<td><strong>0.008*</strong> <br /> (0.004)</td>
+<td>
+<strong>0.014***</strong> <br> (0.002)</td>
+<td>
+<strong>0.013***</strong> <br> (0.003)</td>
+<td>
+<strong>0.017***</strong> <br> (0.006)</td>
+<td>
+<strong>0.017***</strong> <br> (0.004)</td>
+<td>
+<strong>0.010***</strong> <br> (0.002)</td>
+<td>
+<strong>0.008*</strong> <br> (0.004)</td>
 </tr>
 <tr>
 <td>AR(1)</td>
-<td>-0.669*** <br /> (0.038)</td>
+<td>-0.669*** <br> (0.038)</td>
 <td> </td>
-<td>-0.498*** <br /> (0.072)</td>
+<td>-0.498*** <br> (0.072)</td>
 <td> </td>
-<td>-0.862*** <br /> (0.039)</td>
+<td>-0.862*** <br> (0.039)</td>
 <td> </td>
 </tr>
 <tr>
 <td>AR(2)</td>
-<td>-0.538*** <br /> (0.033)</td>
+<td>-0.538*** <br> (0.033)</td>
 <td> </td>
-<td>-0.530*** <br /> (0.071)</td>
+<td>-0.530*** <br> (0.071)</td>
 <td> </td>
-<td>-0.663*** <br /> (0.034)</td>
+<td>-0.663*** <br> (0.034)</td>
 <td> </td>
 </tr>
 <tr>
@@ -869,13 +984,13 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td>241</td>
 </tr>
 <tr>
-<td>Cross-section <br /> (periods)</td>
-<td>52 <br /> (7)</td>
-<td>52 <br /> (9)</td>
-<td>24 <br /> (7)</td>
-<td>24 <br /> (9)</td>
-<td>28 <br /> (7)</td>
-<td>28 <br /> (9)</td>
+<td>Cross-section <br> (periods)</td>
+<td>52 <br> (7)</td>
+<td>52 <br> (9)</td>
+<td>24 <br> (7)</td>
+<td>24 <br> (9)</td>
+<td>28 <br> (7)</td>
+<td>28 <br> (9)</td>
 </tr>
 <tr>
 <td><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>R</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">R^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.00773em;">R</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></td>
@@ -887,13 +1002,13 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 <td>0.46</td>
 </tr>
 <tr>
-<td>F-statistic <br /> (p-value)</td>
-<td>10.83 <br /> (0.000)</td>
-<td>5.03 <br /> (0.000)</td>
-<td>4.42 <br /> (0.000)</td>
-<td>3.88 <br /> (0.000)</td>
-<td>24.64 <br /> (0.002)</td>
-<td>5.4 <br /> (0.000)</td>
+<td>F-statistic <br> (p-value)</td>
+<td>10.83 <br> (0.000)</td>
+<td>5.03 <br> (0.000)</td>
+<td>4.42 <br> (0.000)</td>
+<td>3.88 <br> (0.000)</td>
+<td>24.64 <br> (0.002)</td>
+<td>5.4 <br> (0.000)</td>
 </tr>
 <tr>
 <td>Durbin-Watson statistic</td>
@@ -909,27 +1024,27 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p><em>Note: * - 90 % significance / ** - 95 % significance / *** - 99 % significance</em></p>
 
-<p><br /></p>
+<p><br></p>
 
 <p>As Figure 8 shows, <em>Freedom to Trade Internationally</em> and <em>Sound Money</em> have a significant effect across three model runs, and <em>Regulation</em> has a significant effect for non-OECD countries only. Any one-point increase in the <em>Freedom to Trade Internationally</em> index is correlated with a 1.3 % (pooled), 1.7 % (non-OECD) and 1% (OECD) increase in the growth rate of GDP per capita, on average. Any one-point increase in the <em>Sound Money</em> index is correlated with a 0.7 % (pooled), 0.9 % (non-OECD) and 0.6% (OECD) increase in the growth rate of GDP per capita, on average. Any one-point increase in the <em>Regulation</em> index for non-OECD countries is correlated with a 1.3 % increase in the growth rate of GDP per capita, on average. Finally, any one-point increase in the <em>Size of Government</em> index for pooled countries is correlated with a 0.5 % increase in the growth rate of GDP per capita, on average. To reiterate, an increase in index scores across all three of the variables mentioned indicates an increase in economic freedom, as per EFI design.</p>
 
-<p><br /></p>
+<p><br></p>
 
 <p><em>Figure 9 - Residuals versus Fitted Values plots</em></p>
 
 <div class="row-grid">
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-pooled2.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-pooled2.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-non-oecd2.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-non-oecd2.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-oecd2.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/hs-oecd2.png" data-zoomable="">
     </div>
 </div>
 
-<p><br /></p>
+<p><br></p>
 
 <p>Moreover, to confirm that the revised model significantly diminishes heteroskedasticity and autocorrelation detected previously, Figure 8 reports the Durbin-Watson statistic and Figure 9 shows the residual plots. The Durbin-Watson (d) statistic went from 2.7 to 1.8 (pooled), 2.4 to 2.1 (non-OECD), and 2.9 to 1.7 (OECD). Since a d value of 2 indicates that <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>ρ</mi></mrow><annotation encoding="application/x-tex">\rho</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.625em;vertical-align:-0.19444em;"></span><span class="mord mathdefault">ρ</span></span></span></span> is 0, this indicates a reduction in residual trend correlation. Additionally, Appendix 5 reports the trend of residuals across periods (compared with the OLS estimated ones), indicating a smoothening. Finally, Figure 9 reports the error dispersion (compared with the OLS estimated ones), indicating more uniform dispersion (homoskedasticity).</p>
 
@@ -939,7 +1054,9 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p>Across all model formulations, freedom to trade internationally remained very robust. These results support classical economic theory<sup id="fnref:3:1" role="doc-noteref"><a href="#fn:3" class="footnote" rel="footnote">3</a></sup> <sup id="fnref:1:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup>, as well as more modern assumptions<sup id="fnref:9:1" role="doc-noteref"><a href="#fn:9" class="footnote" rel="footnote">9</a></sup>. Monetary stability through low inflation and the freedom to use alternate currencies seemed likely to be correlated with economic growth. However, research did not support this hypothesis. There are a few reasons that might explain this finding. Subcomponents of this area of the index might be constructed out of elements with opposite effects. Also, most countries in the data set do not wield the economic power of the United States and are economically tied to the fluctuations of more influential currencies. Therefore, they are unable to produce sound monetary policy and often attempt to restrict the power of foreign currencies in the domestic marketplace. If these countries experience increased growth rates, this area of the index does not predict development as assumed. Free movement into markets, as pictured through the regulation variable, is only significant for non-OECD countries, most of which are underdeveloped. This could indicate that lax regulation fosters growth on the way to the status of a first-world country. However, countries that had already reached these levels of development are not experiencing such growth rates and often begin introducing new regulation when they become appropriately placed on the Kuznets curve to do so. This is often regulation that deals with various market inefficiencies (externalities, informational asymmetry, etc.).</p>
 
-<h6 id="limitations-and-future-research"><em>Limitations and future research</em></h6>
+<h6 id="limitations-and-future-research">
+<a class="anchor" href="#limitations-and-future-research" aria-hidden="true"><span class="octicon octicon-link"></span></a><em>Limitations and future research</em>
+</h6>
 
 <p>This data set was somewhat unbalanced (missing periods for a few cross-sections), resulting in the omission of those observations. Along with balanced panel data, the set needs to extend over a longer time frame, given that in the process of correcting for autocorrelation, the number of observations got further reduced. It would also be useful to detect breakpoints in the time series, centered around significant economic events (like the Great Recession), and perform the estimation around them. Much like a longer time frame, more countries included in the set would be useful. The issue lies in procuring the necessary data, especially further into the past, given that some countries do not provide any data or provide data that is highly questionable.</p>
 
@@ -947,7 +1064,8 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
 
 <p>For data, code, and similar projects, visit <a href="https://github.com/antoniojurlina/economic_freedom_and_growth">github.com/antoniojurlina/economic_freedom_and_growth</a>.</p>
 
-<h5 id="appendix-1---index-area-components">Appendix 1 - Index Area Components</h5>
+<h5 id="appendix-1---index-area-components">
+<a class="anchor" href="#appendix-1---index-area-components" aria-hidden="true"><span class="octicon octicon-link"></span></a>Appendix 1 - Index Area Components</h5>
 
 <ul>
   <li>
@@ -955,11 +1073,11 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
   <summary> Size of Government: </summary>
         
   (a) Government Consumption
-  <br />
+  <br>
   (b) Transfers and subsidies
-  <br />
+  <br>
   (c) Government enterprises and investment
-  <br />
+  <br>
   (d) Top marginal tax rate
   </details>
   </li>
@@ -968,21 +1086,21 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
   <summary> Legal System and Property Rights: </summary>
         
   (a) Judicial independence
-  <br />
+  <br>
   (b) Impartial courts
-  <br />
+  <br>
   (c) Protection of property rights
-  <br />
+  <br>
   (d) Military interference in rule of law and politics
-  <br />
+  <br>
   (e) Integrity of the legal system
-  <br />
+  <br>
   (f) Legal enforcement of contracts
-  <br />
+  <br>
   (g) Regulatory costs of the sale of real property
-  <br /> 
+  <br> 
   (h) Reliability of police
-  <br />
+  <br>
   (i) Business costs of crime
   </details>
   </li>
@@ -991,11 +1109,11 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
   <summary> Sound Money: </summary>
         
   (a) Money growth
-  <br />
+  <br>
   (b) Standard deviation of inflation
-  <br />
+  <br>
   (c) Inflation: most recent year
-  <br />
+  <br>
   (d) Freedom to own foreign currency bank
   </details>
   </li>
@@ -1004,11 +1122,11 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
   <summary> Freedom to Trade Internationally: </summary>
         
   (a) Tariffs
-  <br />
+  <br>
   (b) Regulatory trade barriers
-  <br />
+  <br>
   (c) Black-market exchange rates
-  <br />
+  <br>
   (d) Controls of the movement of capital and people
   </details>
   </li>
@@ -1017,95 +1135,100 @@ spending, a smaller government enterprise sector, and lower tax rates earn the h
   <summary> Regulation: </summary>
         
   (a) Credit market regulations
-  <br />
+  <br>
   (b) Labor market regulations
-  <br />
+  <br>
   (c) Business regulations
   </details>
   </li>
 </ul>
 
-<h5 id="appendix-2---summary-statistics">Appendix 2 - Summary Statistics</h5>
+<h5 id="appendix-2---summary-statistics">
+<a class="anchor" href="#appendix-2---summary-statistics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Appendix 2 - Summary Statistics</h5>
 
 <div class="row-grid">
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gdp.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gdp.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gov.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gov.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/growth.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/growth.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/legal.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/legal.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/money.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/money.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/regulation.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/regulation.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/trade.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/trade.png" data-zoomable="">
     </div>
 </div>
 
-<h5 id="appendix-3---summary-graphs">Appendix 3 - Summary Graphs</h5>
+<h5 id="appendix-3---summary-graphs">
+<a class="anchor" href="#appendix-3---summary-graphs" aria-hidden="true"><span class="octicon octicon-link"></span></a>Appendix 3 - Summary Graphs</h5>
 
 <div class="row-grid">
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gdp2.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gdp2.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gov2.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/gov2.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/growth2.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/growth2.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/legal2.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/legal2.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/money2.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/money2.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/regulation2.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/regulation2.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/trade2.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/trade2.png" data-zoomable="">
     </div>
 </div>
 
-<h5 id="appendix-4---residuals-plots-before">Appendix 4 - Residuals Plots (before)</h5>
+<h5 id="appendix-4---residuals-plots-before">
+<a class="anchor" href="#appendix-4---residuals-plots-before" aria-hidden="true"><span class="octicon octicon-link"></span></a>Appendix 4 - Residuals Plots (before)</h5>
 
 <div class="row-grid">
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_pooled_b.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_pooled_b.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_non_oecd_b.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_non_oecd_b.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_oecd_b.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_oecd_b.png" data-zoomable="">
     </div>
 </div>
 
-<h5 id="appendix-5---residuals-plots-after">Appendix 5 - Residuals Plots (after)</h5>
+<h5 id="appendix-5---residuals-plots-after">
+<a class="anchor" href="#appendix-5---residuals-plots-after" aria-hidden="true"><span class="octicon octicon-link"></span></a>Appendix 5 - Residuals Plots (after)</h5>
 
 <div class="row-grid">
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_pooled_a.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_pooled_a.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_non_oecd_a.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_non_oecd_a.png" data-zoomable="">
     </div>
     <div class="column-grid">
-        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_oecd_a.png" data-zoomable="" />
+        <img class="img-fluid rounded z-depth-1" src="/portfolio/images/residuals_oecd_a.png" data-zoomable="">
     </div>
 </div>
 
-<h5 id="appendix-6---eviews-code">Appendix 6 - EViews Code</h5>
+<h5 id="appendix-6---eviews-code">
+<a class="anchor" href="#appendix-6---eviews-code" aria-hidden="true"><span class="octicon octicon-link"></span></a>Appendix 6 - EViews Code</h5>
 
 <figure class="highlight"><pre><code class="language-eviews" data-lang="eviews"> 
 spool results output(s) results
@@ -1335,107 +1458,109 @@ results.displayname untitled46 "OLS (OECD) Residuals Plot"
 delete res_j res_k res_l hetero1 hetero2 hetero3 resid_j resid_k resid_l growthf
 results.options displaynames</code></pre></figure>
 
-<h5 id="works-cited"><strong>Works Cited</strong></h5>
+<h5 id="works-cited">
+<a class="anchor" href="#works-cited" aria-hidden="true"><span class="octicon octicon-link"></span></a><strong>Works Cited</strong>
+</h5>
 
 <div class="footnotes" role="doc-endnotes">
   <ol>
     <li id="fn:1" role="doc-endnote">
-      <p>Smith, A. (2003). An Inquiry into the Nature and Causes of the Wealth of Nations. Bantam Classics. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:1:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+      <p>Smith, A. (2003). An Inquiry into the Nature and Causes of the Wealth of Nations. Bantam Classics. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:1:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
     <li id="fn:2" role="doc-endnote">
-      <p>McCusker, J., &amp; Morgan, K. (Eds.). (2001). The Early Modern Atlantic Economy. Cambridge: Cambridge University Press. doi:10.1017/CBO9780511523878 <a href="#fnref:2" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>McCusker, J., &amp; Morgan, K. (Eds.). (2001). The Early Modern Atlantic Economy. Cambridge: Cambridge University Press. doi:10.1017/CBO9780511523878 <a href="#fnref:2" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:3" role="doc-endnote">
-      <p>Ricardo, D. (1817). On the Principles of Political Economy and Taxation. London: Dover Publications. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:3:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+      <p>Ricardo, D. (1817). On the Principles of Political Economy and Taxation. London: Dover Publications. <a href="#fnref:3" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:3:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
     <li id="fn:4" role="doc-endnote">
-      <p>Solow, R. M. (1956). A Contribution to the Theory of Economic Growth. The Quarterly Journal of Economics, 70(1), 65. https://doi.org/10.2307/1884513 <a href="#fnref:4" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Solow, R. M. (1956). A Contribution to the Theory of Economic Growth. The Quarterly Journal of Economics, 70(1), 65. https://doi.org/10.2307/1884513 <a href="#fnref:4" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:5" role="doc-endnote">
-      <p>Domar, E. D. (1946). Capital Expansion, Rate of Growth, and Employment. Econometrica, 14(2), 137–147. https://doi.org/10.2307/1905364 <a href="#fnref:5" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Domar, E. D. (1946). Capital Expansion, Rate of Growth, and Employment. Econometrica, 14(2), 137–147. https://doi.org/10.2307/1905364 <a href="#fnref:5" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:6" role="doc-endnote">
-      <p>Harrod, R. F. (1939). An Essay in Dynamic Theory. The Economic Journal, 49(193), 14–33. https://doi.org/10.2307/2225181 <a href="#fnref:6" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Harrod, R. F. (1939). An Essay in Dynamic Theory. The Economic Journal, 49(193), 14–33. https://doi.org/10.2307/2225181 <a href="#fnref:6" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:7" role="doc-endnote">
-      <p>Kuznets, S. (1973). Modern Economic Growth: Findings and Reflections. The American Economic Review, 63(3), 247–258. <a href="#fnref:7" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Kuznets, S. (1973). Modern Economic Growth: Findings and Reflections. The American Economic Review, 63(3), 247–258. <a href="#fnref:7" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:8" role="doc-endnote">
-      <p>Schumpeter, J. (1942). Capitalism, Socialism and Democracy (Vol. 1). Routledge. Retrieved from https://www.goodreads.com/work/best_book/129884-capitalism-socialism-and-democracy <a href="#fnref:8" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Schumpeter, J. (1942). Capitalism, Socialism and Democracy (Vol. 1). Routledge. Retrieved from https://www.goodreads.com/work/best_book/129884-capitalism-socialism-and-democracy <a href="#fnref:8" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:9" role="doc-endnote">
-      <p>Friedman, M. (1962). Capitalism and Freedom (1st ed.). University of Chicago Press. Retrieved from https://www.goodreads.com/work/best_book/1534488-capitalism-and-freedom <a href="#fnref:9" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:9:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+      <p>Friedman, M. (1962). Capitalism and Freedom (1st ed.). University of Chicago Press. Retrieved from https://www.goodreads.com/work/best_book/1534488-capitalism-and-freedom <a href="#fnref:9" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:9:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
     <li id="fn:10" role="doc-endnote">
-      <p>Ayal, E. B., &amp; Karras, G. (1998). Components of Economic Freedom and Growth: An Empirical Study. The Journal of Developing Areas, 32(3), 327–338. <a href="#fnref:10" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:10:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:10:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+      <p>Ayal, E. B., &amp; Karras, G. (1998). Components of Economic Freedom and Growth: An Empirical Study. The Journal of Developing Areas, 32(3), 327–338. <a href="#fnref:10" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:10:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a> <a href="#fnref:10:2" class="reversefootnote" role="doc-backlink">↩<sup>3</sup></a></p>
     </li>
     <li id="fn:11" role="doc-endnote">
-      <p>Barro, R. J. (1991). Economic Growth in a Cross Section of Countries. The Quarterly Journal of Economics, 106(2), 407–443. https://doi.org/10.2307/2937943 <a href="#fnref:11" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:11:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+      <p>Barro, R. J. (1991). Economic Growth in a Cross Section of Countries. The Quarterly Journal of Economics, 106(2), 407–443. https://doi.org/10.2307/2937943 <a href="#fnref:11" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:11:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
     <li id="fn:12" role="doc-endnote">
-      <p>Easterly, W. (1992). Marginal income tax rates and economic growth in developing countries (No. WPS1050) (p. 1). The World Bank. Retrieved from http://documents.worldbank.org/curated/en/432391468766196026/Marginal-income-tax-rates-and-economic-growth-in-developing-countries <a href="#fnref:12" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Easterly, W. (1992). Marginal income tax rates and economic growth in developing countries (No. WPS1050) (p. 1). The World Bank. Retrieved from http://documents.worldbank.org/curated/en/432391468766196026/Marginal-income-tax-rates-and-economic-growth-in-developing-countries <a href="#fnref:12" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:13" role="doc-endnote">
-      <p>Knack, S., &amp; Keefer, P. (1995). Institutions and Economic Performance: Cross-Country Tests Using Alternative Institutional Measures. Economics &amp; Politics, 7(3), 207–227. https://doi.org/10.1111/j.1468-0343.1995.tb00111.x <a href="#fnref:13" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:13:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:13:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+      <p>Knack, S., &amp; Keefer, P. (1995). Institutions and Economic Performance: Cross-Country Tests Using Alternative Institutional Measures. Economics &amp; Politics, 7(3), 207–227. https://doi.org/10.1111/j.1468-0343.1995.tb00111.x <a href="#fnref:13" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:13:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a> <a href="#fnref:13:2" class="reversefootnote" role="doc-backlink">↩<sup>3</sup></a></p>
     </li>
     <li id="fn:14" role="doc-endnote">
-      <p>Torstensson, J. (1994). Property Rights and Economic Growth: An Empirical Study. Kyklos, 47(2), 231–247. <a href="#fnref:14" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:14:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:14:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+      <p>Torstensson, J. (1994). Property Rights and Economic Growth: An Empirical Study. Kyklos, 47(2), 231–247. <a href="#fnref:14" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:14:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a> <a href="#fnref:14:2" class="reversefootnote" role="doc-backlink">↩<sup>3</sup></a></p>
     </li>
     <li id="fn:15" role="doc-endnote">
-      <p>Naughton, B. (2007). The Chinese economy: transitions and growth. Cambridge, Mass: MIT Press. <a href="#fnref:15" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Naughton, B. (2007). The Chinese economy: transitions and growth. Cambridge, Mass: MIT Press. <a href="#fnref:15" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:16" role="doc-endnote">
-      <p>Mundell, R. A. (1963). Capital Mobility and Stabilization Policy under Fixed and Flexible Exchange Rates. The Canadian Journal of Economics and Political Science / Revue Canadienne d’Economique et de Science Politique, 29(4), 475–485. https://doi.org/10.2307/139336 <a href="#fnref:16" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Mundell, R. A. (1963). Capital Mobility and Stabilization Policy under Fixed and Flexible Exchange Rates. The Canadian Journal of Economics and Political Science / Revue Canadienne d’Economique et de Science Politique, 29(4), 475–485. https://doi.org/10.2307/139336 <a href="#fnref:16" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:17" role="doc-endnote">
-      <p>J. M. Fleming, “Domestic Financial Policies under Fixed and Floating Exchange Rates,” IMF Staff Papers, Vol. 9, 1962, pp. 369-379. doi:10.2307/3866091 <a href="#fnref:17" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>J. M. Fleming, “Domestic Financial Policies under Fixed and Floating Exchange Rates,” IMF Staff Papers, Vol. 9, 1962, pp. 369-379. doi:10.2307/3866091 <a href="#fnref:17" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:18" role="doc-endnote">
-      <p>Leontief, W. (1953). Domestic Production and Foreign Trade; The American Capital Position Re-Examined. Proceedings of the American Philosophical Society, 97(4), 332– 349. <a href="#fnref:18" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Leontief, W. (1953). Domestic Production and Foreign Trade; The American Capital Position Re-Examined. Proceedings of the American Philosophical Society, 97(4), 332– 349. <a href="#fnref:18" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:19" role="doc-endnote">
-      <p>Gwartney, J. D., Lawson, R. A., &amp; Block, W. (1996). Economic Freedom of the World:1975-1995 (p. 342). The Fraser Institute. Retrieved from http://bit.ly/2jUkBGR <a href="#fnref:19" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Gwartney, J. D., Lawson, R. A., &amp; Block, W. (1996). Economic Freedom of the World:1975-1995 (p. 342). The Fraser Institute. Retrieved from http://bit.ly/2jUkBGR <a href="#fnref:19" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:20" role="doc-endnote">
-      <p>Berggren, N. (2003). The Benefits of Economic Freedom: A Survey. The Independent Review, 8(2), 193–211. <a href="#fnref:20" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Berggren, N. (2003). The Benefits of Economic Freedom: A Survey. The Independent Review, 8(2), 193–211. <a href="#fnref:20" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:21" role="doc-endnote">
-      <p>Carlsson, F., &amp; Lundström, S. (2002). Economic freedom and growth: Decomposing the effects. Public Choice, 112, 335–344. https://doi.org/10.1023/a:1019968525415 <a href="#fnref:21" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Carlsson, F., &amp; Lundström, S. (2002). Economic freedom and growth: Decomposing the effects. Public Choice, 112, 335–344. https://doi.org/10.1023/a:1019968525415 <a href="#fnref:21" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:22" role="doc-endnote">
-      <p>de Haan, J., &amp; Sturm, J.-E. (2000). On the relationship between economic freedom and economic growth. European Journal of Political Economy, 16(2), 215–241. https://doi.org/10.1016/S0176-2680(99)00065-8 <a href="#fnref:22" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>de Haan, J., &amp; Sturm, J.-E. (2000). On the relationship between economic freedom and economic growth. European Journal of Political Economy, 16(2), 215–241. https://doi.org/10.1016/S0176-2680(99)00065-8 <a href="#fnref:22" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:23" role="doc-endnote">
-      <p>Gwartney, J. D., Lawson, R. A., &amp; Holcombe, R. G. (1999). Economic Freedom and the Environment for Economic Growth. Journal of Institutional and Theoretical Economics, 155(4), 643–663. <a href="#fnref:23" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:23:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:23:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+      <p>Gwartney, J. D., Lawson, R. A., &amp; Holcombe, R. G. (1999). Economic Freedom and the Environment for Economic Growth. Journal of Institutional and Theoretical Economics, 155(4), 643–663. <a href="#fnref:23" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:23:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a> <a href="#fnref:23:2" class="reversefootnote" role="doc-backlink">↩<sup>3</sup></a></p>
     </li>
     <li id="fn:24" role="doc-endnote">
-      <p>Nelson, M. A., &amp; Singh, R. D. (1998). Democracy, Economic Freedom, Fiscal Policy, and Growth in LDCs: A Fresh Look. Economic Development and Cultural Change, 46(4), 677– 696. https://doi.org/10.1086/452369 <a href="#fnref:24" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Nelson, M. A., &amp; Singh, R. D. (1998). Democracy, Economic Freedom, Fiscal Policy, and Growth in LDCs: A Fresh Look. Economic Development and Cultural Change, 46(4), 677– 696. https://doi.org/10.1086/452369 <a href="#fnref:24" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:25" role="doc-endnote">
-      <p>Economic Freedom of the World. (2015, December 22). Retrieved October 9, 2018, from http://bit.ly/2h5xBVI <a href="#fnref:25" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:25:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a> <a href="#fnref:25:2" class="reversefootnote" role="doc-backlink">&#8617;<sup>3</sup></a></p>
+      <p>Economic Freedom of the World. (2015, December 22). Retrieved October 9, 2018, from http://bit.ly/2h5xBVI <a href="#fnref:25" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:25:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a> <a href="#fnref:25:2" class="reversefootnote" role="doc-backlink">↩<sup>3</sup></a></p>
     </li>
     <li id="fn:26" role="doc-endnote">
-      <p>GDP per capita (current US$) Data. (2018). Retrieved October 9, 2018, from https://data.worldbank.org/indicator/NY.GDP.PCAP.CD <a href="#fnref:26" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>GDP per capita (current US$) Data. (2018). Retrieved October 9, 2018, from https://data.worldbank.org/indicator/NY.GDP.PCAP.CD <a href="#fnref:26" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:27" role="doc-endnote">
-      <p>OECD - Members and partners. (2018, July). Retrieved December 12, 2018, from http://www.oecd.org/about/membersandpartners/ <a href="#fnref:27" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>OECD - Members and partners. (2018, July). Retrieved December 12, 2018, from http://www.oecd.org/about/membersandpartners/ <a href="#fnref:27" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:28" role="doc-endnote">
-      <p>Mankiw, N. G., Romer, D., &amp; Weil, D. N. (1992). A Contribution to the Empirics of Economic Growth. The Quarterly Journal of Economics, 407–437. https://doi.org/10.3386/w3541 <a href="#fnref:28" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Mankiw, N. G., Romer, D., &amp; Weil, D. N. (1992). A Contribution to the Empirics of Economic Growth. The Quarterly Journal of Economics, 407–437. https://doi.org/10.3386/w3541 <a href="#fnref:28" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:29" role="doc-endnote">
-      <p>Guajarati, D. N. (1987). Basic Econometrics (4th ed.). <a href="#fnref:29" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Guajarati, D. N. (1987). Basic Econometrics (4th ed.). <a href="#fnref:29" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:30" role="doc-endnote">
-      <p>Wooldridge, J. M. (2016). Introductory Econometrics: A Modern Approach (6th ed.). Thomson South-Western. <a href="#fnref:30" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+      <p>Wooldridge, J. M. (2016). Introductory Econometrics: A Modern Approach (6th ed.). Thomson South-Western. <a href="#fnref:30" class="reversefootnote" role="doc-backlink">↩</a></p>
     </li>
     <li id="fn:31" role="doc-endnote">
-      <p>Barro, R. J. (1996). Democracy and Growth. Journal of Economic Growth, 1(1), 1–27. <a href="#fnref:31" class="reversefootnote" role="doc-backlink">&#8617;</a> <a href="#fnref:31:1" class="reversefootnote" role="doc-backlink">&#8617;<sup>2</sup></a></p>
+      <p>Barro, R. J. (1996). Democracy and Growth. Journal of Economic Growth, 1(1), 1–27. <a href="#fnref:31" class="reversefootnote" role="doc-backlink">↩</a> <a href="#fnref:31:1" class="reversefootnote" role="doc-backlink">↩<sup>2</sup></a></p>
     </li>
   </ol>
 </div>
 
-  </div><a class="u-url" href="/portfolio/2019/12/07/economic-freedom-and-growth.html" hidden></a>
+  </div><a class="u-url" href="/portfolio/projects/eviews/2019/12/07/economic-freedom-and-growth.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
