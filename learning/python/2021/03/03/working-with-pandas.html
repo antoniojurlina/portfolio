@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:card" content="summary_large_image" /><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>Working with Pandas | portfolio</title>
+<meta name="generator" content="Jekyll v4.1.1" />
+<meta property="og:title" content="Working with Pandas" />
+<meta name="author" content="Antonio Jurlina" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Using Pandas to get some summary statistics on housing listing data." />
+<meta property="og:description" content="Using Pandas to get some summary statistics on housing listing data." />
+<link rel="canonical" href="https://antoniojurlina.github.io/portfolio/learning/python/2021/03/03/working-with-pandas.html" />
+<meta property="og:url" content="https://antoniojurlina.github.io/portfolio/learning/python/2021/03/03/working-with-pandas.html" />
+<meta property="og:site_name" content="portfolio" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-03T00:00:00-06:00" />
+<script type="application/ld+json">
+{"url":"https://antoniojurlina.github.io/portfolio/learning/python/2021/03/03/working-with-pandas.html","@type":"BlogPosting","headline":"Working with Pandas","dateModified":"2021-03-03T00:00:00-06:00","datePublished":"2021-03-03T00:00:00-06:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://antoniojurlina.github.io/portfolio/learning/python/2021/03/03/working-with-pandas.html"},"author":{"@type":"Person","name":"Antonio Jurlina"},"description":"Using Pandas to get some summary statistics on housing listing data.","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/portfolio/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://antoniojurlina.github.io/portfolio/feed.xml" title="portfolio" /><link rel="shortcut icon" type="image/x-icon" href="/portfolio/images/favicon.ico"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Primer/15.2.0/primer.css" integrity="sha512-xTz2ys4coGAOz8vuV1NcQBkgVmKhsSEtjbqyMJbBHRplFuvKIUo6xhLHpAyPt9mfR6twHJgn9OgVLuqOvjeBhg==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.css" integrity="sha512-h7nl+xz8wgDlNM4NqKEM4F1NkIRS17M9+uJwIGwuo8vGqIl4BhuCKdxjWEINm+xyrUjNCnK5dCrhM0sj+wTIXw==" crossorigin="anonymous" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/katex.min.js" integrity="sha512-/CMIhXiDA3m2c9kzRyd97MTb3MC6OVnx4TElQ7fkkoRghwDf6gi41gaT1PwF270W6+J60uTmwgeRpNpJdRV6sg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.12.0/contrib/auto-render.min.js" integrity="sha512-Do7uJAaHZm5OLrIv/yN4w0iG1dbu01kzdMNnFfu/mAqgUk6Nniv2JYHcwH+cNwjqgLcqcuBBk+JRvprLVI8azg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha512-0doc9hKxR3PYwso42RD1p5ySZpzzuDiOwMrdCEh2WdJZCjcmFKc/wEnL+z8fBQrnHoiNWbo+3fiGkOYXBdQp4A==" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title") && (el.className != "emoji")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    document.getElementsByClassName("page-link")[0].href="https://antoniojurlina.github.io"
+    });
+</script>
+
+
+<!-- Mansory & imagesLoaded -->
+<script defer src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script defer src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+<script defer src="/portfolio/assets/js/mansory.js" type="text/javascript"></script>
+
+
+
+<!-- Medium Zoom JS -->
+    <!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/medium-zoom@1.0.6/dist/medium-zoom.min.js" integrity="sha256-EdPgYcPk/IIrw7FYeuJQexva49pVRZNmt3LculEr7zM=" crossorigin="anonymous"></script>
+<script src="/portfolio/assets/js/zoom.js"></script>
+
+</head>
+<body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/portfolio/">portfolio</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/portfolio/return/">Home</a><a class="page-link" href="/portfolio/search/">Search</a><a class="page-link" href="/portfolio/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Working with Pandas</h1><p class="page-description">Using Pandas to get some summary statistics on housing listing data.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-03-03T00:00:00-06:00" itemprop="datePublished">
+        Mar 3, 2021
+      </time>• 
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">Antonio Jurlina</span></span>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      2 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/portfolio/categories/#learning">learning</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/portfolio/categories/#python">python</a>
+        
+      
+      </p>
+    
+
+    
+      
+        <div class="pb-5 d-flex flex-wrap flex-justify-end">
+          <div class="px-2">
+
+    <a href="https://github.com/antoniojurlina/portfolio/tree/master/_notebooks/2021-03-03-working-with-pandas.ipynb" role="button" target="_blank">
+<img class="notebook-badge-image" src="/portfolio/assets/badges/github.svg" alt="View On GitHub">
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://mybinder.org/v2/gh/antoniojurlina/portfolio/master?filepath=_notebooks%2F2021-03-03-working-with-pandas.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/portfolio/assets/badges/binder.svg" alt="Open In Binder"/>
+    </a>
+</div>
+
+          <div class="px-2">
+    <a href="https://colab.research.google.com/github/antoniojurlina/portfolio/blob/master/_notebooks/2021-03-03-working-with-pandas.ipynb" target="_blank">
+        <img class="notebook-badge-image" src="/portfolio/assets/badges/colab.svg" alt="Open In Colab"/>
+    </a>
+</div>
+        </div>
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2021-03-03-working-with-pandas.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">datetime</span> <span class="k">as</span> <span class="nn">dt</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/Users/antoniojurlina/Projects/learning_python/data/&#39;</span><span class="p">)</span>
+
+<span class="n">data</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;RDC_Inventory_Core_Metrics_State_History.csv&#39;</span><span class="p">)</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>month_date_yyyymm</th>
+      <th>state</th>
+      <th>state_id</th>
+      <th>median_listing_price</th>
+      <th>median_listing_price_mm</th>
+      <th>median_listing_price_yy</th>
+      <th>active_listing_count</th>
+      <th>active_listing_count_mm</th>
+      <th>active_listing_count_yy</th>
+      <th>median_days_on_market</th>
+      <th>...</th>
+      <th>median_square_feet_yy</th>
+      <th>average_listing_price</th>
+      <th>average_listing_price_mm</th>
+      <th>average_listing_price_yy</th>
+      <th>total_listing_count</th>
+      <th>total_listing_count_mm</th>
+      <th>total_listing_count_yy</th>
+      <th>pending_ratio</th>
+      <th>pending_ratio_mm</th>
+      <th>pending_ratio_yy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>202101</td>
+      <td>delaware</td>
+      <td>de</td>
+      <td>358050.0</td>
+      <td>0.0258</td>
+      <td>0.1002</td>
+      <td>1582</td>
+      <td>-0.1558</td>
+      <td>-0.5609</td>
+      <td>91.0</td>
+      <td>...</td>
+      <td>-0.0133</td>
+      <td>488354</td>
+      <td>0.0395</td>
+      <td>0.1432</td>
+      <td>4059</td>
+      <td>-0.1368</td>
+      <td>0.0305</td>
+      <td>1.5657</td>
+      <td>0.0567</td>
+      <td>1.4725</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>202101</td>
+      <td>idaho</td>
+      <td>id</td>
+      <td>465040.0</td>
+      <td>0.0816</td>
+      <td>0.2433</td>
+      <td>1817</td>
+      <td>-0.1881</td>
+      <td>-0.6908</td>
+      <td>66.0</td>
+      <td>...</td>
+      <td>-0.0427</td>
+      <td>977816</td>
+      <td>0.1570</td>
+      <td>0.6033</td>
+      <td>5554</td>
+      <td>-0.1156</td>
+      <td>-0.1471</td>
+      <td>2.0567</td>
+      <td>0.2506</td>
+      <td>1.9486</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>202101</td>
+      <td>arizona</td>
+      <td>az</td>
+      <td>419050.0</td>
+      <td>0.0771</td>
+      <td>0.1403</td>
+      <td>8212</td>
+      <td>-0.1487</td>
+      <td>-0.5687</td>
+      <td>46.0</td>
+      <td>...</td>
+      <td>-0.0405</td>
+      <td>758396</td>
+      <td>0.1329</td>
+      <td>0.2679</td>
+      <td>22191</td>
+      <td>-0.1257</td>
+      <td>-0.2780</td>
+      <td>1.7023</td>
+      <td>0.0710</td>
+      <td>1.0878</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>202101</td>
+      <td>north dakota</td>
+      <td>nd</td>
+      <td>235050.0</td>
+      <td>-0.0053</td>
+      <td>0.0444</td>
+      <td>1992</td>
+      <td>-0.1487</td>
+      <td>-0.2949</td>
+      <td>92.0</td>
+      <td>...</td>
+      <td>-0.0105</td>
+      <td>281329</td>
+      <td>0.0055</td>
+      <td>0.0382</td>
+      <td>2732</td>
+      <td>-0.1319</td>
+      <td>-0.1658</td>
+      <td>0.3715</td>
+      <td>0.0266</td>
+      <td>0.2122</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>202101</td>
+      <td>maryland</td>
+      <td>md</td>
+      <td>349050.0</td>
+      <td>0.0205</td>
+      <td>0.0579</td>
+      <td>6885</td>
+      <td>-0.1406</td>
+      <td>-0.5358</td>
+      <td>59.0</td>
+      <td>...</td>
+      <td>-0.0927</td>
+      <td>521490</td>
+      <td>0.0423</td>
+      <td>0.1250</td>
+      <td>17332</td>
+      <td>-0.1330</td>
+      <td>0.0193</td>
+      <td>1.5174</td>
+      <td>0.0219</td>
+      <td>1.3708</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 39 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;month_date_yyyymm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;month_date_yyyymm&#39;</span><span class="p">],</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y%m&#39;</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;month_date_yyyymm&#39;</span><span class="p">:</span> <span class="s1">&#39;date&#39;</span><span class="p">,</span> 
+                            <span class="s1">&#39;state&#39;</span><span class="p">:</span> <span class="s1">&#39;state&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;state_id&#39;</span><span class="p">:</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;median_listing_price&#39;</span><span class="p">:</span> <span class="s1">&#39;mlp&#39;</span><span class="p">,</span> 
+                            <span class="s1">&#39;median_listing_price_mm&#39;</span><span class="p">:</span> <span class="s1">&#39;mlp_mm&#39;</span><span class="p">,</span> 
+                            <span class="s1">&#39;median_listing_price_yy&#39;</span><span class="p">:</span> <span class="s1">&#39;mlp_yy&#39;</span><span class="p">,</span> 
+                            <span class="s1">&#39;active_listing_count&#39;</span><span class="p">:</span> <span class="s2">&quot;alc&quot;</span><span class="p">,</span> 
+                            <span class="s1">&#39;active_listing_count_mm&#39;</span><span class="p">:</span> <span class="s2">&quot;alc_mm&quot;</span><span class="p">,</span> 
+                            <span class="s1">&#39;active_listing_count_yy&#39;</span><span class="p">:</span> <span class="s2">&quot;alc_yy&quot;</span><span class="p">,</span> 
+                            <span class="s1">&#39;median_days_on_market&#39;</span><span class="p">:</span> <span class="s1">&#39;mdom&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;median_days_on_market_mm&#39;</span><span class="p">:</span> <span class="s1">&#39;mdom_mm&#39;</span><span class="p">,</span>
+                            <span class="s1">&#39;median_days_on_market_yy&#39;</span><span class="p">:</span> <span class="s1">&#39;mdom_yy&#39;</span><span class="p">,})</span>
+
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y&#39;</span><span class="p">)</span>
+<span class="n">data</span><span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="s1">&#39;date&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%m&#39;</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;2016&#39;</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="s1">&#39;2021&#39;</span><span class="p">)]</span>
+
+<span class="n">data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>date</th>
+      <th>state</th>
+      <th>id</th>
+      <th>mlp</th>
+      <th>mlp_mm</th>
+      <th>mlp_yy</th>
+      <th>alc</th>
+      <th>alc_mm</th>
+      <th>alc_yy</th>
+      <th>mdom</th>
+      <th>mdom_mm</th>
+      <th>mdom_yy</th>
+      <th>year</th>
+      <th>month</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>51</th>
+      <td>2020-12-01</td>
+      <td>west virginia</td>
+      <td>wv</td>
+      <td>165050.0</td>
+      <td>-0.0251</td>
+      <td>0.0036</td>
+      <td>3975</td>
+      <td>-0.0693</td>
+      <td>-0.4563</td>
+      <td>85.0</td>
+      <td>0.0897</td>
+      <td>-0.2308</td>
+      <td>2020</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>52</th>
+      <td>2020-12-01</td>
+      <td>nevada</td>
+      <td>nv</td>
+      <td>350049.0</td>
+      <td>0.0000</td>
+      <td>0.0449</td>
+      <td>8290</td>
+      <td>-0.1076</td>
+      <td>-0.2799</td>
+      <td>51.5</td>
+      <td>0.1705</td>
+      <td>-0.2137</td>
+      <td>2020</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>53</th>
+      <td>2020-12-01</td>
+      <td>north dakota</td>
+      <td>nd</td>
+      <td>236300.0</td>
+      <td>-0.0154</td>
+      <td>0.0477</td>
+      <td>2340</td>
+      <td>-0.0707</td>
+      <td>-0.2769</td>
+      <td>87.5</td>
+      <td>0.1513</td>
+      <td>-0.1250</td>
+      <td>2020</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>2020-12-01</td>
+      <td>iowa</td>
+      <td>ia</td>
+      <td>214950.0</td>
+      <td>0.0000</td>
+      <td>0.1008</td>
+      <td>8690</td>
+      <td>-0.0990</td>
+      <td>-0.3749</td>
+      <td>77.0</td>
+      <td>0.1000</td>
+      <td>-0.0833</td>
+      <td>2020</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>55</th>
+      <td>2020-12-01</td>
+      <td>arizona</td>
+      <td>az</td>
+      <td>389050.0</td>
+      <td>-0.0019</td>
+      <td>0.1116</td>
+      <td>9646</td>
+      <td>-0.1391</td>
+      <td>-0.5272</td>
+      <td>46.0</td>
+      <td>0.0952</td>
+      <td>-0.2640</td>
+      <td>2020</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>(1)</strong> Computing the differences for the 3 variables (median listing price, active listing count, days on the market) between 2020 and (2019, 2018, and 2017).</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;mlp&#39;</span><span class="p">,</span> <span class="s1">&#39;alc&#39;</span><span class="p">,</span> <span class="s1">&#39;mdom&#39;</span><span class="p">]</span>
+
+<span class="n">data_2017</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2017&#39;</span><span class="p">][</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">data_2018</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2018&#39;</span><span class="p">][</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">data_2019</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2019&#39;</span><span class="p">][</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">data_2020</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">data</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;2020&#39;</span><span class="p">][</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">d1</span> <span class="o">=</span> <span class="n">data_2020</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">data_2019</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">])</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="n">data_2020</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">data_2018</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">])</span>
+<span class="n">d3</span> <span class="o">=</span> <span class="n">data_2020</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">])</span> <span class="o">-</span> <span class="n">data_2017</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">])</span>
+
+<span class="n">d1</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2020-2019&#39;</span>
+<span class="n">d2</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2020-2018&#39;</span>
+<span class="n">d3</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;2020-2017&#39;</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">d3</span><span class="p">],</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+
+<span class="k">del</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">d3</span><span class="p">)</span>
+
+<span class="n">output</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">set_index</span><span class="p">([</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="s1">&#39;state&#39;</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>mlp</th>
+      <th>alc</th>
+      <th>mdom</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th>state</th>
+      <th>month</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="5" valign="top">2020-2019</th>
+      <th rowspan="5" valign="top">alabama</th>
+      <th>01</th>
+      <td>20925.0</td>
+      <td>-3646</td>
+      <td>-10.0</td>
+    </tr>
+    <tr>
+      <th>02</th>
+      <td>19550.0</td>
+      <td>-3783</td>
+      <td>-11.0</td>
+    </tr>
+    <tr>
+      <th>03</th>
+      <td>17400.0</td>
+      <td>-3988</td>
+      <td>-16.0</td>
+    </tr>
+    <tr>
+      <th>04</th>
+      <td>14550.0</td>
+      <td>-3877</td>
+      <td>-2.0</td>
+    </tr>
+    <tr>
+      <th>05</th>
+      <td>13662.0</td>
+      <td>-4751</td>
+      <td>4.5</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <th>...</th>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th rowspan="5" valign="top">2020-2017</th>
+      <th rowspan="5" valign="top">wyoming</th>
+      <th>08</th>
+      <td>42500.0</td>
+      <td>-2191</td>
+      <td>-16.5</td>
+    </tr>
+    <tr>
+      <th>09</th>
+      <td>33500.0</td>
+      <td>-2374</td>
+      <td>-29.0</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>30000.0</td>
+      <td>-2304</td>
+      <td>-33.5</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>23550.0</td>
+      <td>-2053</td>
+      <td>-37.0</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>20000.0</td>
+      <td>-1929</td>
+      <td>-42.0</td>
+    </tr>
+  </tbody>
+</table>
+<p>1836 rows × 3 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>(2)</strong> Computing the difference between the means of these variables for the previous three years and 2020.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mlp&#39;</span><span class="p">,</span> <span class="s1">&#39;alc&#39;</span><span class="p">,</span> <span class="s1">&#39;mdom&#39;</span><span class="p">]</span>
+
+<span class="n">d1</span> <span class="o">=</span> <span class="n">data_2020</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">data_2019</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="n">data_2020</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">data_2018</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">d3</span> <span class="o">=</span> <span class="n">data_2020</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">data_2017</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d1</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2020-2019&#39;</span><span class="p">]),</span>
+           <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d2</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2020-2018&#39;</span><span class="p">]),</span> 
+           <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">d3</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;2020-2017&#39;</span><span class="p">])],</span> 
+          <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>2020-2019</th>
+      <th>2020-2018</th>
+      <th>2020-2017</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>mlp</th>
+      <td>21696.86</td>
+      <td>36497.36</td>
+      <td>53650.75</td>
+    </tr>
+    <tr>
+      <th>alc</th>
+      <td>-6949.50</td>
+      <td>-7292.57</td>
+      <td>-8271.04</td>
+    </tr>
+    <tr>
+      <th>mdom</th>
+      <td>-4.93</td>
+      <td>-6.44</td>
+      <td>-11.06</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>For the data and other notebooks, see <a href="https://github.com/antoniojurlina/learning_python">github.com/antoniojurlina/learning_python</a>.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="antoniojurlina/portfolio"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/portfolio/learning/python/2021/03/03/working-with-pandas.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/portfolio/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/portfolio/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/portfolio/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p></p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/antoniojurlina" title="antoniojurlina"><svg class="svg-icon grey"><use xlink:href="/portfolio/assets/minima-social-icons.svg#github"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
